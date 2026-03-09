@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nueva Reserva - ReservaCanchaCR</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <style>
+        body { background-color: #f8f9fa; }
+        .form-container { max-width: 700px; margin: 40px auto; }
+        .card { box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .btn-primary { background-color: #007bff; }
+        .btn-primary:hover { background-color: #0056b3; }
+        .summary-box { background-color: #e7f3ff; border-left: 4px solid #007bff; padding: 15px; margin-top: 20px; }
+        .duration-btn { border: 2px solid #dee2e6; padding: 10px 20px; margin: 5px 5px 5px 0; }
+        .duration-btn.active { background-color: #007bff; color: white; border-color: #007bff; }
+        .payment-option { margin-bottom: 15px; }
+        input[type="radio"] { margin-right: 10px; }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">ReservaCanchaCR</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="/reserva/mis-reservas">Mis Reservas</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/">Inicio</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="form-container">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h2><i class="bi bi-calendar-check"></i> Nueva Reserva</h2>
+                <p class="mb-0" th:text="'Cancha: ' + ${cancha.nombre}"></p>
+            </div>
+            <div class="card-body">
+                <div th:if="${error}" class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <span th:text="${error}"></span>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+
+                <form th:action="@{/reserva/guardar}" th:object="${reserva}" method="POST">
+                    <!-- Información del Usuario -->
+                    <h5 class="mb-3"><i class="bi bi-person"></i> Información de Contacto</h5>
+                    
+                    <div class="mb-3">
+                        <label for="nombreCompleto" class="form-label">Nombre Completo *</label>
+                        <input type="text" class="form-control" id="nombreCompleto" placeholder="John Doe" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="telefono" class="form-label">Teléfono *</label>
+                        <input type="tel" class="form-control" id="telefono" placeholder="8888-8888" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="email" class="form-label">Correo Electrónico *</label>
+                        <input type="email" class="form-control" id="email" placeholder="john@example.com" required>
+                    </div>
+
+                    <hr>
+
+                    <!-- Detalles de la Reserva -->
+                    <h5 class="mb-3"><i class="bi bi-clock"></i> Detalles de la Reserva</h5>
+
+                    <div class="mb-3">
+                        <label for="fecha" class="form-label">Fecha *</label>
+                        <input type="date" class="form-control" id="fecha" th:field="*{fecha}" required>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-3">
+                            <label for="horaInicio" class="form-label">Hora Inicio *</label>
+                            <input type="time" class="form-control" id="horaInicio" th:field="*{horaInicio}" required>
+                        </div>
+                        <div class="col-md-6 mb-3">
+                            <label for="horaFin" class="form-label">Hora Fin *</label>
+                            <input type="time" class="form-control" id="horaFin" th:field="*{horaFin}" required>
+                        </div>
+                    </div>
+
+                    <!-- Duración -->
+                    <div class="mb-3">
+                        <label class="form-label">Duración *</label>
+                        <div>
+                            <button type="button" class="duration-btn" onclick="setDuration(60)">60 min</button>
+                            <button type="button" class="duration-btn" onclick="setDuration(90)">90 min</button>
+                            <button type="button" class="duration-btn" onclick="setDuration(120)">120 min</button>
+                        </div>
+                    </div>
+
+                    <hr>
+
+                    <!-- Método de Pago -->
+                    <h5 class="mb-3"><i class="bi bi-credit-card"></i> Método de Pago</h5>
+
+                    <div class="payment-option">
+                        <input type="radio" id="tarjeta" name="metodoPago" value="TARJETA" required>
+                        <label for="tarjeta">Tarjeta de Crédito/Débito</label>
+                    </div>
+
+                    <div class="payment-option">
+                        <input type="radio" id="transferencia" name="metodoPago" value="TRANSFERENCIA">
+                        <label for="transferencia">Transferencia Bancaria</label>
+                    </div>
+
+                    <div class="payment-option">
+                        <input type="radio" id="sinpe" name="metodoPago" value="SINPE">
+                        <label for="sinpe">SINPE Móvil</label>
+                    </div>
+
+                    <hr>
+
+                    <!-- Términos y Condiciones -->
+                    <div class="mb-3">
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" id="aceptarTerminos" required>
+                            <label class="form-check-label" for="aceptarTerminos">
+                                Acepto los 
+                                <a href="#" target="_blank">Términos de Servicio</a>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Resumen -->
+                    <div class="summary-box">
+                        <h6><i class="bi bi-calculator"></i> Resumen</h6>
+                        <p class="mb-1"><strong>Cancha:</strong> <span th:text="${cancha.nombre}"></span></p>
+                        <p class="mb-1"><strong>Precio/hora:</strong> ₡<span th:text="${cancha.precioHora}"></span></p>
+                        <p class="mb-0"><strong>Total:</strong> ₡<span id="totalPrice">0.00</span></p>
+                    </div>
+
+                    <div class="d-grid gap-2 mt-4">
+                        <button type="submit" class="btn btn-primary btn-lg">
+                            <i class="bi bi-check-circle"></i> Confirmar Reserva
+                        </button>
+                        <a href="/cancha/listado" class="btn btn-secondary">Cancelar</a>
+                    </div>
+
+                    <p class="text-center mt-3 text-muted">
+                        <i class="bi bi-question-circle"></i> 
+                        <a href="#">Llamar al Soporte</a>
+                    </p>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-dark text-white text-center py-4 mt-5">
+        <p>&copy; 2024 ReservaCanchaCR. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function setDuration(minutes) {
+            document.querySelectorAll('.duration-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            // Aquí iría el cálculo del total
+        }
+
+        // Validación de horas
+        document.getElementById('horaFin').addEventListener('change', function() {
+            const inicio = document.getElementById('horaInicio').value;
+            const fin = this.value;
+            if (inicio && fin && inicio >= fin) {
+                alert('La hora de fin debe ser posterior a la de inicio');
+                this.value = '';
+            }
+        });
+    </script>
+</body>
+</html>
