@@ -98,7 +98,7 @@
                             <span class="font-medium">Canchas</span>
                         </a>
                         <div class="my-2 border-t border-slate-100 dark:border-slate-800"></div>
-                        <a class="flex items-center gap-3 px-4 py-3 bg-primary/10 text-primary-dark dark:text-primary font-semibold rounded-lg" th:href="@{/login}" th:if="${usuario == null}">
+                        <a class="flex items-center gap-3 px-4 py-3 bg-primary/10 text-primary-dark dark:text-primary font-semibold rounded-lg" th:href="@{/usuario/inicio}" th:if="${usuario == null}">
                             <span class="material-symbols-outlined text-primary">login</span>
                             <span>Iniciar Sesión</span>
                         </a>
@@ -214,7 +214,7 @@
                             </div>
                         </div>
                         <!-- Register Button -->
-                        <a th:href="@{/registro}" class="w-full flex justify-center py-3 px-4 border-2 border-slate-200 dark:border-slate-600 text-sm font-bold rounded-lg text-slate-700 dark:text-slate-200 bg-transparent hover:bg-slate-50 dark:hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-500 transition-colors">
+                        <a th:href="@{/auth/registro}" class="w-full flex justify-center py-3 px-4 border-2 border-slate-200 dark:border-slate-600 text-sm font-bold rounded-lg text-slate-700 dark:text-slate-200 bg-transparent hover:bg-slate-50 dark:hover:bg-slate-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-slate-500 transition-colors">
                             Registrarse
                         </a>
                     </form>

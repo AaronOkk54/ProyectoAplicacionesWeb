@@ -1,266 +1,1534 @@
 <!DOCTYPE html>
-<html lang="es" xmlns:th="http://www.thymeleaf.org">
-<head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title th:text="'Inicio - ' + ${usuario.nombre ?: 'Usuario'}">Inicio - ReservaCanchaCR</title>
-<!-- Tailwind CSS -->
-<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-<!-- Google Fonts: Lexend -->
-<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
-<!-- Material Symbols -->
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-<!-- Theme Configuration -->
-<script id="tailwind-config">
-        tailwind.config = {
-            darkMode: "class",
-            theme: {
-                extend: {
-                    colors: {
-                        "primary": "#0df20d", // Electric Green
-                        "primary-dark": "#0bb80b",
-                        "secondary": "#111827", // Deep Navy/Black
-                        "accent-blue": "#1e3a8a", // Sports Blue
-                        "background-light": "#f8f9fa",
-                        "background-white": "#ffffff",
-                        "surface-light": "#ffffff",
-                        "border-light": "#e5e7eb",
-                        "text-main": "#111811",
-                        "text-muted": "#6b7280",
-                    },
-                    fontFamily: {
-                        "display": ["Lexend", "sans-serif"],
-                        "body": ["Lexend", "sans-serif"],
-                    },
-                    borderRadius: {
-                        "DEFAULT": "0.375rem",
-                        "lg": "0.5rem",
-                        "xl": "0.75rem",
-                        "2xl": "1rem",
-                        "full": "9999px",
+<html lang="es">
+    <head>
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <title>Inicio - ReservaCanchaCR</title>
+        <!-- Tailwind CSS -->
+        <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+        <!-- Google Fonts: Lexend -->
+        <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
+        <!-- Material Symbols -->
+        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+        <!-- Theme Configuration -->
+        <script id="tailwind-config">
+            tailwind.config = {
+                darkMode: "class",
+                theme: {
+                    extend: {
+                        colors: {
+                            "primary": "#0df20d", // Electric Green
+                            "primary-dark": "#0bb80b",
+                            "secondary": "#111827", // Deep Navy/Black
+                            "accent-blue": "#1e3a8a", // Sports Blue
+                            "background-light": "#f8f9fa",
+                            "background-white": "#ffffff",
+                            "surface-light": "#ffffff",
+                            "border-light": "#e5e7eb",
+                            "text-main": "#111811",
+                            "text-muted": "#6b7280",
+                        },
+                        fontFamily: {
+                            "display": ["Lexend", "sans-serif"],
+                            "body": ["Lexend", "sans-serif"],
+                        },
+                        borderRadius: {
+                            "DEFAULT": "0.375rem",
+                            "lg": "0.5rem",
+                            "xl": "0.75rem",
+                            "2xl": "1rem",
+                            "full": "9999px",
+                        },
                     },
                 },
-            },
-        }
-    </script>
-<style>
-        body {
-            font-family: 'Lexend', sans-serif;
-        }
-        .material-symbols-outlined {
-            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-        }
-        .material-symbols-outlined.filled {
-            font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-        }
-    </style>
-</head>
-<body class="bg-background-light text-text-main h-screen overflow-hidden flex">
-<!-- Sidebar -->
-<aside class="w-64 h-full bg-surface-light border-r border-border-light flex-col hidden lg:flex shadow-sm z-20">
-<!-- Logo & Brand -->
-<div class="p-6 flex items-center gap-3 border-b border-border-light/50">
-<div class="w-10 h-10 rounded-lg bg-primary flex items-center justify-center text-secondary shadow-md shadow-primary/20">
-<span class="material-symbols-outlined filled">sports_soccer</span>
-</div>
-<div>
-<h1 class="text-base font-bold text-secondary leading-tight">ReservaCanchaCR</h1>
-<span class="text-xs font-semibold text-primary-dark tracking-wide bg-primary/10 px-2 py-0.5 rounded-full">USUARIO</span>
-</div>
-</div>
-<!-- Navigation -->
-<nav class="flex-1 overflow-y-auto py-6 px-3 flex flex-col gap-1">
-<!-- Active Item -->
-<a class="flex items-center gap-3 px-3 py-3 rounded-lg bg-primary/10 text-primary-dark transition-colors group" th:href="@{/usuario/inicio}">
-<span class="material-symbols-outlined filled">home</span>
-<span class="text-sm font-semibold">Inicio</span>
-</a>
-<!-- Inactive Items -->
+            }
+        </script>
+        <style>
+            body {
+                font-family: 'Lexend', sans-serif;
+            }
+            .material-symbols-outlined {
+                font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            }
+            .material-symbols-outlined.filled {
+                font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            }
+        </style>
+        <style>*, ::before, ::after{
+                --tw-border-spacing-x:0;
+                --tw-border-spacing-y:0;
+                --tw-translate-x:0;
+                --tw-translate-y:0;
+                --tw-rotate:0;
+                --tw-skew-x:0;
+                --tw-skew-y:0;
+                --tw-scale-x:1;
+                --tw-scale-y:1;
+                --tw-pan-x: ;
+                --tw-pan-y: ;
+                --tw-pinch-zoom: ;
+                --tw-scroll-snap-strictness:proximity;
+                --tw-gradient-from-position: ;
+                --tw-gradient-via-position: ;
+                --tw-gradient-to-position: ;
+                --tw-ordinal: ;
+                --tw-slashed-zero: ;
+                --tw-numeric-figure: ;
+                --tw-numeric-spacing: ;
+                --tw-numeric-fraction: ;
+                --tw-ring-inset: ;
+                --tw-ring-offset-width:0px;
+                --tw-ring-offset-color:#fff;
+                --tw-ring-color:rgb(59 130 246 / 0.5);
+                --tw-ring-offset-shadow:0 0 #0000;
+                --tw-ring-shadow:0 0 #0000;
+                --tw-shadow:0 0 #0000;
+                --tw-shadow-colored:0 0 #0000;
+                --tw-blur: ;
+                --tw-brightness: ;
+                --tw-contrast: ;
+                --tw-grayscale: ;
+                --tw-hue-rotate: ;
+                --tw-invert: ;
+                --tw-saturate: ;
+                --tw-sepia: ;
+                --tw-drop-shadow: ;
+                --tw-backdrop-blur: ;
+                --tw-backdrop-brightness: ;
+                --tw-backdrop-contrast: ;
+                --tw-backdrop-grayscale: ;
+                --tw-backdrop-hue-rotate: ;
+                --tw-backdrop-invert: ;
+                --tw-backdrop-opacity: ;
+                --tw-backdrop-saturate: ;
+                --tw-backdrop-sepia: ;
+                --tw-contain-size: ;
+                --tw-contain-layout: ;
+                --tw-contain-paint: ;
+                --tw-contain-style:
+            }
+            ::backdrop{
+                --tw-border-spacing-x:0;
+                --tw-border-spacing-y:0;
+                --tw-translate-x:0;
+                --tw-translate-y:0;
+                --tw-rotate:0;
+                --tw-skew-x:0;
+                --tw-skew-y:0;
+                --tw-scale-x:1;
+                --tw-scale-y:1;
+                --tw-pan-x: ;
+                --tw-pan-y: ;
+                --tw-pinch-zoom: ;
+                --tw-scroll-snap-strictness:proximity;
+                --tw-gradient-from-position: ;
+                --tw-gradient-via-position: ;
+                --tw-gradient-to-position: ;
+                --tw-ordinal: ;
+                --tw-slashed-zero: ;
+                --tw-numeric-figure: ;
+                --tw-numeric-spacing: ;
+                --tw-numeric-fraction: ;
+                --tw-ring-inset: ;
+                --tw-ring-offset-width:0px;
+                --tw-ring-offset-color:#fff;
+                --tw-ring-color:rgb(59 130 246 / 0.5);
+                --tw-ring-offset-shadow:0 0 #0000;
+                --tw-ring-shadow:0 0 #0000;
+                --tw-shadow:0 0 #0000;
+                --tw-shadow-colored:0 0 #0000;
+                --tw-blur: ;
+                --tw-brightness: ;
+                --tw-contrast: ;
+                --tw-grayscale: ;
+                --tw-hue-rotate: ;
+                --tw-invert: ;
+                --tw-saturate: ;
+                --tw-sepia: ;
+                --tw-drop-shadow: ;
+                --tw-backdrop-blur: ;
+                --tw-backdrop-brightness: ;
+                --tw-backdrop-contrast: ;
+                --tw-backdrop-grayscale: ;
+                --tw-backdrop-hue-rotate: ;
+                --tw-backdrop-invert: ;
+                --tw-backdrop-opacity: ;
+                --tw-backdrop-saturate: ;
+                --tw-backdrop-sepia: ;
+                --tw-contain-size: ;
+                --tw-contain-layout: ;
+                --tw-contain-paint: ;
+                --tw-contain-style:
+            }/* ! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com */
+            *,::after,::before{
+                box-sizing:border-box;
+                border-width:0;
+                border-style:solid;
+                border-color:#e5e7eb
+            }
+            ::after,::before{
+                --tw-content:''
+            }
+            :host,html{
+                line-height:1.5;
+                -webkit-text-size-adjust:100%;
+                -moz-tab-size:4;
+                tab-size:4;
+                font-family:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+                font-feature-settings:normal;
+                font-variation-settings:normal;
+                -webkit-tap-highlight-color:transparent
+            }
+            body{
+                margin:0;
+                line-height:inherit
+            }
+            hr{
+                height:0;
+                color:inherit;
+                border-top-width:1px
+            }
+            abbr:where([title]){
+                -webkit-text-decoration:underline dotted;
+                text-decoration:underline dotted
+            }
+            h1,h2,h3,h4,h5,h6{
+                font-size:inherit;
+                font-weight:inherit
+            }
+            a{
+                color:inherit;
+                text-decoration:inherit
+            }
+            b,strong{
+                font-weight:bolder
+            }
+            code,kbd,pre,samp{
+                font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+                font-feature-settings:normal;
+                font-variation-settings:normal;
+                font-size:1em
+            }
+            small{
+                font-size:80%
+            }
+            sub,sup{
+                font-size:75%;
+                line-height:0;
+                position:relative;
+                vertical-align:baseline
+            }
+            sub{
+                bottom:-.25em
+            }
+            sup{
+                top:-.5em
+            }
+            table{
+                text-indent:0;
+                border-color:inherit;
+                border-collapse:collapse
+            }
+            button,input,optgroup,select,textarea{
+                font-family:inherit;
+                font-feature-settings:inherit;
+                font-variation-settings:inherit;
+                font-size:100%;
+                font-weight:inherit;
+                line-height:inherit;
+                letter-spacing:inherit;
+                color:inherit;
+                margin:0;
+                padding:0
+            }
+            button,select{
+                text-transform:none
+            }
+            button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){
+                -webkit-appearance:button;
+                background-color:transparent;
+                background-image:none
+            }
+            :-moz-focusring{
+                outline:auto
+            }
+            :-moz-ui-invalid{
+                box-shadow:none
+            }
+            progress{
+                vertical-align:baseline
+            }
+            ::-webkit-inner-spin-button,::-webkit-outer-spin-button{
+                height:auto
+            }
+            [type=search]{
+                -webkit-appearance:textfield;
+                outline-offset:-2px
+            }
+            ::-webkit-search-decoration{
+                -webkit-appearance:none
+            }
+            ::-webkit-file-upload-button{
+                -webkit-appearance:button;
+                font:inherit
+            }
+            summary{
+                display:list-item
+            }
+            blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{
+                margin:0
+            }
+            fieldset{
+                margin:0;
+                padding:0
+            }
+            legend{
+                padding:0
+            }
+            menu,ol,ul{
+                list-style:none;
+                margin:0;
+                padding:0
+            }
+            dialog{
+                padding:0
+            }
+            textarea{
+                resize:vertical
+            }
+            input::placeholder,textarea::placeholder{
+                opacity:1;
+                color:#9ca3af
+            }
+            [role=button],button{
+                cursor:pointer
+            }
+            :disabled{
+                cursor:default
+            }
+            audio,canvas,embed,iframe,img,object,svg,video{
+                display:block;
+                vertical-align:middle
+            }
+            img,video{
+                max-width:100%;
+                height:auto
+            }
+            [hidden]:where(:not([hidden=until-found])){
+                display:none
+            }
+            [type='text'],input:where(:not([type])),[type='email'],[type='url'],[type='password'],[type='number'],[type='date'],[type='datetime-local'],[type='month'],[type='search'],[type='tel'],[type='time'],[type='week'],[multiple],textarea,select{
+                -webkit-appearance:none;
+                appearance:none;
+                background-color:#fff;
+                border-color:#6b7280;
+                border-width:1px;
+                border-radius:0px;
+                padding-top:0.5rem;
+                padding-right:0.75rem;
+                padding-bottom:0.5rem;
+                padding-left:0.75rem;
+                font-size:1rem;
+                line-height:1.5rem;
+                --tw-shadow:0 0 #0000;
+            }
+            [type='text']:focus, input:where(:not([type])):focus, [type='email']:focus, [type='url']:focus, [type='password']:focus, [type='number']:focus, [type='date']:focus, [type='datetime-local']:focus, [type='month']:focus, [type='search']:focus, [type='tel']:focus, [type='time']:focus, [type='week']:focus, [multiple]:focus, textarea:focus, select:focus{
+                outline:2px solid transparent;
+                outline-offset:2px;
+                --tw-ring-inset:var(--tw-empty,/*!*/ /*!*/);
+                --tw-ring-offset-width:0px;
+                --tw-ring-offset-color:#fff;
+                --tw-ring-color:#2563eb;
+                --tw-ring-offset-shadow:var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+                --tw-ring-shadow:var(--tw-ring-inset) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+                box-shadow:var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+                border-color:#2563eb
+            }
+            input::placeholder,textarea::placeholder{
+                color:#6b7280;
+                opacity:1
+            }
+            ::-webkit-datetime-edit-fields-wrapper{
+                padding:0
+            }
+            ::-webkit-date-and-time-value{
+                min-height:1.5em;
+                text-align:inherit
+            }
+            ::-webkit-datetime-edit{
+                display:inline-flex
+            }
+            ::-webkit-datetime-edit,::-webkit-datetime-edit-year-field,::-webkit-datetime-edit-month-field,::-webkit-datetime-edit-day-field,::-webkit-datetime-edit-hour-field,::-webkit-datetime-edit-minute-field,::-webkit-datetime-edit-second-field,::-webkit-datetime-edit-millisecond-field,::-webkit-datetime-edit-meridiem-field{
+                padding-top:0;
+                padding-bottom:0
+            }
+            select{
+                background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+                background-position:right 0.5rem center;
+                background-repeat:no-repeat;
+                background-size:1.5em 1.5em;
+                padding-right:2.5rem;
+                print-color-adjust:exact
+            }
+            [multiple],[size]:where(select:not([size="1"])){
+                background-image:initial;
+                background-position:initial;
+                background-repeat:unset;
+                background-size:initial;
+                padding-right:0.75rem;
+                print-color-adjust:unset
+            }
+            [type='checkbox'],[type='radio']{
+                -webkit-appearance:none;
+                appearance:none;
+                padding:0;
+                print-color-adjust:exact;
+                display:inline-block;
+                vertical-align:middle;
+                background-origin:border-box;
+                -webkit-user-select:none;
+                user-select:none;
+                flex-shrink:0;
+                height:1rem;
+                width:1rem;
+                color:#2563eb;
+                background-color:#fff;
+                border-color:#6b7280;
+                border-width:1px;
+                --tw-shadow:0 0 #0000
+            }
+            [type='checkbox']{
+                border-radius:0px
+            }
+            [type='radio']{
+                border-radius:100%
+            }
+            [type='checkbox']:focus,[type='radio']:focus{
+                outline:2px solid transparent;
+                outline-offset:2px;
+                --tw-ring-inset:var(--tw-empty,/*!*/ /*!*/);
+                --tw-ring-offset-width:2px;
+                --tw-ring-offset-color:#fff;
+                --tw-ring-color:#2563eb;
+                --tw-ring-offset-shadow:var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+                --tw-ring-shadow:var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+                box-shadow:var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow)
+            }
+            [type='checkbox']:checked,[type='radio']:checked{
+                border-color:transparent;
+                background-color:currentColor;
+                background-size:100% 100%;
+                background-position:center;
+                background-repeat:no-repeat
+            }
+            [type='checkbox']:checked{
+                background-image:url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3e%3c/svg%3e");
+            }
+            @media (forced-colors: active) {
+                [type='checkbox']:checked{
+                    -webkit-appearance:auto;
+                    appearance:auto
+                }
+            }
+            [type='radio']:checked{
+                background-image:url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3ccircle cx='8' cy='8' r='3'/%3e%3c/svg%3e");
+            }
+            @media (forced-colors: active) {
+                [type='radio']:checked{
+                    -webkit-appearance:auto;
+                    appearance:auto
+                }
+            }
+            [type='checkbox']:checked:hover,[type='checkbox']:checked:focus,[type='radio']:checked:hover,[type='radio']:checked:focus{
+                border-color:transparent;
+                background-color:currentColor
+            }
+            [type='checkbox']:indeterminate{
+                background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 16 16'%3e%3cpath stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 8h8'/%3e%3c/svg%3e");
+                border-color:transparent;
+                background-color:currentColor;
+                background-size:100% 100%;
+                background-position:center;
+                background-repeat:no-repeat;
+            }
+            @media (forced-colors: active) {
+                [type='checkbox']:indeterminate{
+                    -webkit-appearance:auto;
+                    appearance:auto
+                }
+            }
+            [type='checkbox']:indeterminate:hover,[type='checkbox']:indeterminate:focus{
+                border-color:transparent;
+                background-color:currentColor
+            }
+            [type='file']{
+                background:unset;
+                border-color:inherit;
+                border-width:0;
+                border-radius:0;
+                padding:0;
+                font-size:unset;
+                line-height:inherit
+            }
+            [type='file']:focus{
+                outline:1px solid ButtonText;
+                outline:1px auto -webkit-focus-ring-color
+            }
+            .absolute{
+                position:absolute
+            }
+            .relative{
+                position:relative
+            }
+            .inset-0{
+                inset:0px
+            }
+            .bottom-0{
+                bottom:0px
+            }
+            .bottom-3{
+                bottom:0.75rem
+            }
+            .left-0{
+                left:0px
+            }
+            .left-3{
+                left:0.75rem
+            }
+            .right-0{
+                right:0px
+            }
+            .right-2{
+                right:0.5rem
+            }
+            .right-3{
+                right:0.75rem
+            }
+            .top-0{
+                top:0px
+            }
+            .top-2{
+                top:0.5rem
+            }
+            .top-3{
+                top:0.75rem
+            }
+            .z-10{
+                z-index:10
+            }
+            .z-20{
+                z-index:20
+            }
+            .mx-auto{
+                margin-left:auto;
+                margin-right:auto
+            }
+            .-mr-2{
+                margin-right:-0.5rem
+            }
+            .-mt-2{
+                margin-top:-0.5rem
+            }
+            .mb-1{
+                margin-bottom:0.25rem
+            }
+            .mb-2{
+                margin-bottom:0.5rem
+            }
+            .mb-4{
+                margin-bottom:1rem
+            }
+            .mb-8{
+                margin-bottom:2rem
+            }
+            .ml-2{
+                margin-left:0.5rem
+            }
+            .mr-1{
+                margin-right:0.25rem
+            }
+            .mt-1{
+                margin-top:0.25rem
+            }
+            .mt-2{
+                margin-top:0.5rem
+            }
+            .mt-4{
+                margin-top:1rem
+            }
+            .mt-8{
+                margin-top:2rem
+            }
+            .mt-auto{
+                margin-top:auto
+            }
+            .line-clamp-2{
+                overflow:hidden;
+                display:-webkit-box;
+                -webkit-box-orient:vertical;
+                -webkit-line-clamp:2
+            }
+            .inline-block{
+                display:inline-block
+            }
+            .flex{
+                display:flex
+            }
+            .grid{
+                display:grid
+            }
+            .hidden{
+                display:none
+            }
+            .h-1\/2{
+                height:50%
+            }
+            .h-10{
+                height:2.5rem
+            }
+            .h-16{
+                height:4rem
+            }
+            .h-2{
+                height:0.5rem
+            }
+            .h-48{
+                height:12rem
+            }
+            .h-8{
+                height:2rem
+            }
+            .h-9{
+                height:2.25rem
+            }
+            .h-auto{
+                height:auto
+            }
+            .h-full{
+                height:100%
+            }
+            .h-screen{
+                height:100vh
+            }
+            .min-h-\[320px\]{
+                min-height:320px
+            }
+            .w-10{
+                width:2.5rem
+            }
+            .w-16{
+                width:4rem
+            }
+            .w-2{
+                width:0.5rem
+            }
+            .w-64{
+                width:16rem
+            }
+            .w-9{
+                width:2.25rem
+            }
+            .w-full{
+                width:100%
+            }
+            .max-w-2xl{
+                max-width:42rem
+            }
+            .max-w-7xl{
+                max-width:80rem
+            }
+            .max-w-xl{
+                max-width:36rem
+            }
+            .flex-1{
+                flex:1 1 0%
+            }
+            .shrink-0{
+                flex-shrink:0
+            }
+            .transform{
+                transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))
+            }
+            .cursor-pointer{
+                cursor:pointer
+            }
+            .grid-cols-1{
+                grid-template-columns:repeat(1, minmax(0, 1fr))
+            }
+            .flex-col{
+                flex-direction:column
+            }
+            .flex-wrap{
+                flex-wrap:wrap
+            }
+            .items-start{
+                align-items:flex-start
+            }
+            .items-end{
+                align-items:flex-end
+            }
+            .items-center{
+                align-items:center
+            }
+            .justify-center{
+                justify-content:center
+            }
+            .justify-between{
+                justify-content:space-between
+            }
+            .gap-1{
+                gap:0.25rem
+            }
+            .gap-2{
+                gap:0.5rem
+            }
+            .gap-3{
+                gap:0.75rem
+            }
+            .gap-4{
+                gap:1rem
+            }
+            .gap-6{
+                gap:1.5rem
+            }
+            .space-y-8 > :not([hidden]) ~ :not([hidden]){
+                --tw-space-y-reverse:0;
+                margin-top:calc(2rem * calc(1 - var(--tw-space-y-reverse)));
+                margin-bottom:calc(2rem * var(--tw-space-y-reverse))
+            }
+            .overflow-hidden{
+                overflow:hidden
+            }
+            .overflow-y-auto{
+                overflow-y:auto
+            }
+            .rounded-2xl{
+                border-radius:1rem
+            }
+            .rounded-full{
+                border-radius:9999px
+            }
+            .rounded-lg{
+                border-radius:0.5rem
+            }
+            .rounded-md{
+                border-radius:0.375rem
+            }
+            .rounded-xl{
+                border-radius:0.75rem
+            }
+            .rounded-bl-full{
+                border-bottom-left-radius:9999px
+            }
+            .border{
+                border-width:1px
+            }
+            .border-2{
+                border-width:2px
+            }
+            .border-b{
+                border-bottom-width:1px
+            }
+            .border-l{
+                border-left-width:1px
+            }
+            .border-r{
+                border-right-width:1px
+            }
+            .border-t{
+                border-top-width:1px
+            }
+            .border-none{
+                border-style:none
+            }
+            .border-border-light{
+                --tw-border-opacity:1;
+                border-color:rgb(229 231 235 / var(--tw-border-opacity, 1))
+            }
+            .border-border-light\/50{
+                border-color:rgb(229 231 235 / 0.5)
+            }
+            .border-primary\/20{
+                border-color:rgb(13 242 13 / 0.2)
+            }
+            .border-primary\/30{
+                border-color:rgb(13 242 13 / 0.3)
+            }
+            .border-white{
+                --tw-border-opacity:1;
+                border-color:rgb(255 255 255 / var(--tw-border-opacity, 1))
+            }
+            .bg-background-light{
+                --tw-bg-opacity:1;
+                background-color:rgb(248 249 250 / var(--tw-bg-opacity, 1))
+            }
+            .bg-blue-50{
+                --tw-bg-opacity:1;
+                background-color:rgb(239 246 255 / var(--tw-bg-opacity, 1))
+            }
+            .bg-gray-50{
+                --tw-bg-opacity:1;
+                background-color:rgb(249 250 251 / var(--tw-bg-opacity, 1))
+            }
+            .bg-orange-50{
+                --tw-bg-opacity:1;
+                background-color:rgb(255 247 237 / var(--tw-bg-opacity, 1))
+            }
+            .bg-primary{
+                --tw-bg-opacity:1;
+                background-color:rgb(13 242 13 / var(--tw-bg-opacity, 1))
+            }
+            .bg-primary\/10{
+                background-color:rgb(13 242 13 / 0.1)
+            }
+            .bg-primary\/20{
+                background-color:rgb(13 242 13 / 0.2)
+            }
+            .bg-red-500{
+                --tw-bg-opacity:1;
+                background-color:rgb(239 68 68 / var(--tw-bg-opacity, 1))
+            }
+            .bg-secondary{
+                --tw-bg-opacity:1;
+                background-color:rgb(17 24 39 / var(--tw-bg-opacity, 1))
+            }
+            .bg-surface-light{
+                --tw-bg-opacity:1;
+                background-color:rgb(255 255 255 / var(--tw-bg-opacity, 1))
+            }
+            .bg-transparent{
+                background-color:transparent
+            }
+            .bg-white\/90{
+                background-color:rgb(255 255 255 / 0.9)
+            }
+            .bg-gradient-to-r{
+                background-image:linear-gradient(to right, var(--tw-gradient-stops))
+            }
+            .bg-gradient-to-t{
+                background-image:linear-gradient(to top, var(--tw-gradient-stops))
+            }
+            .from-black\/60{
+                --tw-gradient-from:rgb(0 0 0 / 0.6) var(--tw-gradient-from-position);
+                --tw-gradient-to:rgb(0 0 0 / 0) var(--tw-gradient-to-position);
+                --tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)
+            }
+            .from-secondary\/90{
+                --tw-gradient-from:rgb(17 24 39 / 0.9) var(--tw-gradient-from-position);
+                --tw-gradient-to:rgb(17 24 39 / 0) var(--tw-gradient-to-position);
+                --tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)
+            }
+            .via-secondary\/60{
+                --tw-gradient-to:rgb(17 24 39 / 0)  var(--tw-gradient-to-position);
+                --tw-gradient-stops:var(--tw-gradient-from), rgb(17 24 39 / 0.6) var(--tw-gradient-via-position), var(--tw-gradient-to)
+            }
+            .to-transparent{
+                --tw-gradient-to:transparent var(--tw-gradient-to-position)
+            }
+            .bg-cover{
+                background-size:cover
+            }
+            .bg-center{
+                background-position:center
+            }
+            .p-0{
+                padding:0px
+            }
+            .p-2{
+                padding:0.5rem
+            }
+            .p-3{
+                padding:0.75rem
+            }
+            .p-4{
+                padding:1rem
+            }
+            .p-6{
+                padding:1.5rem
+            }
+            .px-2{
+                padding-left:0.5rem;
+                padding-right:0.5rem
+            }
+            .px-3{
+                padding-left:0.75rem;
+                padding-right:0.75rem
+            }
+            .px-4{
+                padding-left:1rem;
+                padding-right:1rem
+            }
+            .px-6{
+                padding-left:1.5rem;
+                padding-right:1.5rem
+            }
+            .py-0\.5{
+                padding-top:0.125rem;
+                padding-bottom:0.125rem
+            }
+            .py-1{
+                padding-top:0.25rem;
+                padding-bottom:0.25rem
+            }
+            .py-12{
+                padding-top:3rem;
+                padding-bottom:3rem
+            }
+            .py-2{
+                padding-top:0.5rem;
+                padding-bottom:0.5rem
+            }
+            .py-3{
+                padding-top:0.75rem;
+                padding-bottom:0.75rem
+            }
+            .py-6{
+                padding-top:1.5rem;
+                padding-bottom:1.5rem
+            }
+            .pl-2{
+                padding-left:0.5rem
+            }
+            .pt-4{
+                padding-top:1rem
+            }
+            .text-2xl{
+                font-size:1.5rem;
+                line-height:2rem
+            }
+            .text-3xl{
+                font-size:1.875rem;
+                line-height:2.25rem
+            }
+            .text-\[14px\]{
+                font-size:14px
+            }
+            .text-\[16px\]{
+                font-size:16px
+            }
+            .text-\[20px\]{
+                font-size:20px
+            }
+            .text-\[28px\]{
+                font-size:28px
+            }
+            .text-base{
+                font-size:1rem;
+                line-height:1.5rem
+            }
+            .text-lg{
+                font-size:1.125rem;
+                line-height:1.75rem
+            }
+            .text-sm{
+                font-size:0.875rem;
+                line-height:1.25rem
+            }
+            .text-xs{
+                font-size:0.75rem;
+                line-height:1rem
+            }
+            .font-bold{
+                font-weight:700
+            }
+            .font-extrabold{
+                font-weight:800
+            }
+            .font-light{
+                font-weight:300
+            }
+            .font-medium{
+                font-weight:500
+            }
+            .font-semibold{
+                font-weight:600
+            }
+            .uppercase{
+                text-transform:uppercase
+            }
+            .leading-none{
+                line-height:1
+            }
+            .leading-relaxed{
+                line-height:1.625
+            }
+            .leading-tight{
+                line-height:1.25
+            }
+            .tracking-tight{
+                letter-spacing:-0.025em
+            }
+            .tracking-wide{
+                letter-spacing:0.025em
+            }
+            .tracking-wider{
+                letter-spacing:0.05em
+            }
+            .text-accent-blue{
+                --tw-text-opacity:1;
+                color:rgb(30 58 138 / var(--tw-text-opacity, 1))
+            }
+            .text-gray-200{
+                --tw-text-opacity:1;
+                color:rgb(229 231 235 / var(--tw-text-opacity, 1))
+            }
+            .text-green-600{
+                --tw-text-opacity:1;
+                color:rgb(22 163 74 / var(--tw-text-opacity, 1))
+            }
+            .text-green-800{
+                --tw-text-opacity:1;
+                color:rgb(22 101 52 / var(--tw-text-opacity, 1))
+            }
+            .text-orange-600{
+                --tw-text-opacity:1;
+                color:rgb(234 88 12 / var(--tw-text-opacity, 1))
+            }
+            .text-primary{
+                --tw-text-opacity:1;
+                color:rgb(13 242 13 / var(--tw-text-opacity, 1))
+            }
+            .text-primary-dark{
+                --tw-text-opacity:1;
+                color:rgb(11 184 11 / var(--tw-text-opacity, 1))
+            }
+            .text-red-400{
+                --tw-text-opacity:1;
+                color:rgb(248 113 113 / var(--tw-text-opacity, 1))
+            }
+            .text-secondary{
+                --tw-text-opacity:1;
+                color:rgb(17 24 39 / var(--tw-text-opacity, 1))
+            }
+            .text-text-main{
+                --tw-text-opacity:1;
+                color:rgb(17 24 17 / var(--tw-text-opacity, 1))
+            }
+            .text-text-muted{
+                --tw-text-opacity:1;
+                color:rgb(107 114 128 / var(--tw-text-opacity, 1))
+            }
+            .text-white{
+                --tw-text-opacity:1;
+                color:rgb(255 255 255 / var(--tw-text-opacity, 1))
+            }
+            .text-yellow-500{
+                --tw-text-opacity:1;
+                color:rgb(234 179 8 / var(--tw-text-opacity, 1))
+            }
+            .line-through{
+                -webkit-text-decoration-line:line-through;
+                text-decoration-line:line-through
+            }
+            .placeholder-text-muted::placeholder{
+                --tw-placeholder-opacity:1;
+                color:rgb(107 114 128 / var(--tw-placeholder-opacity, 1))
+            }
+            .shadow-lg{
+                --tw-shadow:0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+                --tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);
+                box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)
+            }
+            .shadow-md{
+                --tw-shadow:0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+                --tw-shadow-colored:0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);
+                box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)
+            }
+            .shadow-sm{
+                --tw-shadow:0 1px 2px 0 rgb(0 0 0 / 0.05);
+                --tw-shadow-colored:0 1px 2px 0 var(--tw-shadow-color);
+                box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)
+            }
+            .shadow-primary\/20{
+                --tw-shadow-color:rgb(13 242 13 / 0.2);
+                --tw-shadow:var(--tw-shadow-colored)
+            }
+            .shadow-primary\/30{
+                --tw-shadow-color:rgb(13 242 13 / 0.3);
+                --tw-shadow:var(--tw-shadow-colored)
+            }
+            .drop-shadow-sm{
+                --tw-drop-shadow:drop-shadow(0 1px 1px rgb(0 0 0 / 0.05));
+                filter:var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)
+            }
+            .backdrop-blur-sm{
+                --tw-backdrop-blur:blur(4px);
+                -webkit-backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+                backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia)
+            }
+            .transition-all{
+                transition-property:all;
+                transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);
+                transition-duration:150ms
+            }
+            .transition-colors{
+                transition-property:color, background-color, border-color, fill, stroke, -webkit-text-decoration-color;
+                transition-property:color, background-color, border-color, text-decoration-color, fill, stroke;
+                transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, -webkit-text-decoration-color;
+                transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);
+                transition-duration:150ms
+            }
+            .transition-shadow{
+                transition-property:box-shadow;
+                transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);
+                transition-duration:150ms
+            }
+            .transition-transform{
+                transition-property:transform;
+                transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);
+                transition-duration:150ms
+            }
+            .duration-300{
+                transition-duration:300ms
+            }
+            .duration-500{
+                transition-duration:500ms
+            }
+            .duration-700{
+                transition-duration:700ms
+            }
+            .\@container{
+                container-type:inline-size
+            }
+            .focus-within\:border-primary:focus-within{
+                --tw-border-opacity:1;
+                border-color:rgb(13 242 13 / var(--tw-border-opacity, 1))
+            }
+            .focus-within\:ring-2:focus-within{
+                --tw-ring-offset-shadow:var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+                --tw-ring-shadow:var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+                box-shadow:var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000)
+            }
+            .focus-within\:ring-primary\/50:focus-within{
+                --tw-ring-color:rgb(13 242 13 / 0.5)
+            }
+            .hover\:bg-gray-100:hover{
+                --tw-bg-opacity:1;
+                background-color:rgb(243 244 246 / var(--tw-bg-opacity, 1))
+            }
+            .hover\:bg-gray-50:hover{
+                --tw-bg-opacity:1;
+                background-color:rgb(249 250 251 / var(--tw-bg-opacity, 1))
+            }
+            .hover\:bg-primary:hover{
+                --tw-bg-opacity:1;
+                background-color:rgb(13 242 13 / var(--tw-bg-opacity, 1))
+            }
+            .hover\:bg-primary-dark:hover{
+                --tw-bg-opacity:1;
+                background-color:rgb(11 184 11 / var(--tw-bg-opacity, 1))
+            }
+            .hover\:text-primary-dark:hover{
+                --tw-text-opacity:1;
+                color:rgb(11 184 11 / var(--tw-text-opacity, 1))
+            }
+            .hover\:text-red-600:hover{
+                --tw-text-opacity:1;
+                color:rgb(220 38 38 / var(--tw-text-opacity, 1))
+            }
+            .hover\:text-secondary:hover{
+                --tw-text-opacity:1;
+                color:rgb(17 24 39 / var(--tw-text-opacity, 1))
+            }
+            .hover\:underline:hover{
+                -webkit-text-decoration-line:underline;
+                text-decoration-line:underline
+            }
+            .hover\:shadow-md:hover{
+                --tw-shadow:0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+                --tw-shadow-colored:0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);
+                box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)
+            }
+            .hover\:shadow-xl:hover{
+                --tw-shadow:0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+                --tw-shadow-colored:0 20px 25px -5px var(--tw-shadow-color), 0 8px 10px -6px var(--tw-shadow-color);
+                box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)
+            }
+            .focus\:ring-0:focus{
+                --tw-ring-offset-shadow:var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+                --tw-ring-shadow:var(--tw-ring-inset) 0 0 0 calc(0px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+                box-shadow:var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000)
+            }
+            .active\:scale-95:active{
+                --tw-scale-x:.95;
+                --tw-scale-y:.95;
+                transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))
+            }
+            .group:hover .group-hover\:scale-105{
+                --tw-scale-x:1.05;
+                --tw-scale-y:1.05;
+                transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))
+            }
+            .group:hover .group-hover\:scale-110{
+                --tw-scale-x:1.1;
+                --tw-scale-y:1.1;
+                transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))
+            }
+            @media (min-width: 640px){
+                .sm\:flex{
+                    display:flex
+                }
+            }
+            @media (min-width: 768px){
+                .md\:mt-0{
+                    margin-top:0px
+                }
+                .md\:flex{
+                    display:flex
+                }
+                .md\:grid-cols-2{
+                    grid-template-columns:repeat(2, minmax(0, 1fr))
+                }
+                .md\:grid-cols-3{
+                    grid-template-columns:repeat(3, minmax(0, 1fr))
+                }
+                .md\:flex-row{
+                    flex-direction:row
+                }
+                .md\:px-10{
+                    padding-left:2.5rem;
+                    padding-right:2.5rem
+                }
+                .md\:py-16{
+                    padding-top:4rem;
+                    padding-bottom:4rem
+                }
+                .md\:text-5xl{
+                    font-size:3rem;
+                    line-height:1
+                }
+                .md\:text-lg{
+                    font-size:1.125rem;
+                    line-height:1.75rem
+                }
+            }
+            @media (min-width: 1024px){
+                .lg\:flex{
+                    display:flex
+                }
+                .lg\:hidden{
+                    display:none
+                }
+                .lg\:grid-cols-3{
+                    grid-template-columns:repeat(3, minmax(0, 1fr))
+                }
+                .lg\:gap-6{
+                    gap:1.5rem
+                }
+                .lg\:p-8{
+                    padding:2rem
+                }
+                .lg\:px-8{
+                    padding-left:2rem;
+                    padding-right:2rem
+                }
+                .lg\:pl-4{
+                    padding-left:1rem
+                }
+                .lg\:text-xl{
+                    font-size:1.25rem;
+                    line-height:1.75rem
+                }
+            }
+            @media (min-width: 1280px){
+                .xl\:flex{
+                    display:flex
+                }
+                .xl\:grid-cols-4{
+                    grid-template-columns:repeat(4, minmax(0, 1fr))
+                }
+            }</style>
+    </head>
+    <body class="bg-background-light text-text-main h-screen overflow-hidden flex">
+        <!-- Sidebar -->
+        <aside class="w-64 h-full bg-surface-light border-r border-border-light flex-col hidden lg:flex shadow-sm z-20">
+            <!-- Logo & Brand -->
+            <div class="p-6 flex items-center gap-3 border-b border-border-light/50">
+                <div class="w-10 h-10 rounded-lg bg-primary flex items-center justify-center text-secondary shadow-md shadow-primary/20">
+                    <span class="material-symbols-outlined filled">sports_soccer</span>
+                </div>
+                <div>
+                    <h1 class="text-base font-bold text-secondary leading-tight">ReservaCanchaCR</h1>
+                    <span class="text-xs font-semibold text-primary-dark tracking-wide bg-primary/10 px-2 py-0.5 rounded-full">USUARIO</span>
+                </div>
+            </div>
+            <!-- Navigation -->
+            <nav class="flex-1 overflow-y-auto py-6 px-3 flex flex-col gap-1">
+                <!-- Active Item -->
+                <a class="flex items-center gap-3 px-3 py-3 rounded-lg bg-primary/10 text-primary-dark transition-colors group" href="#">
+                    <span class="material-symbols-outlined filled">home</span>
+                    <span class="text-sm font-semibold">Inicio</span>
+                </a>
+                <!-- Inactive Items -->
 
-<a class="flex items-center gap-3 px-3 py-3 rounded-lg text-text-muted hover:bg-gray-50 hover:text-secondary transition-colors group" th:href="@{/usuario/perfil}">
-<span class="material-symbols-outlined">person</span>
-<span class="text-sm font-medium">Perfil</span>
-</a>
+                <a class="flex items-center gap-3 px-3 py-3 rounded-lg text-text-muted hover:bg-gray-50 hover:text-secondary transition-colors group" href="#">
+                    <span class="material-symbols-outlined">person</span>
+                    <span class="text-sm font-medium">Usuario</span>
+                </a>
 
-<div class="mt-4 pt-4 border-t border-border-light">
-<p class="px-3 text-xs font-semibold text-text-muted uppercase tracking-wider mb-2">Mis Reservas</p>
-<a class="flex items-center gap-3 px-3 py-3 rounded-lg text-text-muted hover:bg-gray-50 hover:text-secondary transition-colors group" th:href="@{/reserva/mis-reservas}">
-<span class="material-symbols-outlined">calendar_month</span>
-<span class="text-sm font-medium">Historial</span>
-</a>
-<a class="flex items-center gap-3 px-3 py-3 rounded-lg text-text-muted hover:bg-gray-50 hover:text-secondary transition-colors group" th:href="@{/reservas/activas}">
+                <div class="mt-4 pt-4 border-t border-border-light">
+                    <p class="px-3 text-xs font-semibold text-text-muted uppercase tracking-wider mb-2">Mis Reservas</p>
+                    <a class="flex items-center gap-3 px-3 py-3 rounded-lg text-text-muted hover:bg-gray-50 hover:text-secondary transition-colors group" th:href="@{/reserva/mis-reservas}">
+                        <span class="material-symbols-outlined">calendar_month</span>
+                        <span class="text-sm font-medium">Historial</span>
+                    </a>
+                    <a class="flex items-center gap-3 px-3 py-3 rounded-lg text-text-muted hover:bg-gray-50 hover:text-secondary transition-colors group" href="#">
 
-</a>
-</div>
-</nav>
-<!-- Sidebar Footer -->
-<div class="p-4 border-t border-border-light">
-<a th:href="@{/auth/logout}" class="flex items-center gap-3 w-full px-3 py-2 text-text-muted hover:text-red-600 transition-colors text-sm font-medium">
-<span class="material-symbols-outlined">logout</span>
-                Cerrar sesión
-            </a>
-</div>
-</aside>
-<!-- Main Content -->
-<main class="flex-1 flex flex-col h-full overflow-hidden bg-background-light relative">
-<!-- Navbar Header (Mobile & Desktop) -->
-<header class="h-16 bg-surface-light border-b border-border-light flex items-center justify-between px-4 lg:px-8 z-10 shrink-0">
-<div class="flex items-center gap-4">
-<!-- Mobile Menu Button -->
-<button class="lg:hidden p-2 text-text-muted hover:bg-gray-100 rounded-lg">
-<span class="material-symbols-outlined">menu</span>
-</button>
-<h2 class="text-lg lg:text-xl font-bold text-secondary tracking-tight">Inicio</h2>
-</div>
-<div class="flex items-center gap-3 lg:gap-6">
-<!-- Search Bar (Hidden on small mobile) -->
-<div class="hidden sm:flex items-center bg-gray-50 border border-border-light rounded-lg px-3 py-2 w-64 focus-within:ring-2 focus-within:ring-primary/50 focus-within:border-primary transition-all">
-<span class="material-symbols-outlined text-text-muted text-[20px]">search</span>
-<input class="bg-transparent border-none text-sm w-full focus:ring-0 text-text-main placeholder-text-muted ml-2 p-0 h-auto" placeholder="Buscar cancha, zona..." type="text"/>
-</div>
-<!-- Actions -->
-<button class="relative p-2 text-text-muted hover:bg-gray-100 rounded-lg transition-colors">
-<span class="material-symbols-outlined">notifications</span>
-<span class="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full border border-white"></span>
-</button>
-<!-- Profile Dropdown Trigger -->
-<a th:href="@{/usuario/perfil}" class="flex items-center gap-3 pl-2 lg:pl-4 border-l border-border-light cursor-pointer">
-<div class="flex flex-col items-end hidden md:flex">
-<span class="text-sm font-bold text-secondary leading-none" th:text="${usuario.nombre ?: 'Usuario'}">Carlos R.</span>
-<span class="text-xs text-text-muted">Usuario</span>
-</div>
-<div class="w-9 h-9 rounded-full bg-cover bg-center border-2 border-primary/20 shadow-sm" th:style="'background-image: url(' + ${usuario.foto ?: '/images/default-user.png'} + ')'" data-alt="Foto de perfil del usuario"></div>
-</a>
-</header>
-<!-- Scrollable Content Area -->
-<div class="flex-1 overflow-y-auto p-4 lg:p-8">
-<div class="max-w-7xl mx-auto space-y-8">
-<!-- Hero Section -->
-<div class="@container w-full">
-<div class="relative w-full rounded-2xl overflow-hidden shadow-lg group">
-<!-- Hero Background Image -->
-<div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105" th:style="'background-image: url(' + ${heroImage ?: '/images/default-hero.png'} + ')'" data-alt="Cancha de fútbol verde de noche con luces de estadio">
-</div>
-<!-- Gradient Overlay -->
-<div class="absolute inset-0 bg-gradient-to-r from-secondary/90 via-secondary/60 to-transparent"></div>
-<!-- Content -->
-<div class="relative z-10 px-6 py-12 md:px-10 md:py-16 flex flex-col justify-center items-start min-h-[320px]">
-<span class="inline-block px-3 py-1 rounded-full bg-primary/20 text-primary border border-primary/30 backdrop-blur-sm text-xs font-bold tracking-wider mb-4">
-                                ¡NUEVO EN RESERVACANCHACR!
-                            </span>
-<h1 class="text-3xl md:text-5xl font-extrabold text-white leading-tight mb-4 max-w-2xl drop-shadow-sm">
-                                Encuentra y reserva <br/>
-<span class="text-primary">tu cancha ideal</span>
-</h1>
-<p class="text-gray-200 text-base md:text-lg mb-8 max-w-xl font-light leading-relaxed">
-                                Explora las mejores canchas de fútbol en Costa Rica. Filtra por ubicación, precio y disponibilidad en tiempo real.
-                            </p>
-<div class="flex flex-wrap gap-4">
-<a th:href="@{/canchas}" class="bg-primary hover:bg-primary-dark text-secondary font-bold py-3 px-6 rounded-xl transition-all shadow-lg shadow-primary/30 flex items-center gap-2 transform active:scale-95 inline-flex items-center justify-center">
-<span class="material-symbols-outlined">sports_soccer</span>
-                                    Buscar cancha
-                                </a>
+                    </a>
+                </div>
+            </nav>
+            <!-- Sidebar Footer -->
+            <div class="p-4 border-t border-border-light">
+                <a href="index.html" class="flex items-center gap-3 w-full px-3 py-2 text-text-muted hover:text-red-600 transition-colors text-sm font-medium">
+                    <span class="material-symbols-outlined">logout</span>
+                    Cerrar sesión
+                </a>
+            </div>
+        </aside>
+        <!-- Main Content -->
+        <main class="flex-1 flex flex-col h-full overflow-hidden bg-background-light relative">
+            <!-- Navbar Header (Mobile & Desktop) -->
+            <header class="h-16 bg-surface-light border-b border-border-light flex items-center justify-between px-4 lg:px-8 z-10 shrink-0">
+                <div class="flex items-center gap-4">
+                    <!-- Mobile Menu Button -->
+                    <button class="lg:hidden p-2 text-text-muted hover:bg-gray-100 rounded-lg">
+                        <span class="material-symbols-outlined">menu</span>
+                    </button>
+                    <h2 class="text-lg lg:text-xl font-bold text-secondary tracking-tight">Inicio</h2>
+                </div>
+                <div class="flex items-center gap-3 lg:gap-6">
+                    <!-- Search Bar (Hidden on small mobile) -->
+                    <div class="hidden sm:flex items-center bg-gray-50 border border-border-light rounded-lg px-3 py-2 w-64 focus-within:ring-2 focus-within:ring-primary/50 focus-within:border-primary transition-all">
+                        <span class="material-symbols-outlined text-text-muted text-[20px]">search</span>
+                        <input class="bg-transparent border-none text-sm w-full focus:ring-0 text-text-main placeholder-text-muted ml-2 p-0 h-auto" placeholder="Buscar cancha, zona..." type="text">
+                    </div>
+                    <!-- Actions -->
+                    <button class="relative p-2 text-text-muted hover:bg-gray-100 rounded-lg transition-colors">
+                        <span class="material-symbols-outlined">notifications</span>
+                        <span class="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full border border-white"></span>
+                    </button>
+                    <!-- Profile Dropdown Trigger -->
+                    <a href="/usuario/perfil" class="flex items-center gap-3 pl-2 lg:pl-4 border-l border-border-light cursor-pointer">
+                        <div class="flex flex-col items-end hidden md:flex">
+                            <span class="text-sm font-bold text-secondary leading-none">Carlos R.</span>
+                            <span class="text-xs text-text-muted">Usuario</span>
+                        </div>
+                        <div class="w-9 h-9 rounded-full bg-cover bg-center border-2 border-primary/20 shadow-sm" data-alt="User profile picture of a smiling man" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAw9mIialtfy1yclPKuW2bD_GokzZ6MxFPVX5GDBYEGB-DRXQgZzNvuIHsXLAv1Ae4f1UuAs8Osa-CO0UCnn50akcZPGDtMLjr1CuyatcxMGwXWiLNWcjsIU7XVYhDZXn5S7teJfmnz9ltHAW9vdoebHNcu-9SGKYSM2sl5HcVFyrYUm_2pHDA6GdHnW6PTkr-azbGtUMMsIy5xD8R767RynSiB70SlK9g6eGxrFY4rp7_wgmT9XhgtfrWOrHk_-62unCOiy0ejdOs');"></div>
+                    </a>
+                </div>
+            </header>
+            <!-- Scrollable Content Area -->
+            <div class="flex-1 overflow-y-auto p-4 lg:p-8">
+                <div class="max-w-7xl mx-auto space-y-8">
+                    <!-- Hero Section -->
+                    <div class="@container w-full">
+                        <div class="relative w-full rounded-2xl overflow-hidden shadow-lg group">
+                            <!-- Hero Background Image -->
+                            <div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105" data-alt="Green soccer field at night with stadium lights" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuD9HU3o4fHXm-v8FwG-21Fpz0rmVpl2TGUpi7ymj7z_tTVXKiWYMXRBMdcuDlpMAoQkFgPgOKcFXlURlUnMHwpZ2ZN4qvg-jmW0OYsFmqMkVhUjNNt4taCAx_dFrQhS8AeVlhn1MkWD2V1vN8OyhP-3hCxf-7ntVDuFpce4XeQZdWXJlZMdL5n_h2geEfCITMK36Fr-nP8J9hbmrHYZgs7sCYWlsQihsCdcqOLRVE0HAGdT4pj6Lbjc37L2jBzjHy3kzwsDkanUPIU');">
+                            </div>
+                            <!-- Gradient Overlay -->
+                            <div class="absolute inset-0 bg-gradient-to-r from-secondary/90 via-secondary/60 to-transparent"></div>
+                            <!-- Content -->
+                            <div class="relative z-10 px-6 py-12 md:px-10 md:py-16 flex flex-col justify-center items-start min-h-[320px]">
+                                <span class="inline-block px-3 py-1 rounded-full bg-primary/20 text-primary border border-primary/30 backdrop-blur-sm text-xs font-bold tracking-wider mb-4">
+                                    ¡NUEVO EN RESERVACANCHACR!
+                                </span>
+                                <h1 class="text-3xl md:text-5xl font-extrabold text-white leading-tight mb-4 max-w-2xl drop-shadow-sm">
+                                    Encuentra y reserva <br>
+                                    <span class="text-primary">tu cancha ideal</span>
+                                </h1>
+                                <p class="text-gray-200 text-base md:text-lg mb-8 max-w-xl font-light leading-relaxed">
+                                    Explora las mejores canchas de fútbol en Costa Rica. Filtra por ubicación, precio y disponibilidad en tiempo real.
+                                </p>
+                                <div class="flex flex-wrap gap-4">
+                                    <button class="bg-primary hover:bg-primary-dark text-secondary font-bold py-3 px-6 rounded-xl transition-all shadow-lg shadow-primary/30 flex items-center gap-2 transform active:scale-95">
+                                        <span class="material-symbols-outlined">sports_soccer</span>
+                                        Buscar cancha
+                                    </button>
 
-</div>
-</div>
-</div>
-</div>
-<!-- Dashboard Stats Grid -->
-<div class="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-6">
-<!-- Card 1: Disponibles -->
-<div class="bg-surface-light p-6 rounded-xl border border-border-light shadow-sm hover:shadow-md transition-shadow flex items-start justify-between">
-<div class="flex flex-col gap-1">
-<span class="text-text-muted text-sm font-medium">Canchas disponibles</span>
-<span class="text-3xl font-bold text-secondary" th:text="${estadisticas.canchasDisponibles ?: '12'}">12</span>
-<span class="text-xs text-green-600 font-medium flex items-center mt-1">
-<span class="material-symbols-outlined text-[16px] mr-1">trending_up</span>
-                                <span th:text="'+ ' + ${estadisticas.nuevasHoy ?: '2'} + ' nuevas hoy'">+2 nuevas hoy</span>
-                            </span>
-</div>
-<div class="p-3 bg-blue-50 text-accent-blue rounded-lg">
-<span class="material-symbols-outlined filled text-[28px]">stadium</span>
-</div>
-</div>
-<!-- Card 2: Reservas Activas -->
-<div class="bg-surface-light p-6 rounded-xl border border-border-light shadow-sm hover:shadow-md transition-shadow flex items-start justify-between relative overflow-hidden">
-<div class="absolute top-0 right-0 w-16 h-16 bg-primary/10 rounded-bl-full -mr-2 -mt-2"></div>
-<div class="flex flex-col gap-1 relative z-10">
-<span class="text-text-muted text-sm font-medium">Reservas activas</span>
-<span class="text-3xl font-bold text-secondary" th:text="${estadisticas.reservasActivas ?: '2'}">2</span>
-<span class="text-xs text-text-muted font-medium mt-1" th:text="'Próximo juego: ' + ${estadisticas.proximoJuego ?: 'Hoy 7PM'}">Próximo juego: Hoy 7PM</span>
-</div>
-<div class="p-3 bg-primary/20 text-green-800 rounded-lg relative z-10">
-<span class="material-symbols-outlined filled text-[28px]">calendar_clock</span>
-</div>
-</div>
-<!-- Card 3: Promociones -->
-<div>
-<div class="flex flex-col gap-1">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Dashboard Stats Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-6">
+                        <!-- Card 1: Disponibles -->
+                        <div class="bg-surface-light p-6 rounded-xl border border-border-light shadow-sm hover:shadow-md transition-shadow flex items-start justify-between">
+                            <div class="flex flex-col gap-1">
+                                <span class="text-text-muted text-sm font-medium">Canchas disponibles</span>
+                                <span class="text-3xl font-bold text-secondary">12</span>
+                                <span class="text-xs text-green-600 font-medium flex items-center mt-1">
+                                    <span class="material-symbols-outlined text-[16px] mr-1">trending_up</span>
+                                    +2 nuevas hoy
+                                </span>
+                            </div>
+                            <div class="p-3 bg-blue-50 text-accent-blue rounded-lg">
+                                <span class="material-symbols-outlined filled text-[28px]">stadium</span>
+                            </div>
+                        </div>
+                        <!-- Card 2: Reservas Activas -->
+                        <div class="bg-surface-light p-6 rounded-xl border border-border-light shadow-sm hover:shadow-md transition-shadow flex items-start justify-between relative overflow-hidden">
+                            <div class="absolute top-0 right-0 w-16 h-16 bg-primary/10 rounded-bl-full -mr-2 -mt-2"></div>
+                            <div class="flex flex-col gap-1 relative z-10">
+                                <span class="text-text-muted text-sm font-medium">Reservas activas</span>
+                                <span class="text-3xl font-bold text-secondary">2</span>
+                                <span class="text-xs text-text-muted font-medium mt-1">Próximo juego: Hoy 7PM</span>
+                            </div>
+                            <div class="p-3 bg-primary/20 text-green-800 rounded-lg relative z-10">
+                                <span class="material-symbols-outlined filled text-[28px]">calendar_clock</span>
+                            </div>
+                        </div>
+                        <!-- Card 3: Promociones -->
+                        <div>
+                            <div class="flex flex-col gap-1">
 
-</div>
-<div class="p-3 bg-orange-50 text-orange-600 rounded-lg">
-</div>
-</div>
-</div>
-<!-- Featured Section -->
-<div class="flex flex-col gap-6">
-<div class="flex items-center justify-between">
-<h2 class="text-2xl font-bold text-secondary flex items-center gap-2">
-<span class="w-2 h-8 bg-primary rounded-full"></span>
-                            Canchas destacadas
-                        </h2>
-<a class="text-primary-dark font-semibold text-sm hover:underline flex items-center gap-1" th:href="@{/canchas}">
-                            Ver todas
-                            <span class="material-symbols-outlined text-sm">arrow_forward</span>
-</a>
-</div>
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" th:if="${canchasDestacadas != null and !canchasDestacadas.isEmpty()}" th:each="cancha : ${canchasDestacadas}">
-<!-- Featured Card -->
-<div class="group bg-surface-light rounded-2xl overflow-hidden border border-border-light shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col h-full">
-<div class="relative h-48 overflow-hidden">
-<div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm px-2 py-1 rounded-md text-xs font-bold text-secondary shadow-sm z-10 flex items-center gap-1">
-<span class="material-symbols-outlined text-yellow-500 text-[14px] filled">star</span>
-<span th:text="${cancha.calificacion ?: '4.8'}">4.8</span>
-</div>
-<div class="w-full h-full bg-cover bg-center transition-transform duration-500 group-hover:scale-110" th:style="'background-image: url(' + ${cancha.imagenes[0] ?: '/images/default-cancha.png'} + ')'" data-alt="Cancha de fútbol">
-</div>
-<div class="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-black/60 to-transparent"></div>
-<div class="absolute bottom-3 left-3 text-white text-xs font-medium flex items-center gap-1">
-<span class="material-symbols-outlined text-[14px]">location_on</span>
-<span th:text="${cancha.ubicacion ?: 'San José, Costa Rica'}">San José, Costa Rica</span>
-</div>
-</div>
-<div class="p-4 flex flex-col flex-1">
-<h3 class="text-lg font-bold text-secondary mb-1" th:text="${cancha.nombre ?: 'Cancha El Estadio'}">Cancha El Estadio</h3>
-<p class="text-sm text-text-muted mb-4 line-clamp-2" th:text="${cancha.descripcion ?: 'Cancha sintética techada, ideal para futbol 5. Cuenta con duchas y parqueo.'}">Cancha sintética techada, ideal para futbol 5. Cuenta con duchas y parqueo.</p>
-<div class="mt-auto flex items-center justify-between pt-4 border-t border-border-light/50">
-<div class="flex flex-col">
-<span class="text-xs text-text-muted">Precio por hora</span>
-<span class="text-base font-bold text-secondary" th:text="'₡' + ${#numbers.formatInteger(cancha.precioPorHora ?: 15000, 0, 'COMMA')}">₡15,000</span>
-</div>
-<a th:href="@{/reserva/crear?canchaId=' + ${cancha.id}}" class="bg-secondary hover:bg-primary hover:text-secondary text-white text-sm font-bold py-2 px-4 rounded-lg transition-colors inline-block text-center">
-                                        Reservar
-                                    </a>
-</div>
-</div>
-</div>
-</div>
-<div th:if="${canchasDestacadas == null or canchasDestacadas.isEmpty()}" class="text-center py-12">
-<p class="text-gray-500 dark:text-gray-400">No hay canchas destacadas disponibles en este momento.</p>
-</div>
-</div>
-<!-- Footer area inside main content -->
-<div class="py-6 mt-8 border-t border-border-light flex flex-col md:flex-row justify-between items-center text-text-muted text-sm">
-<p>© 2023 ReservaCanchaCR. Todos los derechos reservados.</p>
-<div class="flex gap-4 mt-2 md:mt-0">
-<a class="hover:text-primary-dark" href="#">Términos</a>
-<a class="hover:text-primary-dark" href="#">Privacidad</a>
-<a class="hover:text-primary-dark" href="#">Soporte</a>
-</div>
-</div>
-</div>
-</div>
-</main>
-</body>
+                            </div>
+                            <div class="p-3 bg-orange-50 text-orange-600 rounded-lg">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Featured Section -->
+                    <div class="flex flex-col gap-6">
+                        <div class="flex items-center justify-between">
+                            <h2 class="text-2xl font-bold text-secondary flex items-center gap-2">
+                                <span class="w-2 h-8 bg-primary rounded-full"></span>
+                                Canchas destacadas
+                            </h2>
+                            <a class="text-primary-dark font-semibold text-sm hover:underline flex items-center gap-1" th:href="@{/canchas/listado}">
+                                Ver todas
+                                <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                            </a>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                            <!-- Featured Card 1 -->
+                            <div class="group bg-surface-light rounded-2xl overflow-hidden border border-border-light shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col h-full">
+                                <div class="relative h-48 overflow-hidden">
+                                    <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm px-2 py-1 rounded-md text-xs font-bold text-secondary shadow-sm z-10 flex items-center gap-1">
+                                        <span class="material-symbols-outlined text-yellow-500 text-[14px] filled">star</span> 4.8
+                                    </div>
+                                    <div class="w-full h-full bg-cover bg-center transition-transform duration-500 group-hover:scale-110" data-alt="Indoor soccer field with artificial turf" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAskZ_cXIlrIsIiYli8OPWyWY8LiruaPTC9MDBBBbz280kI7oFzAGdvv_m19gXFQDhOmBQi18w5jKkhvMuogtabHmf9qGcg4mB536yMmg19Tr07_cPi9b53u4ioCNOdZNtr_4-IthqrSgstLNc6M4BNjdZUlvOPvtSbKGwyZdE0CMv6QtIL1uS-_Ok8_0DQUoBry83A4pTd6ElGmUBWZyrRCL_zKLt0TTjiIFXq_N-LUsTkXJRas3SR2Fo6G6eaFcaNT_h3VvWCoDw');">
+                                    </div>
+                                    <div class="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-black/60 to-transparent"></div>
+                                    <div class="absolute bottom-3 left-3 text-white text-xs font-medium flex items-center gap-1">
+                                        <span class="material-symbols-outlined text-[14px]">location_on</span>
+                                        San José, Costa Rica
+                                    </div>
+                                </div>
+                                <div class="p-4 flex flex-col flex-1">
+                                    <h3 class="text-lg font-bold text-secondary mb-1">Cancha El Estadio</h3>
+                                    <p class="text-sm text-text-muted mb-4 line-clamp-2">Cancha sintética techada, ideal para futbol 5. Cuenta con duchas y parqueo.</p>
+                                    <div class="mt-auto flex items-center justify-between pt-4 border-t border-border-light/50">
+                                        <div class="flex flex-col">
+                                            <span class="text-xs text-text-muted">Precio por hora</span>
+                                            <span class="text-base font-bold text-secondary">₡15,000</span>
+                                        </div>
+                                        <button class="bg-secondary hover:bg-primary hover:text-secondary text-white text-sm font-bold py-2 px-4 rounded-lg transition-colors">
+                                            Reservar
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Featured Card 2 -->
+                            <div class="group bg-surface-light rounded-2xl overflow-hidden border border-border-light shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col h-full">
+                                <div class="relative h-48 overflow-hidden">
+                                    <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm px-2 py-1 rounded-md text-xs font-bold text-secondary shadow-sm z-10 flex items-center gap-1">
+                                        <span class="material-symbols-outlined text-yellow-500 text-[14px] filled">star</span> 4.5
+                                    </div>
+                                    <div class="w-full h-full bg-cover bg-center transition-transform duration-500 group-hover:scale-110" data-alt="Outdoor soccer field during daytime" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBtJdT8BNCNruXRWfFKJmhMGULVN4re16faAodtA4kulDDaRzt7ZMOt9Rm70vcYoOeYQyAvx9aDOG2cf9ZJkfsmdB5NJVSOXPGHR-fYkCxP-00pFBMSk4NwM_fg8Ke6X089A7yjKUh3depeu6uOLPFEcTcCvL5Yb7gFM1pnh5QB-NH1WykNCLolxtxBhN90ArYj0xoZLKojTPUqSy653Ofs_IR06pmLUcHsVMylm5J0JVCJCnp-Vj6PodOqK4XoTFvx0FFtfVgqGms');">
+                                    </div>
+                                    <div class="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-black/60 to-transparent"></div>
+                                    <div class="absolute bottom-3 left-3 text-white text-xs font-medium flex items-center gap-1">
+                                        <span class="material-symbols-outlined text-[14px]">location_on</span>
+                                        Heredia, Costa Rica
+                                    </div>
+                                </div>
+                                <div class="p-4 flex flex-col flex-1">
+                                    <h3 class="text-lg font-bold text-secondary mb-1">Futbol 5 La Cima</h3>
+                                    <p class="text-sm text-text-muted mb-4 line-clamp-2">Ambiente familiar, iluminación LED de última generación. Abierto 24/7.</p>
+                                    <div class="mt-auto flex items-center justify-between pt-4 border-t border-border-light/50">
+                                        <div class="flex flex-col">
+                                            <span class="text-xs text-text-muted">Precio por hora</span>
+                                            <span class="text-base font-bold text-secondary">₡12,000</span>
+                                        </div>
+                                        <button class="bg-secondary hover:bg-primary hover:text-secondary text-white text-sm font-bold py-2 px-4 rounded-lg transition-colors">
+                                            Reservar
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Featured Card 3 -->
+                            <div class="group bg-surface-light rounded-2xl overflow-hidden border border-border-light shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col h-full">
+                                <div class="relative h-48 overflow-hidden">
+                                    <div class="absolute top-3 left-3 bg-primary text-secondary px-2 py-1 rounded-md text-xs font-bold shadow-sm z-10">
+                                        PROMO
+                                    </div>
+                                    <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm px-2 py-1 rounded-md text-xs font-bold text-secondary shadow-sm z-10 flex items-center gap-1">
+                                        <span class="material-symbols-outlined text-yellow-500 text-[14px] filled">star</span> 4.9
+                                    </div>
+                                    <div class="w-full h-full bg-cover bg-center transition-transform duration-500 group-hover:scale-110" data-alt="Close up of a soccer ball on green turf" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuADrbkw16T5-_ssnK1ISka4CWSKIHhsTphsqaa1Xr2SHkLjcjBvEy0ndNDxEM_W7W4OkjBm1d60xiJyjIK8FzuOCIclXODuOG0lGs1KsmonfI40KzbnAILFCRDa9a_zU99kERuXGB_dRACjV8G9VwDnjb8Y0OeCPySd1d8vprZNhvlTXjN6gI5CbLJmezVVvKBiPLAv-N49ylUhw7NwMywIE-9h458sjHQ2Vt-YgSdX1ICgkFkH_3zjD0iE7WvCl-yJfqTLIuV9tw4');">
+                                    </div>
+                                    <div class="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-black/60 to-transparent"></div>
+                                    <div class="absolute bottom-3 left-3 text-white text-xs font-medium flex items-center gap-1">
+                                        <span class="material-symbols-outlined text-[14px]">location_on</span>
+                                        Alajuela, Costa Rica
+                                    </div>
+                                </div>
+                                <div class="p-4 flex flex-col flex-1">
+                                    <h3 class="text-lg font-bold text-secondary mb-1">Complejo Deportivo CR</h3>
+                                    <p class="text-sm text-text-muted mb-4 line-clamp-2">Múltiples canchas, graderías cómodas y cafetería. El mejor lugar para torneos.</p>
+                                    <div class="mt-auto flex items-center justify-between pt-4 border-t border-border-light/50">
+                                        <div class="flex flex-col">
+                                            <span class="text-xs text-text-muted line-through text-red-400">₡18,000</span>
+                                            <span class="text-base font-bold text-secondary">₡14,500</span>
+                                        </div>
+                                        <button class="bg-secondary hover:bg-primary hover:text-secondary text-white text-sm font-bold py-2 px-4 rounded-lg transition-colors">
+                                            Reservar
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Featured Card 4 (Hidden on smaller screens to keep layout clean, visible on XL) -->
+                            <div class="hidden xl:flex group bg-surface-light rounded-2xl overflow-hidden border border-border-light shadow-sm hover:shadow-xl transition-all duration-300 flex-col h-full">
+                                <div class="relative h-48 overflow-hidden">
+                                    <div class="absolute top-3 right-3 bg-white/90 backdrop-blur-sm px-2 py-1 rounded-md text-xs font-bold text-secondary shadow-sm z-10 flex items-center gap-1">
+                                        <span class="material-symbols-outlined text-yellow-500 text-[14px] filled">star</span> 4.2
+                                    </div>
+                                    <div class="w-full h-full bg-cover bg-center transition-transform duration-500 group-hover:scale-110" data-alt="Empty soccer field goal post view" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDjxsY1ikVFdRkvVTW6xXkSUClXYTgC-m1pUHdHtWVybbrtrxaRE3Fvrn5nMcCxqjpgMjZX-Ffj-M_YsKwhmDKTXnD437ZLHRjXxQsD--_h1layiOUi5lVdt-JH0g68tjYgGueYuutwWgPDv7uNpHoVHZiqwIIqyy_PXXXjT0fCh36W6-tIgZJQs7ERZk18T4g93O654LRTVHdw4iJCPiMXSWclLCElhi3QGtsIILGf5LAK3_oHxrmONsvfgyZWx5nft2RE4Vptbxs');">
+                                    </div>
+                                    <div class="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-black/60 to-transparent"></div>
+                                    <div class="absolute bottom-3 left-3 text-white text-xs font-medium flex items-center gap-1">
+                                        <span class="material-symbols-outlined text-[14px]">location_on</span>
+                                        Cartago, Costa Rica
+                                    </div>
+                                </div>
+                                <div class="p-4 flex flex-col flex-1">
+                                    <h3 class="text-lg font-bold text-secondary mb-1">Cancha Los Ángeles</h3>
+                                    <p class="text-sm text-text-muted mb-4 line-clamp-2">Cancha natural en excelente estado. Ideal para equipos grandes de 11 vs 11.</p>
+                                    <div class="mt-auto flex items-center justify-between pt-4 border-t border-border-light/50">
+                                        <div class="flex flex-col">
+                                            <span class="text-xs text-text-muted">Precio por hora</span>
+                                            <span class="text-base font-bold text-secondary">₡25,000</span>
+                                        </div>
+                                        <button class="bg-secondary hover:bg-primary hover:text-secondary text-white text-sm font-bold py-2 px-4 rounded-lg transition-colors">
+                                            Reservar
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Footer area inside main content -->
+                    <div class="py-6 mt-8 border-t border-border-light flex flex-col md:flex-row justify-between items-center text-text-muted text-sm">
+                        <p>© 2023 ReservaCanchaCR. Todos los derechos reservados.</p>
+                        <div class="flex gap-4 mt-2 md:mt-0">
+                            <a class="hover:text-primary-dark" href="#">Términos</a>
+                            <a class="hover:text-primary-dark" href="#">Privacidad</a>
+                            <a class="hover:text-primary-dark" href="#">Soporte</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </body>
 </html>

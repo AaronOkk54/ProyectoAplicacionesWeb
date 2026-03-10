@@ -122,58 +122,128 @@
                         <section class="py-12">
                             <div class="flex items-end justify-between mb-8">
                                 <div>
-                                    <h2 class="text-secondary dark:text-white text-3xl font-bold leading-tight tracking-tight mb-2">Canchas Destacadas</h2>
-                                    <p class="text-gray-500 dark:text-gray-400">Las mejores canchas cerca de ti</p>
+                                    <h2 class="text-secondary dark:text-white text-3xl font-bold leading-tight tracking-tight mb-2">Featured Fields</h2>
+                                    <p class="text-gray-500 dark:text-gray-400">Top rated pitches near you</p>
                                 </div>
                                 <a class="hidden sm:flex items-center gap-1 text-primary hover:text-primary-dark font-bold text-sm" th:href="@{/canchas/listado}">
-                                    Ver todas las canchas
+                                    View all fields 
                                     <span class="material-symbols-outlined text-lg">arrow_forward</span>
                                 </a>
                             </div>
-                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" th:if="${canchasDestacadas != null and !canchasDestacadas.isEmpty()}" th:each="cancha : ${canchasDestacadas}">
-                                <!-- Card -->
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                <!-- Card 1 -->
                                 <div class="group flex flex-col bg-white dark:bg-surface-dark rounded-xl overflow-hidden border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-xl hover:border-primary/30 transition-all duration-300">
                                     <div class="relative h-56 overflow-hidden">
                                         <div class="absolute top-3 right-3 z-10 bg-white/90 dark:bg-black/80 backdrop-blur px-2 py-1 rounded-md flex items-center gap-1 text-xs font-bold shadow-sm">
                                             <span class="material-symbols-outlined text-yellow-500 text-sm filled">star</span>
-                                            <span class="text-secondary dark:text-white" th:text="${cancha.calificacion ?: '4.9'}">4.9</span>
-                                            <span class="text-gray-400" th:text="'(' + ${cancha.numeroResenas ?: '128'} + ')'">(128)</span>
+                                            <span class="text-secondary dark:text-white">4.9</span>
+                                            <span class="text-gray-400">(128)</span>
                                         </div>
-                                        <div class="h-full w-full bg-cover bg-center transition-transform duration-500 group-hover:scale-110" th:style="'background-image: url(' + ${cancha.imagenes[0] ?: '/images/default-cancha.png'} + ')'"></div>
+                                        <div class="h-full w-full bg-cover bg-center transition-transform duration-500 group-hover:scale-110" data-alt="Modern indoor soccer turf with bright lighting" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC6eZ7tX0nQp0pY4DWuCfxMRlzL2uny8d2RG_0B49oJs3pUqvCnHnN-ozzODhneOJtmxMMmCrxCWStuCjbw9_VgSAq9PGcZese3WP77R1YYuFgetpn888JTr-6lvXKQYB_YXHVOMuIZBqEzLIiUlhvFBevC-u0FoadZW6zvYevx7bFocqW3CJeCUVRciw5gWr28_Lc9cAWCO-b1pzNGaiZbrfu__uxiUmfJGgrv_Xqx-sfitMUokuE6xj5NJiMAvyS7s6ylSJhfna0');"></div>
                                     </div>
                                     <div class="p-5 flex flex-col flex-1">
                                         <div class="flex justify-between items-start mb-2">
-                                            <h3 class="text-lg font-bold text-secondary dark:text-white group-hover:text-primary transition-colors" th:text="${cancha.nombre}">Downtown Arena</h3>
-                                            <span class="bg-primary/10 text-primary-dark dark:text-primary px-2 py-1 rounded text-xs font-bold uppercase" th:text="${cancha.tipo ?: 'Indoor'}">Indoor</span>
+                                            <h3 class="text-lg font-bold text-secondary dark:text-white group-hover:text-primary transition-colors">Downtown Arena</h3>
+                                            <span class="bg-primary/10 text-primary-dark dark:text-primary px-2 py-1 rounded text-xs font-bold uppercase">Indoor</span>
                                         </div>
-                                        <p class="text-gray-500 dark:text-gray-400 text-sm mb-4 line-clamp-2" th:text="${cancha.descripcion}">Descripción de la cancha.</p>
+                                        <p class="text-gray-500 dark:text-gray-400 text-sm mb-4 line-clamp-2">Premium indoor turf with climate control and spectator seating. Perfect for competitive leagues.</p>
                                         <div class="flex items-center gap-4 text-sm text-gray-500 dark:text-gray-400 mb-6">
-                                            <div class="flex items-center gap-1" th:if="${cancha.amenities.contains('Duchas')}">
+                                            <div class="flex items-center gap-1">
                                                 <span class="material-symbols-outlined text-lg">shower</span>
-                                                <span>Duchas</span>
+                                                <span>Showers</span>
                                             </div>
-                                            <div class="flex items-center gap-1" th:if="${cancha.amenities.contains('Estacionamiento')}">
+                                            <div class="flex items-center gap-1">
                                                 <span class="material-symbols-outlined text-lg">local_parking</span>
-                                                <span>Estacionamiento</span>
+                                                <span>Parking</span>
                                             </div>
-                                            <div class="flex items-center gap-1" th:if="${cancha.amenities.contains('Luces')}">
+                                            <div class="flex items-center gap-1">
                                                 <span class="material-symbols-outlined text-lg">bolt</span>
-                                                <span>Luces</span>
+                                                <span>Lights</span>
                                             </div>
                                         </div>
                                         <div class="mt-auto pt-4 border-t border-gray-100 dark:border-gray-800 flex items-center justify-between">
                                             <div>
-                                                <span class="text-secondary dark:text-white font-black text-xl" th:text="'$' + ${cancha.precioPorHora}">$80</span>
-                                                <span class="text-gray-400 text-sm">/ hora</span>
+                                                <span class="text-secondary dark:text-white font-black text-xl">$80</span>
+                                                <span class="text-gray-400 text-sm">/ hour</span>
                                             </div>
-                                            <a th:href="@{/canchas/detalles/{id}(id=${cancha.id})}" class="px-4 py-2 bg-secondary dark:bg-white text-white dark:text-secondary rounded-lg text-sm font-bold hover:bg-primary hover:text-secondary dark:hover:bg-primary transition-colors">Reservar Ahora</a>
+                                            <button class="px-4 py-2 bg-secondary dark:bg-white text-white dark:text-secondary rounded-lg text-sm font-bold hover:bg-primary hover:text-secondary dark:hover:bg-primary transition-colors">Book Now</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Card 2 -->
+                                <div class="group flex flex-col bg-white dark:bg-surface-dark rounded-xl overflow-hidden border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-xl hover:border-primary/30 transition-all duration-300">
+                                    <div class="relative h-56 overflow-hidden">
+                                        <div class="absolute top-3 right-3 z-10 bg-white/90 dark:bg-black/80 backdrop-blur px-2 py-1 rounded-md flex items-center gap-1 text-xs font-bold shadow-sm">
+                                            <span class="material-symbols-outlined text-yellow-500 text-sm filled">star</span>
+                                            <span class="text-secondary dark:text-white">4.7</span>
+                                            <span class="text-gray-400">(84)</span>
+                                        </div>
+                                        <div class="h-full w-full bg-cover bg-center transition-transform duration-500 group-hover:scale-110" data-alt="Outdoor soccer field view from corner flag during day" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuA2RVmkwOJwo7gU-p5wuj0ihXtO61u7eA9abCzwA-W68E57eoHhiTHuQXXkYb669lSqp9KnipWGCsVZ5jRp-snsXY4HeSu4_FkZu79hOx8Rb2TjrfqdVvwU0Bc-sW0c4F1L7Ir3LQZzopnmn4woPxx5OId0yNkliHupOLEwr-1lCwnLfrL8KtdX9g7eupd9iGevjqhA5MxDo-HPkPTAnuA9tX2lxQ9_AQeFiZ4GXkFkFBFEJn8MElbTPJthgXr_iAJdjUNOcw62lI0');"></div>
+                                    </div>
+                                    <div class="p-5 flex flex-col flex-1">
+                                        <div class="flex justify-between items-start mb-2">
+                                            <h3 class="text-lg font-bold text-secondary dark:text-white group-hover:text-primary transition-colors">Riverside Pitch</h3>
+                                            <span class="bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 px-2 py-1 rounded text-xs font-bold uppercase">Outdoor 7v7</span>
+                                        </div>
+                                        <p class="text-gray-500 dark:text-gray-400 text-sm mb-4 line-clamp-2">Scenic outdoor field by the river. Well maintained natural grass surface.</p>
+                                        <div class="flex items-center gap-4 text-sm text-gray-500 dark:text-gray-400 mb-6">
+                                            <div class="flex items-center gap-1">
+                                                <span class="material-symbols-outlined text-lg">grass</span>
+                                                <span>Natural</span>
+                                            </div>
+                                            <div class="flex items-center gap-1">
+                                                <span class="material-symbols-outlined text-lg">local_parking</span>
+                                                <span>Parking</span>
+                                            </div>
+                                        </div>
+                                        <div class="mt-auto pt-4 border-t border-gray-100 dark:border-gray-800 flex items-center justify-between">
+                                            <div>
+                                                <span class="text-secondary dark:text-white font-black text-xl">$60</span>
+                                                <span class="text-gray-400 text-sm">/ hour</span>
+                                            </div>
+                                            <button class="px-4 py-2 bg-secondary dark:bg-white text-white dark:text-secondary rounded-lg text-sm font-bold hover:bg-primary hover:text-secondary dark:hover:bg-primary transition-colors">Book Now</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Card 3 -->
+                                <div class="group flex flex-col bg-white dark:bg-surface-dark rounded-xl overflow-hidden border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-xl hover:border-primary/30 transition-all duration-300">
+                                    <div class="relative h-56 overflow-hidden">
+                                        <div class="absolute top-3 right-3 z-10 bg-white/90 dark:bg-black/80 backdrop-blur px-2 py-1 rounded-md flex items-center gap-1 text-xs font-bold shadow-sm">
+                                            <span class="material-symbols-outlined text-yellow-500 text-sm filled">star</span>
+                                            <span class="text-secondary dark:text-white">4.5</span>
+                                            <span class="text-gray-400">(42)</span>
+                                        </div>
+                                        <div class="h-full w-full bg-cover bg-center transition-transform duration-500 group-hover:scale-110" data-alt="Small synthetic grass court for 5-a-side games" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDMhywjue6gYVwbJ-Q65YragMJrohr1P6NaZcITn5o9ldquwxG2mAfKE00ZCp2E4n4QKDG2Jh2PFQZswBJ24TK5W8IAnJ6l9Y3oTXvlskR-lu7I3JrrHEdNKe9gtEFIUD3lq_PpcR_1_HpsSPTcPlXQe1eCKDUn3dTzz6taKPIIGySJ_B2aVViVP51L9swn6dADgxhYVQ1GBcepdaD9fbB-RKLUJrUAd9j9JwKN-q_chE-w177x94npJcd7V3zVPOhX2Tad1gACFuI');"></div>
+                                    </div>
+                                    <div class="p-5 flex flex-col flex-1">
+                                        <div class="flex justify-between items-start mb-2">
+                                            <h3 class="text-lg font-bold text-secondary dark:text-white group-hover:text-primary transition-colors">The Cage</h3>
+                                            <span class="bg-primary/10 text-primary-dark dark:text-primary px-2 py-1 rounded text-xs font-bold uppercase">5v5</span>
+                                        </div>
+                                        <p class="text-gray-500 dark:text-gray-400 text-sm mb-4 line-clamp-2">High intensity 5-a-side cage. Synthetic turf, perfect for fast-paced games.</p>
+                                        <div class="flex items-center gap-4 text-sm text-gray-500 dark:text-gray-400 mb-6">
+                                            <div class="flex items-center gap-1">
+                                                <span class="material-symbols-outlined text-lg">bolt</span>
+                                                <span>Lights</span>
+                                            </div>
+                                            <div class="flex items-center gap-1">
+                                                <span class="material-symbols-outlined text-lg">storefront</span>
+                                                <span>Kiosk</span>
+                                            </div>
+                                        </div>
+                                        <div class="mt-auto pt-4 border-t border-gray-100 dark:border-gray-800 flex items-center justify-between">
+                                            <div>
+                                                <span class="text-secondary dark:text-white font-black text-xl">$45</span>
+                                                <span class="text-gray-400 text-sm">/ hour</span>
+                                            </div>
+                                            <button class="px-4 py-2 bg-secondary dark:bg-white text-white dark:text-secondary rounded-lg text-sm font-bold hover:bg-primary hover:text-secondary dark:hover:bg-primary transition-colors">Book Now</button>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="mt-8 flex justify-center sm:hidden">
-                                <a class="flex items-center gap-1 text-primary hover:text-primary-dark font-bold text-sm" th:href="@{/canchas/listado}">
-                                    Ver todas las canchas
+                                <a class="flex items-center gap-1 text-primary hover:text-primary-dark font-bold text-sm" href="#">
+                                    View all fields 
                                     <span class="material-symbols-outlined text-lg">arrow_forward</span>
                                 </a>
                             </div>

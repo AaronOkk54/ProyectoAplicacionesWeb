@@ -1042,7 +1042,7 @@
                             </a>
                         </li>
                         <li>
-                            <a class="group flex items-center gap-3 rounded-lg px-3 py-2 text-text-muted hover:bg-background-light hover:text-text-main dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-white" href="#">
+                            <a class="group flex items-center gap-3 rounded-lg px-3 py-2 text-text-muted hover:bg-background-light hover:text-text-main dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-white" th:href="@{/canchas/listado}">
                                 <span class="material-symbols-outlined">stadium</span>
                                 <span class="text-sm font-medium">Canchas</span>
                             </a>
@@ -1128,6 +1128,7 @@
                                 </div>
                             </div>
                             <!-- Form Section -->
+                            
                             <div class="flex-1 p-6 sm:p-8">
                                 <div class="mb-8">
                                     <h2 class="text-2xl font-bold tracking-tight text-text-main dark:text-white">Crear cuenta</h2>
@@ -1188,7 +1189,7 @@
                                         </label>
                                     </div>
                                     <div class="mt-4">
-                                        <a href="menPrincipal.html" class="flex w-full items-center justify-center rounded-lg bg-primary px-5 py-3 text-sm font-bold tracking-wide text-text-main shadow-sm transition-colors hover:bg-[#0be00b] focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:ring-offset-surface-dark">
+                                        <a th:href="@{/usuario/inicio}" class="flex w-full items-center justify-center rounded-lg bg-primary px-5 py-3 text-sm font-bold tracking-wide text-text-main shadow-sm transition-colors hover:bg-[#0be00b] focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:ring-offset-surface-dark">
                                             Crear Cuenta
                                         </a>
                                     </div>
