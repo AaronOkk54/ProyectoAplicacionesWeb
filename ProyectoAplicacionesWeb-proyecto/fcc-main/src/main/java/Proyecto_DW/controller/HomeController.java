@@ -1,0 +1,41 @@
+package Proyecto_DW.controller;
+
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+
+import Proyecto_DW.domain.Cancha;
+import Proyecto_DW.service.CanchaService;
+
+/**
+ * HomeController
+ * Maneja las rutas de la página de inicio y vista general del sistema
+ */
+@Controller
+public class HomeController {
+
+    private final CanchaService canchaService;
+
+    public HomeController(CanchaService canchaService) {
+        this.canchaService = canchaService;
+    }
+
+    /**
+     * Página de inicio principal
+     */
+    @GetMapping("/")
+    public String index(Model model) {
+        var canchas = canchaService.getCanchas(true);
+        model.addAttribute("canchas", canchas);
+        model.addAttribute("canchasDestacadas", canchas.stream().limit(3).toList());
+        return "index";
+    }
+
+    /**
+     * Página de bienvenida para usuarios autenticados
+     */
+    @GetMapping("/inicioSesion")
+    public String dashboard(Model model) {
+        return "inicioSesion";
+    }
+}
