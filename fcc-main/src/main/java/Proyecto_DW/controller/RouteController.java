@@ -79,8 +79,4 @@ public class RouteController {
         return "redirect:/reserva/mis-reservas";
     }
 
-    @GetMapping("/usuario/inicio")
-    public String usuarioInicio() {
-        return "redirect:/usuario/inicio";
-    }
 }
