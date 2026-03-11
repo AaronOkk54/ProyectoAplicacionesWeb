@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8"/>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+        <title>Carreras – ReservaCanchaCR</title>
+        <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+        <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+        <script>
+            tailwind.config = {
+                darkMode: "class",
+                theme: {
+                    extend: {
+                        colors: {
+                            "primary": "#0df20d",
+                            "primary-dark": "#0bbd0b",
+                            "secondary": "#102210",
+                            "background-light": "#f5f8f5",
+                            "background-dark": "#102210",
+                            "surface-light": "#ffffff",
+                            "surface-dark": "#1a2e1a",
+                        },
+                        fontFamily: { "display": ["Lexend","sans-serif"], "body": ["Lexend","sans-serif"] },
+                        borderRadius: { "DEFAULT":"0.5rem","lg":"0.75rem","xl":"1rem","full":"9999px" },
+                    },
+                },
+            }
+        </script>
+        <style>
+            body { font-family: 'Lexend', sans-serif; }
+            ::-webkit-scrollbar { width: 8px; }
+            ::-webkit-scrollbar-track { background: #f1f1f1; }
+            ::-webkit-scrollbar-thumb { background: #ccc; border-radius: 4px; }
+            ::-webkit-scrollbar-thumb:hover { background: #aaa; }
+        </style>
+    </head>
+    <body class="bg-background-light dark:bg-background-dark text-secondary dark:text-white antialiased selection:bg-primary selection:text-secondary">
+        <div class="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden">
+
+            <!-- Header -->
+            <header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-gray-100 dark:border-gray-800 px-6 lg:px-10 py-4 bg-surface-light dark:bg-surface-dark sticky top-0 z-50 shadow-sm">
+                <div class="flex items-center gap-4 text-secondary dark:text-white">
+                    <a th:href="@{/}" class="flex items-center gap-4">
+                        <div class="size-8 text-primary flex items-center justify-center bg-secondary rounded-lg">
+                            <span class="material-symbols-outlined text-2xl">sports_soccer</span>
+                        </div>
+                        <h2 class="text-secondary dark:text-white text-xl font-black leading-tight tracking-tight">ReservaCanchaCR</h2>
+                    </a>
+                </div>
+                <div class="flex flex-1 justify-end gap-8">
+                    <nav class="hidden lg:flex items-center gap-9">
+                        <a class="text-secondary/70 dark:text-white/70 hover:text-primary dark:hover:text-primary transition-colors text-sm font-medium leading-normal" th:href="@{/canchas/listado}">Canchas</a>
+                        <a class="text-secondary/70 dark:text-white/70 hover:text-primary dark:hover:text-primary transition-colors text-sm font-medium leading-normal" th:href="@{/sobre-nosotros}">Sobre Nosotros</a>
+                    </nav>
+                    <div class="flex gap-3">
+                        <a th:href="@{/auth/login}" class="flex cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-6 bg-transparent border border-gray-200 dark:border-gray-700 text-secondary dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-sm font-bold leading-normal">
+                            <span class="truncate">Iniciar Sesión</span>
+                        </a>
+                        <a th:href="@{/auth/registro}" class="flex cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-6 bg-primary hover:bg-primary-dark transition-colors text-secondary text-sm font-bold leading-normal shadow-[0_4px_10px_rgba(13,242,13,0.3)]">
+                            <span class="truncate">Registrarse</span>
+                        </a>
+                    </div>
+                </div>
+            </header>
+
+            <main class="flex-1">
+                <!-- Hero -->
+                <div class="bg-secondary text-white py-16 px-6 lg:px-40 text-center">
+                    <div class="max-w-3xl mx-auto flex flex-col gap-4">
+                        <div class="inline-flex items-center justify-center gap-2 px-3 py-1 rounded-full bg-white/10 border border-white/10 text-white text-xs font-bold uppercase tracking-wider w-fit mx-auto">
+                            <span class="size-2 rounded-full bg-primary animate-pulse"></span>
+                            Únete al equipo
+                        </div>
+                        <h1 class="text-5xl font-black tracking-tight">Trabaja con <span class="text-primary">Nosotros</span></h1>
+                        <p class="text-white/80 text-lg font-light">Construimos el futuro del deporte en Costa Rica. Si te apasionan el fútbol y la tecnología, este es tu lugar.</p>
+                    </div>
+                </div>
+
+                <div class="px-4 md:px-10 lg:px-40 py-16">
+                    <div class="max-w-5xl mx-auto flex flex-col gap-12">
+
+                        <!-- Vacantes -->
+                        <section class="flex flex-col gap-6">
+                            <h2 class="text-2xl font-black text-secondary dark:text-white">Posiciones Abiertas</h2>
+                            <div class="flex flex-col gap-4">
+                                <!-- Vacante 1 -->
+                                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 rounded-2xl bg-white dark:bg-surface-dark border border-gray-100 dark:border-gray-800 shadow-sm hover:border-primary/40 hover:shadow-md transition-all duration-300">
+                                    <div class="flex items-start gap-4">
+                                        <div class="size-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary shrink-0">
+                                            <span class="material-symbols-outlined text-2xl">code</span>
+                                        </div>
+                                        <div>
+                                            <h3 class="font-bold text-secondary dark:text-white text-lg">Desarrollador Full Stack</h3>
+                                            <p class="text-gray-500 dark:text-gray-400 text-sm mt-1">Java · Spring Boot · React · San José, CR (Híbrido)</p>
+                                        </div>
+                                    </div>
+                                    <span class="self-start sm:self-auto bg-primary/10 text-primary-dark dark:text-primary px-3 py-1 rounded-full text-xs font-bold uppercase">Tiempo completo</span>
+                                </div>
+                                <!-- Vacante 2 -->
+                                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 rounded-2xl bg-white dark:bg-surface-dark border border-gray-100 dark:border-gray-800 shadow-sm hover:border-primary/40 hover:shadow-md transition-all duration-300">
+                                    <div class="flex items-start gap-4">
+                                        <div class="size-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary shrink-0">
+                                            <span class="material-symbols-outlined text-2xl">palette</span>
+                                        </div>
+                                        <div>
+                                            <h3 class="font-bold text-secondary dark:text-white text-lg">Diseñador UX/UI</h3>
+                                            <p class="text-gray-500 dark:text-gray-400 text-sm mt-1">Figma · Tailwind · San José, CR (Remoto)</p>
+                                        </div>
+                                    </div>
+                                    <span class="self-start sm:self-auto bg-primary/10 text-primary-dark dark:text-primary px-3 py-1 rounded-full text-xs font-bold uppercase">Tiempo completo</span>
+                                </div>
+                                <!-- Vacante 3 -->
+                                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-6 rounded-2xl bg-white dark:bg-surface-dark border border-gray-100 dark:border-gray-800 shadow-sm hover:border-primary/40 hover:shadow-md transition-all duration-300">
+                                    <div class="flex items-start gap-4">
+                                        <div class="size-12 rounded-xl bg-primary/10 flex items-center justify-center text-primary shrink-0">
+                                            <span class="material-symbols-outlined text-2xl">support_agent</span>
+                                        </div>
+                                        <div>
+                                            <h3 class="font-bold text-secondary dark:text-white text-lg">Agente de Soporte al Cliente</h3>
+                                            <p class="text-gray-500 dark:text-gray-400 text-sm mt-1">Atención al cliente · San José, CR (Presencial)</p>
+                                        </div>
+                                    </div>
+                                    <span class="self-start sm:self-auto bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 px-3 py-1 rounded-full text-xs font-bold uppercase">Medio tiempo</span>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Beneficios -->
+                        <section class="flex flex-col gap-6 border-t border-gray-200 dark:border-gray-800 pt-12">
+                            <h2 class="text-2xl font-black text-secondary dark:text-white">¿Por qué unirte?</h2>
+                            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                                <div class="flex flex-col gap-3 p-5 rounded-2xl bg-white dark:bg-surface-dark border border-gray-100 dark:border-gray-800">
+                                    <span class="material-symbols-outlined text-primary text-3xl">sports_soccer</span>
+                                    <h3 class="font-bold text-secondary dark:text-white">Cancha Gratis</h3>
+                                    <p class="text-gray-500 dark:text-gray-400 text-sm">Reservas gratuitas cada mes para ti y tu equipo.</p>
+                                </div>
+                                <div class="flex flex-col gap-3 p-5 rounded-2xl bg-white dark:bg-surface-dark border border-gray-100 dark:border-gray-800">
+                                    <span class="material-symbols-outlined text-primary text-3xl">laptop_mac</span>
+                                    <h3 class="font-bold text-secondary dark:text-white">Trabajo Flexible</h3>
+                                    <p class="text-gray-500 dark:text-gray-400 text-sm">Opciones remotas e híbridas según el rol.</p>
+                                </div>
+                                <div class="flex flex-col gap-3 p-5 rounded-2xl bg-white dark:bg-surface-dark border border-gray-100 dark:border-gray-800">
+                                    <span class="material-symbols-outlined text-primary text-3xl">school</span>
+                                    <h3 class="font-bold text-secondary dark:text-white">Crecimiento</h3>
+                                    <p class="text-gray-500 dark:text-gray-400 text-sm">Presupuesto anual para cursos y certificaciones.</p>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- CTA -->
+                        <div class="flex flex-col items-center text-center gap-4 p-10 rounded-2xl bg-secondary text-white">
+                            <h2 class="text-2xl font-black">¿No ves tu perfil?</h2>
+                            <p class="text-white/80">Envíanos tu CV de todas formas. Siempre estamos buscando talento.</p>
+                            <a href="mailto:careers@reservacanchacrr.com" class="flex items-center justify-center rounded-full h-12 px-8 bg-primary hover:bg-primary-dark transition-colors text-secondary font-bold text-sm">
+                                Enviar CV
+                            </a>
+                        </div>
+
+                    </div>
+                </div>
+            </main>
+
+            <!-- Footer -->
+            <footer class="bg-secondary text-white py-12 px-6 lg:px-40 border-t border-gray-800">
+                <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between gap-10">
+                    <div class="flex flex-col gap-4 max-w-sm">
+                        <div class="flex items-center gap-2 text-white">
+                            <div class="size-6 text-secondary bg-primary rounded flex items-center justify-center">
+                                <span class="material-symbols-outlined text-lg">sports_soccer</span>
+                            </div>
+                            <h2 class="text-lg font-bold">ReservaCanchaCR</h2>
+                        </div>
+                        <p class="text-gray-400 text-sm leading-relaxed">La forma más fácil de encontrar y reservar instalaciones deportivas en tu ciudad. Conectando jugadores con las mejores canchas desde 2024.</p>
+                    </div>
+                    <div class="flex flex-wrap gap-10 md:gap-20">
+                        <div class="flex flex-col gap-4">
+                            <h4 class="font-bold text-primary">Empresa</h4>
+                            <a class="text-gray-400 hover:text-white text-sm" th:href="@{/sobre-nosotros}">Sobre Nosotros</a>
+                            <a class="text-white font-medium text-sm" th:href="@{/carreras}">Carreras</a>
+                            <a class="text-gray-400 hover:text-white text-sm" th:href="@{/blog}">Blog</a>
+                        </div>
+                        <div class="flex flex-col gap-4">
+                            <h4 class="font-bold text-primary">Soporte</h4>
+                            <a class="text-gray-400 hover:text-white text-sm" th:href="@{/ayuda}">Centro de Ayuda</a>
+                            <a class="text-gray-400 hover:text-white text-sm" th:href="@{/terminos}">Términos de Servicio</a>
+                            <a class="text-gray-400 hover:text-white text-sm" th:href="@{/privacidad}">Política de Privacidad</a>
+                        </div>
+                        <div class="flex flex-col gap-4">
+                            <h4 class="font-bold text-primary">Para Socios</h4>
+                            <a class="text-gray-400 hover:text-white text-sm" th:href="@{/lista-cancha}">Lista tu Cancha</a>
+                            <a class="text-gray-400 hover:text-white text-sm" th:href="@{/auth/login}">Inicio de Sesión de Socio</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="max-w-7xl mx-auto mt-12 pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-500">
+                    <p>© 2024 ReservaCanchaCR Inc. Todos los derechos reservados.</p>
+                    <div class="flex gap-4">
+                        <a class="hover:text-primary" href="#"><span class="material-symbols-outlined">public</span></a>
+                        <a class="hover:text-primary" href="#"><span class="material-symbols-outlined">alternate_email</span></a>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </body>
+</html>

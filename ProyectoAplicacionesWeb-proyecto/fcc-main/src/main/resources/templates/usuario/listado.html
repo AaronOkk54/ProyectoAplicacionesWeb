@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listado de Usuarios - ReservaCanchaCR</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css">
+    <style>
+        body { background-color: #f8f9fa; }
+        .table-container { margin: 40px auto; max-width: 1200px; }
+        .card { box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .btn-sm { margin: 2px; }
+        .badge-activo { background-color: #198754; }
+        .badge-inactivo { background-color: #dc3545; }
+        .search-box { margin-bottom: 20px; }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">ReservaCanchaCR</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="/">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/usuario/perfil">Perfil</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="table-container">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <div class="d-flex justify-content-between align-items-center">
+                    <h2><i class="bi bi-people"></i> Gestión de Usuarios</h2>
+                    <span class="badge bg-light text-dark" th:text="'Total: ' + ${totalUsuarios}"></span>
+                </div>
+            </div>
+
+            <div class="card-body">
+                <!-- Mensajes de Éxito/Error -->
+                <div th:if="${todoOk}" class="alert alert-success alert-dismissible fade show" role="alert">
+                    <i class="bi bi-check-circle"></i> <span th:text="${todoOk}"></span>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+
+                <div th:if="${error}" class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <i class="bi bi-exclamation-circle"></i> <span th:text="${error}"></span>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+
+                <!-- Barra de Búsqueda -->
+                <div class="search-box">
+                    <input type="text" class="form-control" id="searchInput" placeholder="Buscar por nombre o email...">
+                </div>
+
+                <!-- Tabla de Usuarios -->
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead class="table-light">
+                            <tr>
+                                <th><i class="bi bi-hash"></i> ID</th>
+                                <th><i class="bi bi-person"></i> Nombre</th>
+                                <th><i class="bi bi-envelope"></i> Email</th>
+                                <th><i class="bi bi-telephone"></i> Teléfono</th>
+                                <th><i class="bi bi-check-circle"></i> Estado</th>
+                                <th><i class="bi bi-gear"></i> Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr th:each="usuario : ${usuarios}">
+                                <td th:text="${usuario.idUsuario}"></td>
+                                <td th:text="${usuario.nombre}"></td>
+                                <td th:text="${usuario.email}"></td>
+                                <td th:text="${usuario.telefono}"></td>
+                                <td>
+                                    <span class="badge"
+                                          th:classappend="${usuario.activo} ? 'badge-activo' : 'badge-inactivo'"
+                                          th:text="${usuario.activo} ? 'Activo' : 'Inactivo'"></span>
+                                </td>
+                                <td>
+                                    <a href="#" class="btn btn-sm btn-info" title="Ver detalles">
+                                        <i class="bi bi-eye"></i>
+                                    </a>
+                                    <a href="#" class="btn btn-sm btn-warning" title="Editar">
+                                        <i class="bi bi-pencil"></i>
+                                    </a>
+                                    
+                                    <!-- Botón Activar/Desactivar -->
+                                    <button type="button" class="btn btn-sm"
+                                            th:classappend="${usuario.activo} ? 'btn-danger' : 'btn-success'"
+                                            th:title="${usuario.activo} ? 'Desactivar' : 'Activar'"
+                                            data-bs-toggle="modal" data-bs-target="#toggleStatusModal"
+                                            th:data-id="${usuario.idUsuario}"
+                                            th:data-nombre="${usuario.nombre}"
+                                            th:data-activo="${usuario.activo}"
+                                            onclick="updateModalData(this)">
+                                        <i th:class="${usuario.activo} ? 'bi bi-lock-fill' : 'bi bi-unlock-fill'"></i>
+                                    </button>
+
+                                    <!-- Botón Eliminar -->
+                                    <button type="button" class="btn btn-sm btn-danger" title="Eliminar usuario"
+                                            data-bs-toggle="modal" data-bs-target="#confirmDeleteModal"
+                                            th:data-id="${usuario.idUsuario}"
+                                            th:data-nombre="${usuario.nombre}"
+                                            onclick="updateDeleteModal(this)">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Mensaje si no hay usuarios -->
+                <div th:if="${#lists.isEmpty(usuarios)}" class="alert alert-info text-center">
+                    <i class="bi bi-info-circle"></i> No hay usuarios registrados en el sistema.
+                </div>
+
+                <!-- Paginación (si se requiere) -->
+                <nav aria-label="Paginación" class="mt-4">
+                    <ul class="pagination justify-content-center">
+                        <li class="page-item disabled">
+                            <a class="page-link" href="#">Anterior</a>
+                        </li>
+                        <li class="page-item active">
+                            <a class="page-link" href="#">1</a>
+                        </li>
+                        <li class="page-item">
+                            <a class="page-link" href="#">Siguiente</a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para Cambiar Estado -->
+    <div class="modal fade" id="toggleStatusModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-warning">
+                    <h5 class="modal-title"><i class="bi bi-exclamation-triangle"></i> Cambiar Estado de Usuario</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p>¿Deseas cambiar el estado de <strong id="userNameStatus"></strong>?</p>
+                    <p class="text-muted">Nuevo estado: <span id="newStatus"></span></p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <form method="POST" style="display:inline;">
+                        <button type="submit" class="btn btn-warning">Cambiar Estado</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para Eliminar Usuario -->
+    <div class="modal fade" id="confirmDeleteModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header bg-danger text-white">
+                    <h5 class="modal-title"><i class="bi bi-exclamation-triangle-fill"></i> Eliminar Usuario</h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p>¿Estás seguro de que deseas eliminar el usuario <strong id="userNameDelete"></strong>?</p>
+                    <p class="text-danger"><strong>Advertencia:</strong> Esta acción no se puede deshacer.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <form th:action="@{/usuario/eliminar}" method="POST" style="display:inline;">
+                        <input type="hidden" id="deleteUserId" name="idUsuario">
+                        <button type="submit" class="btn btn-danger">Sí, Eliminar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-dark text-white text-center py-4 mt-5">
+        <p>&copy; 2024 ReservaCanchaCR. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        function updateModalData(button) {
+            const userId = button.getAttribute('data-id');
+            const userName = button.getAttribute('data-nombre');
+            const isActive = button.getAttribute('data-activo') === 'true';
+            
+            document.getElementById('userNameStatus').textContent = userName;
+            document.getElementById('newStatus').textContent = isActive ? 'Inactivo' : 'Activo';
+        }
+
+        function updateDeleteModal(button) {
+            const userId = button.getAttribute('data-id');
+            const userName = button.getAttribute('data-nombre');
+            
+            document.getElementById('userNameDelete').textContent = userName;
+            document.getElementById('deleteUserId').value = userId;
+        }
+
+        // Búsqueda en la tabla
+        document.getElementById('searchInput').addEventListener('keyup', function() {
+            const filter = this.value.toUpperCase();
+            const table = document.querySelector('table tbody');
+            const rows = table.querySelectorAll('tr');
+
+            rows.forEach(row => {
+                const text = row.textContent.toUpperCase();
+                row.style.display = text.includes(filter) ? '' : 'none';
+            });
+        });
+    </script>
+</body>
+</html>
