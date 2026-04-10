@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Confirmación de Reserva - Proyecto DW</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com" rel="preconnect"/>
+    <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet"/>
+    <!-- Material Symbols -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <!-- Theme Configuration -->
+    <script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0df20d",
+                        "primary-dark": "#0ab80a",
+                        "secondary": "#1e3a8a",
+                        "secondary-light": "#3b82f6",
+                        "background-light": "#f5f8f5",
+                        "background-dark": "#102210",
+                        "surface-light": "#ffffff",
+                        "surface-dark": "#1a2e1a",
+                        "text-main": "#111811",
+                        "text-sub": "#608a60",
+                    },
+                    fontFamily: {
+                        "display": ["Lexend", "sans-serif"]
+                    },
+                    borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "2xl": "1rem", "full": "9999px" },
+                    boxShadow: {
+                        'sport': '0 4px 20px -2px rgba(13, 242, 13, 0.15)',
+                    }
+                },
+            },
+        }
+    </script>
+    <style>
+        body {
+            font-family: 'Lexend', sans-serif;
+        }
+        .bg-grid-pattern {
+            background-image: radial-gradient(rgba(13, 242, 13, 0.1) 1px, transparent 1px);
+            background-size: 24px 24px;
+        }
+    </style>
+</head>
+<body class="bg-background-light dark:bg-background-dark text-text-main font-display min-h-screen flex flex-col">
+
+<!-- Top Navigation -->
+<header class="sticky top-0 z-50 w-full bg-surface-light/90 dark:bg-surface-dark/90 backdrop-blur-md border-b border-gray-100 dark:border-gray-800">
+    <div class="max-w-[1280px] mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+        <!-- Logo -->
+        <div class="flex items-center gap-2">
+            <div class="size-8 bg-primary rounded-lg flex items-center justify-center text-background-dark">
+                <span class="material-symbols-outlined">sports_soccer</span>
+            </div>
+            <h2 class="text-xl font-black tracking-tight text-gray-900 dark:text-white">Reserva Canchas</h2>
+        </div>
+        <!-- Navigation Links (Desktop) -->
+        <nav class="hidden md:flex items-center gap-8">
+            <a class="text-sm font-semibold text-gray-600 dark:text-gray-300 hover:text-primary transition-colors" th:href="@{/}">Inicio</a>
+            <a class="text-sm font-semibold text-gray-600 dark:text-gray-300 hover:text-primary transition-colors" th:href="@{/canchas/listado}">Canchas</a>
+            <a class="text-sm font-semibold text-gray-600 dark:text-gray-300 hover:text-primary transition-colors" th:href="@{/reserva/mis-reservas}">Mis Reservas</a>
+        </nav>
+        <!-- User Menu -->
+        <div class="flex items-center gap-4">
+            <button class="flex items-center gap-2 px-3 py-1.5 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
+                <div class="w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
+                    <span class="text-sm font-bold text-gray-600 dark:text-gray-300" th:text="${#strings.substring(usuario.nombre, 0, 1)}">U</span>
+                </div>
+                <span class="hidden sm:block text-sm font-medium text-gray-700 dark:text-gray-200" th:text="${usuario.nombre}">Usuario</span>
+            </button>
+        </div>
+    </div>
+</header>
+
+<!-- Main Content Area -->
+<main class="flex-grow relative w-full bg-background-light dark:bg-background-dark">
+    <!-- Background decorative elements -->
+    <div class="absolute inset-0 bg-grid-pattern pointer-events-none opacity-50"></div>
+    <div class="absolute top-0 right-0 w-1/3 h-1/3 bg-primary/5 rounded-full blur-3xl pointer-events-none"></div>
+    <div class="absolute bottom-0 left-0 w-1/4 h-1/4 bg-secondary/5 rounded-full blur-3xl pointer-events-none"></div>
+
+    <div class="relative max-w-4xl mx-auto px-4 py-8 sm:px-6 lg:px-8 lg:py-12">
+        <!-- Success Message Section -->
+        <div class="text-center mb-8 sm:mb-12 animate-fade-in-up">
+            <div class="inline-flex items-center justify-center w-20 h-20 rounded-full bg-primary/10 mb-6 relative">
+                <div class="absolute inset-0 rounded-full bg-primary/20 animate-ping"></div>
+                <span class="material-symbols-outlined text-5xl text-primary font-bold">check_circle</span>
+            </div>
+            <h1 class="text-3xl sm:text-4xl font-black text-gray-900 dark:text-white mb-3">Reserva Confirmada</h1>
+            <p class="text-lg text-gray-600 dark:text-gray-300 max-w-lg mx-auto">
+                ¡Listo para jugar! Se te enviará un recordatorio a <span class="font-semibold text-gray-900 dark:text-white" th:text="${usuario.email}">email@example.com</span>.
+            </p>
+        </div>
+
+        <!-- Booking Card -->
+        <div class="bg-surface-light dark:bg-surface-dark rounded-2xl shadow-sport overflow-hidden border border-gray-100 dark:border-gray-800">
+            <!-- Card Header with Reservation ID -->
+            <div class="bg-gray-50 dark:bg-gray-800/50 px-6 py-4 flex flex-col sm:flex-row justify-between items-center border-b border-gray-100 dark:border-gray-700 gap-4">
+                <div class="flex items-center gap-2">
+                    <span class="material-symbols-outlined text-secondary dark:text-secondary-light">receipt_long</span>
+                    <span class="text-sm font-medium text-gray-500 dark:text-gray-400">ID Reserva:</span>
+                    <span class="text-base font-bold font-mono text-gray-900 dark:text-white bg-gray-200 dark:bg-gray-700 px-2 py-0.5 rounded" th:text="'#RES-' + ${reserva.idReserva}">ID</span>
+                </div>
+                <div class="flex items-center gap-2 text-primary font-bold text-sm bg-primary/10 px-3 py-1 rounded-full">
+                    <span class="material-symbols-outlined text-[18px]">verified</span>
+                    PAGO EXITOSO
+                </div>
+            </div>
+
+            <div class="flex flex-col md:flex-row">
+                <!-- Left: Details -->
+                <div class="p-6 md:p-8 flex-1 space-y-6">
+                    <!-- Main Field Info -->
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 rounded-lg bg-secondary/10 flex items-center justify-center flex-shrink-0 text-secondary dark:text-secondary-light">
+                            <span class="material-symbols-outlined text-2xl">stadium</span>
+                        </div>
+                        <div>
+                            <h3 class="text-xl font-bold text-gray-900 dark:text-white mb-1" th:text="${reserva.cancha.nombre}">Nombre Cancha</h3>
+                            <p class="text-sm text-gray-500 dark:text-gray-400 flex items-center gap-1">
+                                <span class="material-symbols-outlined text-[16px]">location_on</span>
+                                <span th:text="${reserva.cancha.ubicacion}">Ubicación</span>
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Grid Details -->
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-y-6 gap-x-8 pt-4 border-t border-gray-100 dark:border-gray-700">
+                        <!-- Date & Time -->
+                        <div class="space-y-1">
+                            <p class="text-xs uppercase tracking-wider font-bold text-gray-400 dark:text-gray-500">Fecha &amp; Hora</p>
+                            <div class="flex items-center gap-2 text-gray-900 dark:text-white font-semibold">
+                                <span class="material-symbols-outlined text-primary text-[20px]">calendar_today</span>
+                                <span th:text="${#temporals.format(reserva.fecha, 'EEE, MMM d', 'es_ES')}">Fecha</span>
+                            </div>
+                            <div class="flex items-center gap-2 text-gray-700 dark:text-gray-300 pl-7">
+                                <span th:text="${reserva.horaInicio} + ' - ' + ${reserva.horaFin}">Horario</span>
+                            </div>
+                        </div>
+
+                        <!-- Duration & Type -->
+                        <div class="space-y-1">
+                            <div class="flex items-center gap-2 text-gray-900 dark:text-white font-semibold">
+                                <span class="material-symbols-outlined text-secondary dark:text-secondary-light text-[20px]">timer</span>
+                                <span th:text="${(reserva.horaFin.toSecondOfDay() - reserva.horaInicio.toSecondOfDay()) / 3600} + ' Minutos'">Duración</span>
+                            </div>
+                            <div class="flex items-center gap-2 text-gray-700 dark:text-gray-300 pl-7">
+                                <span th:text="${reserva.cancha.caracteristicas}">Cancha Sintética</span>
+                            </div>
+                        </div>
+
+                        <!-- Payment Method -->
+                        <div class="space-y-1">
+                            <p class="text-xs uppercase tracking-wider font-bold text-gray-400 dark:text-gray-500">Método de Pago</p>
+                            <div class="flex items-center gap-2 text-gray-900 dark:text-white font-semibold">
+                                <span class="material-symbols-outlined text-gray-400 text-[20px]">credit_card</span>
+                                <span th:text="${reserva.metodoPago}">Transferencia</span>
+                            </div>
+                        </div>
+
+                        <!-- Total -->
+                        <div class="space-y-1">
+                            <p class="text-xs uppercase tracking-wider font-bold text-gray-400 dark:text-gray-500">Total</p>
+                            <div class="flex items-center gap-2 text-2xl font-black text-secondary dark:text-secondary-light">
+                                <span th:text="'₡' + ${#numbers.formatDecimal(reserva.montoTotal, 0, 'DEFAULT')}">₡0.00</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right: Status Info -->
+                <div class="md:w-72 bg-gray-50 dark:bg-gray-800 border-l border-gray-100 dark:border-gray-700 p-4 flex flex-col gap-4">
+                    <div class="space-y-2">
+                        <p class="text-xs uppercase tracking-wider font-bold text-gray-400 dark:text-gray-500">Estado de Reserva</p>
+                        <div class="inline-flex items-center gap-2 px-3 py-2 rounded-full" 
+                             th:classappend="${reserva.estado == 'CONFIRMADA'} ? 'bg-primary/20 text-primary' : 'bg-yellow-100 dark:bg-yellow-900/20 text-yellow-700 dark:text-yellow-300'">
+                            <span class="material-symbols-outlined text-[16px]" th:text="${reserva.estado == 'CONFIRMADA'} ? 'check_circle' : 'schedule'">check</span>
+                            <span th:text="${reserva.estado}">Estado</span>
+                        </div>
+                    </div>
+
+                    <div class="space-y-2 pt-4 border-t border-gray-200 dark:border-gray-600">
+                        <p class="text-xs uppercase tracking-wider font-bold text-gray-400 dark:text-gray-500">Información de Contacto</p>
+                        <div class="space-y-1 text-sm text-gray-700 dark:text-gray-300">
+                            <p><span class="font-semibold">Email:</span> <span th:text="${usuario.email}">email</span></p>
+                            <p><span class="font-semibold">Teléfono:</span> <span th:text="${usuario.telefono ?: 'No registrado'}">Tel</span></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card Footer Actions -->
+        <div class="bg-gray-50 dark:bg-gray-800/50 p-6 rounded-b-2xl flex flex-col sm:flex-row gap-4 justify-center sm:justify-between border-t border-gray-100 dark:border-gray-700">
+            <a th:href="@{/reserva/historial/{id}(id=${reserva.idReserva})}" 
+               class="flex items-center justify-center gap-2 px-6 h-12 rounded-lg border-2 border-gray-200 dark:border-gray-600 text-gray-700 dark:text-gray-200 font-bold text-sm hover:border-gray-400 dark:hover:border-gray-400 hover:bg-gray-100 dark:hover:bg-gray-700 transition-all">
+                <span class="material-symbols-outlined text-[20px]">history</span>
+                Ver Historial
+            </a>
+            <a th:href="@{/reserva/mis-reservas}" 
+               class="flex items-center justify-center gap-2 px-6 h-12 rounded-lg bg-primary text-background-dark font-bold text-sm hover:bg-primary-dark transition-all">
+                <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+                Ir a Mis Reservas
+            </a>
+        </div>
+
+        <!-- Help Link -->
+        <p class="text-center mt-8 text-sm text-gray-500 dark:text-gray-400">
+            ¿Necesitas cambiar tu reserva? <a class="text-secondary dark:text-secondary-light font-bold hover:underline" href="#">Revisa nuestras políticas</a> o contacta soporte.
+        </p>
+    </div>
+</main>
+
+<!-- Simple Footer -->
+<footer class="w-full py-8 text-center border-t border-gray-100 dark:border-gray-800 mt-auto bg-surface-light dark:bg-surface-dark">
+    <div class="flex items-center justify-center gap-2 mb-4 opacity-50 grayscale hover:grayscale-0 transition-all">
+        <div class="size-6 bg-primary rounded flex items-center justify-center text-background-dark text-xs">
+            <span class="material-symbols-outlined text-[16px]">sports_soccer</span>
+        </div>
+        <span class="font-bold text-gray-900 dark:text-white">Reserva Canchas</span>
+    </div>
+    <p class="text-sm text-gray-400 dark:text-gray-600">© 2024 Reserva Canchas. Todos los derechos reservados.</p>
+</footer>
+
+</body>
+</html>
