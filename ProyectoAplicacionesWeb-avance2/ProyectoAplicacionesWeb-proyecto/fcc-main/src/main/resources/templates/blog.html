@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta charset="utf-8"/>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+        <title>Blog – ReservaCanchaCR</title>
+        <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+        <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+        <script>
+            tailwind.config = {
+                darkMode: "class",
+                theme: {
+                    extend: {
+                        colors: {
+                            "primary": "#0df20d",
+                            "primary-dark": "#0bbd0b",
+                            "secondary": "#102210",
+                            "background-light": "#f5f8f5",
+                            "background-dark": "#102210",
+                            "surface-light": "#ffffff",
+                            "surface-dark": "#1a2e1a",
+                        },
+                        fontFamily: { "display": ["Lexend","sans-serif"], "body": ["Lexend","sans-serif"] },
+                        borderRadius: { "DEFAULT":"0.5rem","lg":"0.75rem","xl":"1rem","full":"9999px" },
+                    },
+                },
+            }
+        </script>
+        <style>
+            body { font-family: 'Lexend', sans-serif; }
+            ::-webkit-scrollbar { width: 8px; }
+            ::-webkit-scrollbar-track { background: #f1f1f1; }
+            ::-webkit-scrollbar-thumb { background: #ccc; border-radius: 4px; }
+            ::-webkit-scrollbar-thumb:hover { background: #aaa; }
+        </style>
+    </head>
+    <body class="bg-background-light dark:bg-background-dark text-secondary dark:text-white antialiased selection:bg-primary selection:text-secondary">
+        <div class="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden">
+
+            <!-- Header -->
+            <header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-gray-100 dark:border-gray-800 px-6 lg:px-10 py-4 bg-surface-light dark:bg-surface-dark sticky top-0 z-50 shadow-sm">
+                <div class="flex items-center gap-4 text-secondary dark:text-white">
+                    <a th:href="@{/}" class="flex items-center gap-4">
+                        <div class="size-8 text-primary flex items-center justify-center bg-secondary rounded-lg">
+                            <span class="material-symbols-outlined text-2xl">sports_soccer</span>
+                        </div>
+                        <h2 class="text-secondary dark:text-white text-xl font-black leading-tight tracking-tight">ReservaCanchaCR</h2>
+                    </a>
+                </div>
+                <div class="flex flex-1 justify-end gap-8">
+                    <nav class="hidden lg:flex items-center gap-9">
+                        <a class="text-secondary/70 dark:text-white/70 hover:text-primary dark:hover:text-primary transition-colors text-sm font-medium leading-normal" th:href="@{/canchas/listado}">Canchas</a>
+                        <a class="text-secondary/70 dark:text-white/70 hover:text-primary dark:hover:text-primary transition-colors text-sm font-medium leading-normal" th:href="@{/sobre-nosotros}">Sobre Nosotros</a>
+                    </nav>
+                    <div class="flex gap-3">
+                        <a th:href="@{/auth/login}" class="flex cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-6 bg-transparent border border-gray-200 dark:border-gray-700 text-secondary dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-sm font-bold leading-normal">
+                            <span class="truncate">Iniciar Sesión</span>
+                        </a>
+                        <a th:href="@{/auth/registro}" class="flex cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-6 bg-primary hover:bg-primary-dark transition-colors text-secondary text-sm font-bold leading-normal shadow-[0_4px_10px_rgba(13,242,13,0.3)]">
+                            <span class="truncate">Registrarse</span>
+                        </a>
+                    </div>
+                </div>
+            </header>
+
+            <main class="flex-1">
+                <div class="px-4 md:px-10 lg:px-40 py-16">
+                    <div class="max-w-5xl mx-auto flex flex-col gap-12">
+
+                        <!-- Título -->
+                        <div class="flex flex-col gap-3">
+                            <h1 class="text-4xl font-black text-secondary dark:text-white">Blog</h1>
+                            <p class="text-gray-500 dark:text-gray-400 text-lg">Consejos, noticias y todo sobre el fútbol en Costa Rica.</p>
+                        </div>
+
+                        <!-- Artículo destacado -->
+                        <div class="group relative overflow-hidden rounded-2xl bg-white dark:bg-surface-dark border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-xl hover:border-primary/30 transition-all duration-300">
+                            <div class="h-64 bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
+                                 style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAmSsCCE0GDWhl8yfcADa4jzNVTqy2ooeuMDqlZJ9E5SiSyTjn_XontNYFz2v-WGfN4T0R5ipG4JmnFHjEj_Mp8CSSL15Zi93kC163GT9JURKXQElihHnwzARuY8hZeAeLKaIganP-A7T49TpRBwggq-wlpzUM5o8Xnj0qiSS0AWgbKkIOcYN1m-39ZyA0bkPsTyauUk8rdK557Um9Y3osyoRGagDN6JOv3-t3BFVfrfWkq7Vz6SD6a-LePFXZRS1zvI5w5i5TZD3A');">
+                            </div>
+                            <div class="p-6 flex flex-col gap-3">
+                                <span class="bg-primary/10 text-primary-dark dark:text-primary px-3 py-1 rounded-full text-xs font-bold uppercase w-fit">Destacado</span>
+                                <h2 class="text-2xl font-black text-secondary dark:text-white group-hover:text-primary transition-colors">Cómo organizar tu primer torneo de fútbol 5</h2>
+                                <p class="text-gray-500 dark:text-gray-400 leading-relaxed">Guía completa para armar tu torneo amateur: desde reservar la cancha hasta gestionar los equipos y el marcador.</p>
+                                <div class="flex items-center gap-3 text-sm text-gray-400 mt-2">
+                                    <span class="material-symbols-outlined text-base">calendar_today</span>
+                                    <span>10 de marzo, 2025</span>
+                                    <span>·</span>
+                                    <span>5 min de lectura</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Grid de artículos -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <!-- Artículo 2 -->
+                            <div class="group flex flex-col bg-white dark:bg-surface-dark rounded-xl border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-lg hover:border-primary/30 transition-all duration-300 overflow-hidden">
+                                <div class="h-44 bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
+                                     style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuC6eZ7tX0nQp0pY4DWuCfxMRlzL2uny8d2RG_0B49oJs3pUqvCnHnN-ozzODhneOJtmxMMmCrxCWStuCjbw9_VgSAq9PGcZese3WP77R1YYuFgetpn888JTr-6lvXKQYB_YXHVOMuIZBqEzLIiUlhvFBevC-u0FoadZW6zvYevx7bFocqW3CJeCUVRciw5gWr28_Lc9cAWCO-b1pzNGaiZbrfu__uxiUmfJGgrv_Xqx-sfitMUokuE6xj5NJiMAvyS7s6ylSJhfna0');"></div>
+                                <div class="p-5 flex flex-col gap-2 flex-1">
+                                    <span class="bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 px-2 py-1 rounded-full text-xs font-bold uppercase w-fit">Consejos</span>
+                                    <h3 class="font-bold text-lg text-secondary dark:text-white group-hover:text-primary transition-colors">5 ejercicios para mejorar tu resistencia en el campo</h3>
+                                    <p class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed line-clamp-2">Rutina de entrenamiento diseñada para jugadores amateur que quieren durar los 90 minutos.</p>
+                                    <p class="text-gray-400 text-xs mt-auto pt-3">25 feb, 2025 · 4 min</p>
+                                </div>
+                            </div>
+                            <!-- Artículo 3 -->
+                            <div class="group flex flex-col bg-white dark:bg-surface-dark rounded-xl border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-lg hover:border-primary/30 transition-all duration-300 overflow-hidden">
+                                <div class="h-44 bg-cover bg-center transition-transform duration-500 group-hover:scale-105"
+                                     style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDMhywjue6gYVwbJ-Q65YragMJrohr1P6NaZcITn5o9ldquwxG2mAfKE00ZCp2E4n4QKDG2Jh2PFQZswBJ24TK5W8IAnJ6l9Y3oTXvlskR-lu7I3JrrHEdNKe9gtEFIUD3lq_PpcR_1_HpsSPTcPlXQe1eCKDUn3dTzz6taKPIIGySJ_B2aVViVP51L9swn6dADgxhYVQ1GBcepdaD9fbB-RKLUJrUAd9j9JwKN-q_chE-w177x94npJcd7V3zVPOhX2Tad1gACFuI');"></div>
+                                <div class="p-5 flex flex-col gap-2 flex-1">
+                                    <span class="bg-primary/10 text-primary-dark dark:text-primary px-2 py-1 rounded-full text-xs font-bold uppercase w-fit">Canchas</span>
+                                    <h3 class="font-bold text-lg text-secondary dark:text-white group-hover:text-primary transition-colors">Las mejores canchas sintéticas de San José en 2025</h3>
+                                    <p class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed line-clamp-2">Ranking actualizado con precios, instalaciones y opiniones de jugadores reales.</p>
+                                    <p class="text-gray-400 text-xs mt-auto pt-3">15 feb, 2025 · 6 min</p>
+                                </div>
+                            </div>
+                            <!-- Artículo 4 -->
+                            <div class="group flex flex-col bg-white dark:bg-surface-dark rounded-xl border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-lg hover:border-primary/30 transition-all duration-300 overflow-hidden">
+                                <div class="h-44 bg-cover bg-center bg-gray-200 dark:bg-gray-700"></div>
+                                <div class="p-5 flex flex-col gap-2 flex-1">
+                                    <span class="bg-primary/10 text-primary-dark dark:text-primary px-2 py-1 rounded-full text-xs font-bold uppercase w-fit">Novedades</span>
+                                    <h3 class="font-bold text-lg text-secondary dark:text-white group-hover:text-primary transition-colors">ReservaCanchaCR llega a Heredia y Alajuela</h3>
+                                    <p class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed line-clamp-2">Expandimos nuestra red de canchas a dos nuevas provincias del Gran Área Metropolitana.</p>
+                                    <p class="text-gray-400 text-xs mt-auto pt-3">2 feb, 2025 · 3 min</p>
+                                </div>
+                            </div>
+                            <!-- Artículo 5 -->
+                            <div class="group flex flex-col bg-white dark:bg-surface-dark rounded-xl border border-gray-100 dark:border-gray-800 shadow-sm hover:shadow-lg hover:border-primary/30 transition-all duration-300 overflow-hidden">
+                                <div class="h-44 bg-cover bg-center bg-gray-200 dark:bg-gray-700"></div>
+                                <div class="p-5 flex flex-col gap-2 flex-1">
+                                    <span class="bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 px-2 py-1 rounded-full text-xs font-bold uppercase w-fit">Comunidad</span>
+                                    <h3 class="font-bold text-lg text-secondary dark:text-white group-hover:text-primary transition-colors">Historia de éxito: Liga amateur que nació en nuestra plataforma</h3>
+                                    <p class="text-gray-500 dark:text-gray-400 text-sm leading-relaxed line-clamp-2">Así fue cómo un grupo de amigos construyó una liga de 12 equipos usando ReservaCanchaCR.</p>
+                                    <p class="text-gray-400 text-xs mt-auto pt-3">20 ene, 2025 · 7 min</p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </main>
+
+            <!-- Footer -->
+            <footer class="bg-secondary text-white py-12 px-6 lg:px-40 border-t border-gray-800">
+                <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between gap-10">
+                    <div class="flex flex-col gap-4 max-w-sm">
+                        <div class="flex items-center gap-2 text-white">
+                            <div class="size-6 text-secondary bg-primary rounded flex items-center justify-center">
+                                <span class="material-symbols-outlined text-lg">sports_soccer</span>
+                            </div>
+                            <h2 class="text-lg font-bold">ReservaCanchaCR</h2>
+                        </div>
+                        <p class="text-gray-400 text-sm leading-relaxed">La forma más fácil de encontrar y reservar instalaciones deportivas en tu ciudad. Conectando jugadores con las mejores canchas desde 2024.</p>
+                    </div>
+                    <div class="flex flex-wrap gap-10 md:gap-20">
+                        <div class="flex flex-col gap-4">
+                            <h4 class="font-bold text-primary">Empresa</h4>
+                            <a class="text-gray-400 hover:text-white text-sm" th:href="@{/sobre-nosotros}">Sobre Nosotros</a>
+                            <a class="text-gray-400 hover:text-white text-sm" th:href="@{/carreras}">Carreras</a>
+                            <a class="text-white font-medium text-sm" th:href="@{/blog}">Blog</a>
+                        </div>
+                        <div class="flex flex-col gap-4">
+                            <h4 class="font-bold text-primary">Soporte</h4>
+                            <a class="text-gray-400 hover:text-white text-sm" th:href="@{/ayuda}">Centro de Ayuda</a>
+                            <a class="text-gray-400 hover:text-white text-sm" th:href="@{/terminos}">Términos de Servicio</a>
+                            <a class="text-gray-400 hover:text-white text-sm" th:href="@{/privacidad}">Política de Privacidad</a>
+                        </div>
+                        <div class="flex flex-col gap-4">
+                            <h4 class="font-bold text-primary">Para Socios</h4>
+                            <a class="text-gray-400 hover:text-white text-sm" th:href="@{/lista-cancha}">Lista tu Cancha</a>
+                            <a class="text-gray-400 hover:text-white text-sm" th:href="@{/auth/login}">Inicio de Sesión de Socio</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="max-w-7xl mx-auto mt-12 pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-500">
+                    <p>© 2024 ReservaCanchaCR Inc. Todos los derechos reservados.</p>
+                    <div class="flex gap-4">
+                        <a class="hover:text-primary" href="#"><span class="material-symbols-outlined">public</span></a>
+                        <a class="hover:text-primary" href="#"><span class="material-symbols-outlined">alternate_email</span></a>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </body>
+</html>
