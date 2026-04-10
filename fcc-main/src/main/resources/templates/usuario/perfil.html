@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title th:text="'Perfil de ' + ${usuario.nombre ?: 'Usuario'} + ' - ReservaCanchaCR'">ReservaCanchaCR - Perfil de Usuario</title>
+<link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0df20d",
+                        "primary-content": "#052e05",
+                        "background-light": "#f5f8f5",
+                        "background-dark": "#102210",
+                    },
+                    fontFamily: {
+                        "display": ["Lexend", "sans-serif"],
+                        "body": ["Lexend", "sans-serif"],
+                    },
+                    borderRadius: {
+                        "DEFAULT": "0.375rem", // close to bootstrap rounded
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "2xl": "1rem",
+                        "full": "9999px"
+                    },
+                },
+            },
+        }
+    </script>
+<style>
+        body {
+            font-family: 'Lexend', sans-serif;
+        }
+        /* Subtle mesh pattern for background */
+        .bg-mesh {
+            background-color: #f5f8f5;
+            background-image: radial-gradient(#0df20d 0.5px, transparent 0.5px), radial-gradient(#0df20d 0.5px, #f5f8f5 0.5px);
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 10px;
+            background-blend-mode: multiply;
+            opacity: 1;
+        }
+    </style>
+</head>
+<body class="bg-background-light text-[#111811] overflow-x-hidden antialiased">
+<div class="relative flex min-h-screen w-full flex-row">
+<!-- Sidebar -->
+<aside class="hidden w-64 flex-col border-r border-[#e5e7eb] bg-white lg:flex sticky top-0 h-screen">
+<div class="flex items-center gap-3 px-6 py-5 border-b border-[#f0f0f0]">
+<div class="flex items-center justify-center rounded-full bg-primary/20 size-10">
+<span class="material-symbols-outlined text-primary-content">sports_soccer</span>
+</div>
+<div class="flex flex-col">
+<h1 class="text-[#111811] text-base font-bold leading-normal tracking-tight">ReservaCanchaCR</h1>
+<p class="text-[#608a60] text-xs font-normal leading-normal">Panel de Usuario</p>
+</div>
+</div>
+<nav class="flex flex-col gap-2 p-4 flex-1 overflow-y-auto">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#608a60] hover:bg-background-light hover:text-[#111811] transition-colors" th:href="@{/usuario/inicio}">
+<span class="material-symbols-outlined">home</span>
+<p class="text-sm font-medium leading-normal">Inicio</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#608a60] hover:bg-background-light hover:text-[#111811] transition-colors" th:href="@{/reserva/mis-reservas}">
+<span class="material-symbols-outlined">calendar_month</span>
+<p class="text-sm font-medium leading-normal">Mis Reservas</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#608a60] hover:bg-background-light hover:text-[#111811] transition-colors" th:href="@{/canchas}">
+<span class="material-symbols-outlined">location_on</span>
+<p class="text-sm font-medium leading-normal">Buscar Canchas</p>
+</a>
+<div class="my-2 border-t border-[#f0f0f0]"></div>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary/10 text-primary-content transition-colors" th:href="@{/usuario/perfil}">
+<span class="material-symbols-outlined fill-current">person</span>
+<p class="text-sm font-bold leading-normal">Mi Perfil</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#608a60] hover:bg-background-light hover:text-[#111811] transition-colors" href="#">
+<span class="material-symbols-outlined">settings</span>
+<p class="text-sm font-medium leading-normal">Configuración</p>
+</a>
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#608a60] hover:bg-background-light hover:text-[#111811] transition-colors" href="#">
+<span class="material-symbols-outlined">credit_card</span>
+<p class="text-sm font-medium leading-normal">Pagos</p>
+</a>
+</nav>
+<div class="p-4 border-t border-[#f0f0f0]">
+<a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#608a60] hover:bg-red-50 hover:text-red-600 transition-colors" th:href="@{/auth/logout}">
+<span class="material-symbols-outlined">logout</span>
+<p class="text-sm font-medium leading-normal">Cerrar Sesión</p>
+</a>
+</div>
+</aside>
+<!-- Main Content -->
+<main class="flex-1 flex flex-col min-h-screen bg-background-light relative">
+<!-- Background Decoration -->
+<div class="absolute inset-0 z-0 opacity-[0.03] pointer-events-none bg-mesh"></div>
+<!-- Header -->
+<header class="sticky top-0 z-10 flex items-center justify-between border-b border-[#e5e7eb] bg-white/80 backdrop-blur-md px-6 py-4 lg:px-10">
+<div class="flex items-center gap-4 lg:hidden">
+<button class="text-[#111811]">
+<span class="material-symbols-outlined">menu</span>
+</button>
+<h2 class="text-[#111811] text-lg font-bold leading-tight">Perfil</h2>
+</div>
+<!-- Breadcrumbs (Desktop) -->
+<div class="hidden lg:flex flex-col">
+<h2 class="text-[#111811] text-xl font-bold leading-tight">Perfil de Usuario</h2>
+<div class="flex items-center gap-2 text-sm text-[#608a60] mt-1">
+<span>Inicio</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span>Usuario</span>
+<span class="material-symbols-outlined text-[14px]">chevron_right</span>
+<span class="text-[#111811] font-medium">Perfil</span>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="flex size-10 items-center justify-center rounded-full bg-background-light text-[#111811] hover:bg-primary/20 transition-colors relative">
+<span class="material-symbols-outlined">notifications</span>
+<span class="absolute top-2 right-2 size-2 bg-red-500 rounded-full border-2 border-white"></span>
+</button>
+<div class="flex items-center gap-3">
+<div class="hidden md:flex flex-col items-end">
+<span class="text-sm font-bold text-[#111811]" th:text="${usuario.nombre ?: 'Usuario'} + ' ' + ${usuario.apellidos ?: ''}">Carlos Rodríguez</span>
+<span class="text-xs text-[#608a60]" th:text="${usuario.rol ?: 'Jugador'}">Jugador</span>
+</div>
+<div class="h-10 w-10 rounded-full bg-gray-200 bg-cover bg-center border-2 border-white shadow-sm" th:style="'background-image: url(' + ${usuario.foto ?: '/images/default-user.png'} + ')'" data-alt="Foto de perfil del usuario"></div>
+</div>
+</div>
+</header>
+<div class="flex-1 p-4 lg:p-10 z-0 overflow-y-auto">
+<div class="mx-auto max-w-5xl space-y-8">
+<!-- Profile Header Card -->
+<div class="bg-white rounded-2xl p-6 shadow-sm border border-[#e5e7eb] flex flex-col md:flex-row items-center gap-6">
+<div class="relative group">
+<div class="h-32 w-32 rounded-full bg-gray-200 bg-cover bg-center border-4 border-white shadow-md" th:style="'background-image: url(' + ${usuario.foto ?: '/images/default-user.png'} + ')'" data-alt="Foto de perfil">
+</div>
+<button class="absolute bottom-0 right-0 p-2 bg-primary text-primary-content rounded-full shadow-lg hover:bg-[#0be00b] transition-colors border-2 border-white group-hover:scale-105">
+<span class="material-symbols-outlined text-[20px]">photo_camera</span>
+</button>
+</div>
+<div class="flex-1 text-center md:text-left">
+<h3 class="text-2xl font-bold text-[#111811]" th:text="${usuario.nombre ?: 'Usuario'} + ' ' + ${usuario.apellidos ?: ''}">Carlos Rodríguez</h3>
+<p class="text-[#608a60] font-medium" th:text="${usuario.tipo ?: 'Jugador Frecuente'}">Jugador Frecuente</p>
+<div class="mt-3 flex flex-wrap justify-center md:justify-start gap-2">
+<span class="px-3 py-1 rounded-full bg-blue-50 text-blue-700 text-xs font-semibold border border-blue-100" th:text="${usuario.posicion ?: 'Delantero'}">Delantero</span>
+<span class="px-3 py-1 rounded-full bg-primary/10 text-primary-content text-xs font-semibold border border-primary/20" th:text="'Miembro desde ' + ${#dates.format(usuario.fechaRegistro ?: new java.util.Date(), 'yyyy')}">Miembro desde 2023</span>
+</div>
+</div>
+<div class="flex flex-col gap-2 w-full md:w-auto">
+<button class="w-full md:w-auto px-6 py-2.5 rounded-lg bg-background-light border border-[#d1d5db] text-[#111811] font-semibold text-sm hover:bg-[#e5e7eb] transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-[18px]">share</span>
+                                Compartir Perfil
+                            </button>
+</div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+<!-- Left Column: Personal Info -->
+<div class="lg:col-span-2 space-y-8">
+<!-- Personal Information Form -->
+<section class="bg-white rounded-2xl p-6 lg:p-8 shadow-sm border border-[#e5e7eb]">
+<div class="flex items-center justify-between mb-6">
+<div class="flex items-center gap-3">
+<div class="p-2 bg-primary/10 rounded-lg text-primary-content">
+<span class="material-symbols-outlined">person</span>
+</div>
+<h3 class="text-lg font-bold text-[#111811]">Información Personal</h3>
+</div>
+</div>
+<form th:action="@{/usuario/actualizarPerfil}" method="post" class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="space-y-1.5">
+<label class="text-sm font-semibold text-[#111811]" for="nombre">Nombre</label>
+<input class="w-full px-4 py-2.5 rounded-lg border border-[#d1d5db] bg-white text-[#111811] focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all placeholder:text-gray-400" id="nombre" name="nombre" type="text" th:value="${usuario.nombre ?: ''}" required/>
+</div>
+<div class="space-y-1.5">
+<label class="text-sm font-semibold text-[#111811]" for="apellidos">Apellidos</label>
+<input class="w-full px-4 py-2.5 rounded-lg border border-[#d1d5db] bg-white text-[#111811] focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all placeholder:text-gray-400" id="apellidos" name="apellidos" type="text" th:value="${usuario.apellidos ?: ''}" required/>
+</div>
+<div class="space-y-1.5 md:col-span-2">
+<label class="text-sm font-semibold text-[#111811]" for="email">Correo Electrónico</label>
+<div class="relative">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400 material-symbols-outlined text-[20px]">mail</span>
+<input class="w-full pl-10 pr-4 py-2.5 rounded-lg border border-[#e5e7eb] bg-gray-50 text-gray-500 cursor-not-allowed outline-none" disabled="" id="email" name="email" type="email" th:value="${usuario.email ?: ''}"/>
+</div>
+<p class="text-xs text-[#608a60]">El correo electrónico no se puede cambiar.</p>
+</div>
+<div class="space-y-1.5">
+<label class="text-sm font-semibold text-[#111811]" for="telefono">Teléfono</label>
+<input class="w-full px-4 py-2.5 rounded-lg border border-[#d1d5db] bg-white text-[#111811] focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all placeholder:text-gray-400" id="telefono" name="telefono" type="tel" th:value="${usuario.telefono ?: ''}" required/>
+</div>
+<div class="space-y-1.5">
+<label class="text-sm font-semibold text-[#111811]" for="fecha_nacimiento">Fecha de Nacimiento</label>
+<input class="w-full px-4 py-2.5 rounded-lg border border-[#d1d5db] bg-white text-[#111811] focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all placeholder:text-gray-400" id="fecha_nacimiento" name="fechaNacimiento" type="date" th:value="${#dates.format(usuario.fechaNacimiento ?: new java.util.Date(), 'yyyy-MM-dd')}" required/>
+</div>
+<div class="md:col-span-2 pt-4 flex justify-end">
+<button class="px-6 py-2.5 rounded-lg bg-primary text-primary-content font-bold shadow-md hover:bg-[#0be00b] hover:shadow-lg transition-all transform active:scale-95 flex items-center gap-2" type="submit">
+<span class="material-symbols-outlined text-[20px]">save</span>
+                                            Guardar cambios
+                                        </button>
+</div>
+</form>
+</section>
+<!-- Stats Section -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-4">
+<div class="bg-white p-4 rounded-xl border border-[#e5e7eb] shadow-sm flex flex-col items-center justify-center text-center">
+<span class="text-3xl font-bold text-primary-content" th:text="${usuario.estadisticas.reservasTotales ?: '0'}">12</span>
+<span class="text-sm text-[#608a60]">Reservas Totales</span>
+</div>
+<div class="bg-white p-4 rounded-xl border border-[#e5e7eb] shadow-sm flex flex-col items-center justify-center text-center">
+<span class="text-3xl font-bold text-primary-content" th:text="${usuario.estadisticas.canchasFavoritas ?: '0'}">4</span>
+<span class="text-sm text-[#608a60]">Canchas Favoritas</span>
+</div>
+<div class="bg-white p-4 rounded-xl border border-[#e5e7eb] shadow-sm flex flex-col items-center justify-center text-center">
+<span class="text-3xl font-bold text-primary-content" th:text="${usuario.estadisticas.calificacionPromedio ?: '0.0'}">4.8</span>
+<span class="text-sm text-[#608a60]">Calificación Promedio</span>
+</div>
+</section>
+</div>
+<!-- Right Column: Security & Preferences -->
+<div class="space-y-8">
+<!-- Security Section -->
+<section class="bg-white rounded-2xl p-6 shadow-sm border border-[#e5e7eb]">
+<div class="flex items-center gap-3 mb-6">
+<div class="p-2 bg-blue-50 rounded-lg text-blue-600">
+<span class="material-symbols-outlined">lock</span>
+</div>
+<h3 class="text-lg font-bold text-[#111811]">Seguridad</h3>
+</div>
+<form th:action="@{/usuario/cambiarPassword}" method="post" class="flex flex-col gap-4">
+<div class="space-y-1.5">
+<label class="text-sm font-semibold text-[#111811]" for="current_password">Contraseña actual</label>
+<input class="w-full px-4 py-2.5 rounded-lg border border-[#d1d5db] bg-white text-[#111811] focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all placeholder:text-gray-400" id="current_password" name="currentPassword" placeholder="••••••••" type="password" required/>
+</div>
+<div class="space-y-1.5">
+<label class="text-sm font-semibold text-[#111811]" for="new_password">Nueva contraseña</label>
+<input class="w-full px-4 py-2.5 rounded-lg border border-[#d1d5db] bg-white text-[#111811] focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all placeholder:text-gray-400" id="new_password" name="newPassword" placeholder="Mínimo 8 caracteres" type="password" required/>
+</div>
+<div class="space-y-1.5">
+<label class="text-sm font-semibold text-[#111811]" for="confirm_password">Confirmar contraseña</label>
+<input class="w-full px-4 py-2.5 rounded-lg border border-[#d1d5db] bg-white text-[#111811] focus:border-primary focus:ring-2 focus:ring-primary/20 outline-none transition-all placeholder:text-gray-400" id="confirm_password" name="confirmPassword" placeholder="Repetir nueva contraseña" type="password" required/>
+</div>
+<div class="pt-2">
+<button class="w-full px-6 py-2.5 rounded-lg border-2 border-[#111811] text-[#111811] font-bold hover:bg-[#111811] hover:text-white transition-colors flex items-center justify-center gap-2" type="submit">
+                                            Actualizar contraseña
+                                        </button>
+</div>
+</form>
+</section>
+<!-- Danger Zone -->
+<section class="bg-red-50/50 rounded-2xl p-6 border border-red-100">
+<h3 class="text-sm font-bold text-red-700 mb-2">Zona de Peligro</h3>
+<p class="text-xs text-red-600/80 mb-4 leading-relaxed">Si deseas eliminar tu cuenta permanentemente, ten en cuenta que esta acción no se puede deshacer.</p>
+<button class="text-xs font-semibold text-red-600 hover:text-red-800 underline" onclick="confirmarEliminacion()">
+                                    Eliminar mi cuenta
+                                </button>
+</section>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<script>
+    function confirmarEliminacion() {
+        if (confirm('¿Estás seguro de que quieres eliminar tu cuenta? Esta acción no se puede deshacer.')) {
+            window.location.href = '/usuario/eliminarCuenta';
+        }
+    }
+</script>
+</body>
+</html>

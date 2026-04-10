@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crear Cancha - ReservaCanchaCR</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <style>
+        body { background-color: #f8f9fa; }
+        .form-container { max-width: 600px; margin: 40px auto; }
+        .card { box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        .btn-primary { background-color: #007bff; }
+        .btn-primary:hover { background-color: #0056b3; }
+    </style>
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="/">ReservaCanchaCR</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="/cancha/listado">Listado Canchas</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/">Inicio</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="form-container">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h2>Crear Nueva Cancha</h2>
+            </div>
+            <div class="card-body">
+                <div th:if="${error}" class="alert alert-danger alert-dismissible fade show" role="alert">
+                    <span th:text="${error}"></span>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                </div>
+                
+                <form th:action="@{/canchas/guardar}" th:object="${cancha}" method="POST">
+                    <div class="mb-3">
+                        <label for="nombre" class="form-label">Nombre *</label>
+                        <input type="text" class="form-control" id="nombre" th:field="*{nombre}" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="ubicacion" class="form-label">Ubicación *</label>
+                        <input type="text" class="form-control" id="ubicacion" th:field="*{ubicacion}" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="precioHora" class="form-label">Precio por Hora *</label>
+                        <input type="number" class="form-control" id="precioHora" th:field="*{precioHora}" step="0.01" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="tipo" class="form-label">Tipo de Superficie *</label>
+                        <select class="form-select" id="tipo" th:field="*{tipo}" required>
+                            <option value="">-- Seleccionar --</option>
+                            <option value="Grass">Grass</option>
+                            <option value="Artificial">Artificial</option>
+                            <option value="Cemento">Cemento</option>
+                            <option value="Arenilla">Arenilla</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="capacidad" class="form-label">Capacidad *</label>
+                        <input type="number" class="form-control" id="capacidad" th:field="*{capacidad}" required>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="estado" class="form-label">Estado *</label>
+                        <select class="form-select" id="estado" th:field="*{estado}" required>
+                            <option value="">-- Seleccionar --</option>
+                            <option value="DISPONIBLE">Disponible</option>
+                            <option value="MANTENIMIENTO">Mantenimiento</option>
+                            <option value="CLAUSURADA">Clausurada</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="descripcion" class="form-label">Descripción</label>
+                        <textarea class="form-control" id="descripcion" th:field="*{descripcion}" rows="4"></textarea>
+                    </div>
+
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary btn-lg">Crear Cancha</button>
+                        <a href="/cancha/listado" class="btn btn-secondary">Cancelar</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <footer class="bg-dark text-white text-center py-4 mt-5">
+        <p>&copy; 2024 ReservaCanchaCR. Todos los derechos reservados.</p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
