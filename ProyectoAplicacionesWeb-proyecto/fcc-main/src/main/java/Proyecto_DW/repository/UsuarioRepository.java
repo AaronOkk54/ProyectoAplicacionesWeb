@@ -4,31 +4,18 @@ import Proyecto_DW.domain.Usuario;
 import java.util.List;
 import java.util.Optional;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-/**
- * UsuarioRepository
- * Interface para acceder a los datos de usuarios en la base de datos
- */
+@Repository
 public interface UsuarioRepository extends JpaRepository<Usuario, Integer> {
 
-    /**
-     * Buscar usuario por email
-     */
-    Optional<Usuario> findByEmail(String email);
-
-    /**
-     * Verificar si existe un usuario con un email específico
-     */
-    boolean existsByEmail(String email);
-
-    /**
-     * Listar todos los usuarios activos
-     */
+    Optional<Usuario> findByEmailAndActivoTrue(String email);
+    
     List<Usuario> findByActivoTrue();
-
-    /**
-     * Listar todos los usuarios inactivos
-     */
-    List<Usuario> findByActivoFalse();
-
+    
+    Optional<Usuario> findByEmail(String email);
+    
+    Optional<Usuario> findByEmailAndPassword(String email, String password);
+    
+    boolean existsByEmail(String email);
 }
