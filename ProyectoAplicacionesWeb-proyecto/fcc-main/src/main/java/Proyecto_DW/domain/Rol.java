@@ -1,25 +1,25 @@
 package Proyecto_DW.domain;
 
-import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+
 
 /**
  * Entidad Rol
  * Representa los roles disponibles en el sistema (ej: ADMIN, USUARIO, etc.)
  */
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
+import java.io.Serializable;
+import lombok.Data;
+
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Table(name = "rol")
 public class Rol implements Serializable {
-    
+
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -27,14 +27,9 @@ public class Rol implements Serializable {
     @Column(name = "id_rol")
     private Integer idRol;
 
-    @Column(nullable = false, length = 50, unique = true)
-    @NotBlank(message = "El nombre del rol no puede estar vacío.")
-    @Size(max = 50, message = "El nombre del rol no puede exceder 50 caracteres.")
+    @Column(name = "nombre", nullable = false, unique = true, length = 50)
     private String nombre;
 
-    @Column(columnDefinition = "TEXT")
+    @Column(name = "descripcion", columnDefinition = "TEXT")
     private String descripcion;
-
-    @ManyToMany(mappedBy = "roles")
-    private Set<Usuario> usuarios = new HashSet<>();
 }
