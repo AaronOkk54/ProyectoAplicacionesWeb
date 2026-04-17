@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security6">
+    <head>
+        <meta charset="utf-8"/>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+        <title>Términos de Servicio – ReservaCanchaCR</title>
+        <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+        <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
+        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+        <script>
+            tailwind.config = {
+                darkMode: "class",
+                theme: {
+                    extend: {
+                        colors: {
+                            "primary": "#0df20d",
+                            "primary-dark": "#0bbd0b",
+                            "secondary": "#102210",
+                            "background-light": "#f5f8f5",
+                            "background-dark": "#102210",
+                            "surface-light": "#ffffff",
+                            "surface-dark": "#1a2e1a",
+                        },
+                        fontFamily: { "display": ["Lexend","sans-serif"], "body": ["Lexend","sans-serif"] },
+                        borderRadius: { "DEFAULT":"0.5rem","lg":"0.75rem","xl":"1rem","full":"9999px" },
+                    },
+                },
+            }
+        </script>
+        <style>
+            body { font-family: 'Lexend', sans-serif; }
+            ::-webkit-scrollbar { width: 8px; }
+            ::-webkit-scrollbar-track { background: #f1f1f1; }
+            ::-webkit-scrollbar-thumb { background: #ccc; border-radius: 4px; }
+            ::-webkit-scrollbar-thumb:hover { background: #aaa; }
+        </style>
+    </head>
+    <body class="bg-background-light dark:bg-background-dark text-secondary dark:text-white antialiased selection:bg-primary selection:text-secondary">
+        <div class="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden">
+
+            <!-- Header -->
+            <header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-gray-100 dark:border-gray-800 px-6 lg:px-10 py-4 bg-surface-light dark:bg-surface-dark sticky top-0 z-50 shadow-sm">
+                <div class="flex items-center gap-4 text-secondary dark:text-white">
+                    <a th:href="@{/}" class="flex items-center gap-4">
+                        <div class="size-8 text-primary flex items-center justify-center bg-secondary rounded-lg">
+                            <span class="material-symbols-outlined text-2xl">sports_soccer</span>
+                        </div>
+                        <h2 class="text-secondary dark:text-white text-xl font-black leading-tight tracking-tight">ReservaCanchaCR</h2>
+                    </a>
+                </div>
+                <div class="flex flex-1 justify-end gap-8">
+                    <nav class="hidden lg:flex items-center gap-9">
+                        <a class="text-secondary/70 dark:text-white/70 hover:text-primary dark:hover:text-primary transition-colors text-sm font-medium leading-normal" th:href="@{/canchas/listado}">Canchas</a>
+                        <a class="text-secondary/70 dark:text-white/70 hover:text-primary dark:hover:text-primary transition-colors text-sm font-medium leading-normal" th:href="@{/sobre-nosotros}">Sobre Nosotros</a>
+                    </nav>
+                    <!-- Botones para usuarios NO autenticados -->
+                    <div class="flex gap-3" sec:authorize="isAnonymous()">
+                        <a th:href="@{/auth/login}" class="flex cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-6 bg-transparent border border-gray-200 dark:border-gray-700 text-secondary dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-sm font-bold leading-normal">
+                            <span class="truncate">Iniciar Sesión</span>
+                        </a>
+                        <a th:href="@{/auth/registro}" class="flex cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-6 bg-primary hover:bg-primary-dark transition-colors text-secondary text-sm font-bold leading-normal shadow-[0_4px_10px_rgba(13,242,13,0.3)]">
+                            <span class="truncate">Registrarse</span>
+                        </a>
+                    </div>
+                    <!-- Botones para usuarios autenticados -->
+                    <div class="flex items-center gap-3" sec:authorize="isAuthenticated()">
+                        <a th:href="@{/usuario/inicio}" class="flex cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-6 bg-transparent border border-gray-200 dark:border-gray-700 text-secondary dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-sm font-bold leading-normal">
+                            <span class="truncate" sec:authentication="name">Mi Panel</span>
+                        </a>
+                        <form th:action="@{/logout}" method="post" class="m-0">
+                            <button type="submit" class="flex cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-6 bg-primary hover:bg-primary-dark transition-colors text-secondary text-sm font-bold leading-normal">
+                                <span class="truncate">Cerrar Sesión</span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </header>
+
+            <main class="flex-1">
+                <div class="px-4 md:px-10 lg:px-40 py-16">
+                    <div class="max-w-3xl mx-auto flex flex-col gap-10">
+
+                        <div class="flex flex-col gap-3">
+                            <h1 class="text-4xl font-black text-secondary dark:text-white">Términos de Servicio</h1>
+                            <p class="text-gray-400 text-sm">Última actualización: 1 de enero de 2025</p>
+                        </div>
+
+                        <div class="bg-primary/10 border border-primary/20 rounded-xl p-5 text-secondary dark:text-white text-sm leading-relaxed">
+                            Al usar ReservaCanchaCR, aceptas los siguientes términos. Por favor léelos detenidamente.
+                        </div>
+
+                        <div class="flex flex-col gap-8 text-gray-600 dark:text-gray-300 leading-relaxed text-sm">
+
+                            <section class="flex flex-col gap-3">
+                                <h2 class="text-xl font-black text-secondary dark:text-white">1. Uso de la Plataforma</h2>
+                                <p>ReservaCanchaCR es una plataforma digital que permite a los usuarios buscar, reservar y pagar por el uso de canchas deportivas en Costa Rica. Al registrarte, confirmas que eres mayor de 18 años y que la información proporcionada es veraz y precisa.</p>
+                                <p>El uso de la plataforma está limitado a fines lícitos. Queda prohibido usar ReservaCanchaCR para cualquier actividad ilegal, fraudulenta o que viole los derechos de terceros.</p>
+                            </section>
+
+                            <section class="flex flex-col gap-3">
+                                <h2 class="text-xl font-black text-secondary dark:text-white">2. Reservas y Pagos</h2>
+                                <p>Las reservas se confirman únicamente una vez completado el pago. El precio de cada reserva es el indicado al momento de la transacción. ReservaCanchaCR actúa como intermediario entre el usuario y el propietario de la cancha.</p>
+                                <p>Los pagos se procesan de forma segura a través de proveedores certificados. ReservaCanchaCR no almacena datos completos de tarjetas de crédito.</p>
+                            </section>
+
+                            <section class="flex flex-col gap-3">
+                                <h2 class="text-xl font-black text-secondary dark:text-white">3. Política de Cancelaciones</h2>
+                                <p>Las cancelaciones realizadas con más de 24 horas de anticipación recibirán un reembolso completo. Las cancelaciones dentro de las 24 horas previas al inicio de la reserva pueden estar sujetas a un cargo del 50% del valor total.</p>
+                                <p>En caso de que la cancha no esté disponible por causas atribuibles al propietario, el usuario recibirá un reembolso completo o una reserva alternativa sin costo adicional.</p>
+                            </section>
+
+                            <section class="flex flex-col gap-3">
+                                <h2 class="text-xl font-black text-secondary dark:text-white">4. Responsabilidad</h2>
+                                <p>ReservaCanchaCR no se hace responsable por lesiones, daños o pérdidas ocurridas durante el uso de las instalaciones reservadas. Se recomienda a los usuarios contar con seguro médico y deportivo adecuado.</p>
+                                <p>Los propietarios de canchas son responsables de mantener sus instalaciones en condiciones seguras y aptas para el uso deportivo.</p>
+                            </section>
+
+                            <section class="flex flex-col gap-3">
+                                <h2 class="text-xl font-black text-secondary dark:text-white">5. Modificaciones</h2>
+                                <p>ReservaCanchaCR se reserva el derecho de modificar estos términos en cualquier momento. Los cambios serán comunicados a los usuarios registrados por correo electrónico con al menos 15 días de anticipación.</p>
+                            </section>
+
+                            <section class="flex flex-col gap-3">
+                                <h2 class="text-xl font-black text-secondary dark:text-white">6. Contacto</h2>
+                                <p>Para consultas sobre estos términos, escríbenos a <a href="mailto:legal@reservacanchacr.com" class="text-primary hover:underline">legal@reservacanchacr.com</a>.</p>
+                            </section>
+                        </div>
+
+                    </div>
+                </div>
+            </main>
+
+            <!-- Footer -->
+            <footer class="bg-secondary text-white py-12 px-6 lg:px-40 border-t border-gray-800">
+                <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between gap-10">
+                    <div class="flex flex-col gap-4 max-w-sm">
+                        <div class="flex items-center gap-2 text-white">
+                            <div class="size-6 text-secondary bg-primary rounded flex items-center justify-center">
+                                <span class="material-symbols-outlined text-lg">sports_soccer</span>
+                            </div>
+                            <h2 class="text-lg font-bold">ReservaCanchaCR</h2>
+                        </div>
+                        <p class="text-gray-400 text-sm leading-relaxed">La forma más fácil de encontrar y reservar instalaciones deportivas en tu ciudad. Conectando jugadores con las mejores canchas desde 2024.</p>
+                    </div>
+                    <div class="flex flex-wrap gap-10 md:gap-20">
+                        <div class="flex flex-col gap-4">
+                            <h4 class="font-bold text-primary">Empresa</h4>
+                            <a class="text-gray-400 hover:text-white text-sm" th:href="@{/sobre-nosotros}">Sobre Nosotros</a>
+                            <a class="text-gray-400 hover:text-white text-sm" th:href="@{/carreras}">Carreras</a>
+                            <a class="text-gray-400 hover:text-white text-sm" th:href="@{/blog}">Blog</a>
+                        </div>
+                        <div class="flex flex-col gap-4">
+                            <h4 class="font-bold text-primary">Soporte</h4>
+                            <a class="text-gray-400 hover:text-white text-sm" th:href="@{/ayuda}">Centro de Ayuda</a>
+                            <a class="text-white font-medium text-sm" th:href="@{/terminos}">Términos de Servicio</a>
+                            <a class="text-gray-400 hover:text-white text-sm" th:href="@{/privacidad}">Política de Privacidad</a>
+                        </div>
+                        <div class="flex flex-col gap-4">
+                            <h4 class="font-bold text-primary">Para Socios</h4>
+                            <a class="text-gray-400 hover:text-white text-sm" th:href="@{/lista-cancha}">Lista tu Cancha</a>
+                            <a class="text-gray-400 hover:text-white text-sm" th:href="@{/auth/login}">Inicio de Sesión de Socio</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="max-w-7xl mx-auto mt-12 pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-500">
+                    <p>© 2024 ReservaCanchaCR Inc. Todos los derechos reservados.</p>
+                    <div class="flex gap-4">
+                        <a class="hover:text-primary" href="#"><span class="material-symbols-outlined">public</span></a>
+                        <a class="hover:text-primary" href="#"><span class="material-symbols-outlined">alternate_email</span></a>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </body>
+</html>

@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security6">
+    <head>
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <title>Configuración - ReservaCanchaCR</title>
+        <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+        <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet">
+        <script>
+            tailwind.config = {
+                darkMode: "class",
+                theme: {
+                    extend: {
+                        colors: {
+                            "primary": "#0df20d",
+                            "primary-content": "#052e05",
+                            "background-light": "#f5f8f5",
+                        },
+                        fontFamily: { "display": ["Lexend","sans-serif"], "body": ["Lexend","sans-serif"] },
+                    },
+                },
+            }
+        </script>
+        <style>body { font-family: 'Lexend', sans-serif; }</style>
+    </head>
+    <body class="bg-background-light text-[#111811] antialiased">
+        <div class="relative flex min-h-screen w-full flex-row">
+            <!-- Sidebar -->
+            <aside class="hidden w-64 flex-col border-r border-[#e5e7eb] bg-white lg:flex sticky top-0 h-screen">
+                <div class="flex items-center gap-3 px-6 py-5 border-b border-[#f0f0f0]">
+                    <div class="flex items-center justify-center rounded-full bg-primary/20 size-10">
+                        <span class="material-symbols-outlined text-primary-content">sports_soccer</span>
+                    </div>
+                    <div class="flex flex-col">
+                        <h1 class="text-[#111811] text-base font-bold leading-normal tracking-tight">ReservaCanchaCR</h1>
+                        <p class="text-[#608a60] text-xs font-normal leading-normal">Panel de Usuario</p>
+                    </div>
+                </div>
+                <nav class="flex flex-col gap-2 p-4 flex-1 overflow-y-auto">
+                    <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#608a60] hover:bg-background-light hover:text-[#111811] transition-colors" th:href="@{/usuario/inicio}">
+                        <span class="material-symbols-outlined">home</span>
+                        <p class="text-sm font-medium leading-normal">Inicio</p>
+                    </a>
+                    <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#608a60] hover:bg-background-light hover:text-[#111811] transition-colors" th:href="@{/reserva/mis-reservas}">
+                        <span class="material-symbols-outlined">calendar_month</span>
+                        <p class="text-sm font-medium leading-normal">Mis Reservas</p>
+                    </a>
+                    <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#608a60] hover:bg-background-light hover:text-[#111811] transition-colors" th:href="@{/canchas/listado}">
+                        <span class="material-symbols-outlined">location_on</span>
+                        <p class="text-sm font-medium leading-normal">Buscar Canchas</p>
+                    </a>
+                    <div class="my-2 border-t border-[#f0f0f0]"></div>
+                    <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#608a60] hover:bg-background-light hover:text-[#111811] transition-colors" th:href="@{/usuario/perfil}">
+                        <span class="material-symbols-outlined">person</span>
+                        <p class="text-sm font-medium leading-normal">Mi Perfil</p>
+                    </a>
+                    <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary/10 text-primary-content transition-colors" th:href="@{/usuario/configuracion}">
+                        <span class="material-symbols-outlined fill-current">settings</span>
+                        <p class="text-sm font-bold leading-normal">Configuración</p>
+                    </a>
+                    <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-[#608a60] hover:bg-background-light hover:text-[#111811] transition-colors" th:href="@{/usuario/pagos}">
+                        <span class="material-symbols-outlined">credit_card</span>
+                        <p class="text-sm font-medium leading-normal">Pagos</p>
+                    </a>
+                </nav>
+                <div class="p-4 border-t border-[#f0f0f0]">
+                    <form th:action="@{/logout}" method="post" class="m-0">
+                        <button type="submit" class="flex items-center gap-3 w-full px-3 py-2.5 rounded-lg text-[#608a60] hover:bg-red-50 hover:text-red-600 transition-colors text-sm font-medium bg-transparent border-none cursor-pointer">
+                            <span class="material-symbols-outlined">logout</span>
+                            <p class="text-sm font-medium leading-normal">Cerrar Sesión</p>
+                        </button>
+                    </form>
+                </div>
+            </aside>
+            <!-- Main Content -->
+            <main class="flex-1 flex flex-col min-h-screen bg-background-light">
+                <!-- Header -->
+                <header class="sticky top-0 z-10 flex items-center justify-between border-b border-[#e5e7eb] bg-white/80 backdrop-blur-md px-6 py-4 lg:px-10">
+                    <div class="flex items-center gap-4 lg:hidden">
+                        <h2 class="text-[#111811] text-lg font-bold leading-tight">Configuración</h2>
+                    </div>
+                    <div class="hidden lg:flex flex-col">
+                        <h2 class="text-[#111811] text-xl font-bold leading-tight">Configuración</h2>
+                        <div class="flex items-center gap-2 text-sm text-[#608a60] mt-1">
+                            <a th:href="@{/usuario/inicio}" class="hover:text-primary-content">Inicio</a>
+                            <span class="material-symbols-outlined text-[14px]">chevron_right</span>
+                            <span class="text-[#111811] font-medium">Configuración</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-3">
+                        <div class="hidden md:flex flex-col items-end">
+                            <span class="text-sm font-bold text-[#111811]" th:text="${usuario != null ? usuario.nombre : ''}" sec:authentication="name">Usuario</span>
+                            <span class="text-xs text-[#608a60]">Usuario</span>
+                        </div>
+                    </div>
+                </header>
+                <div class="flex-1 p-4 lg:p-10 overflow-y-auto">
+                    <div class="mx-auto max-w-3xl space-y-8">
+
+                        <!-- Notificaciones -->
+                        <section class="bg-white rounded-2xl p-6 lg:p-8 shadow-sm border border-[#e5e7eb]">
+                            <div class="flex items-center gap-3 mb-6">
+                                <div class="p-2 bg-primary/10 rounded-lg text-primary-content">
+                                    <span class="material-symbols-outlined">notifications</span>
+                                </div>
+                                <h3 class="text-lg font-bold text-[#111811]">Notificaciones</h3>
+                            </div>
+                            <div class="flex flex-col gap-4">
+                                <div class="flex items-center justify-between py-3 border-b border-[#f0f0f0]">
+                                    <div>
+                                        <p class="text-sm font-semibold text-[#111811]">Confirmaciones de reserva</p>
+                                        <p class="text-xs text-[#608a60]">Recibir un correo al confirmar una reserva</p>
+                                    </div>
+                                    <label class="relative inline-flex items-center cursor-pointer">
+                                        <input type="checkbox" class="sr-only peer" checked>
+                                        <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:bg-primary"></div>
+                                    </label>
+                                </div>
+                                <div class="flex items-center justify-between py-3 border-b border-[#f0f0f0]">
+                                    <div>
+                                        <p class="text-sm font-semibold text-[#111811]">Recordatorios de reserva</p>
+                                        <p class="text-xs text-[#608a60]">Notificación 1 hora antes de tu reserva</p>
+                                    </div>
+                                    <label class="relative inline-flex items-center cursor-pointer">
+                                        <input type="checkbox" class="sr-only peer" checked>
+                                        <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:bg-primary"></div>
+                                    </label>
+                                </div>
+                                <div class="flex items-center justify-between py-3">
+                                    <div>
+                                        <p class="text-sm font-semibold text-[#111811]">Ofertas y promociones</p>
+                                        <p class="text-xs text-[#608a60]">Recibir correos sobre descuentos especiales</p>
+                                    </div>
+                                    <label class="relative inline-flex items-center cursor-pointer">
+                                        <input type="checkbox" class="sr-only peer">
+                                        <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:bg-primary"></div>
+                                    </label>
+                                </div>
+                            </div>
+                        </section>
+
+                        <!-- Preferencias -->
+                        <section class="bg-white rounded-2xl p-6 lg:p-8 shadow-sm border border-[#e5e7eb]">
+                            <div class="flex items-center gap-3 mb-6">
+                                <div class="p-2 bg-blue-50 rounded-lg text-blue-600">
+                                    <span class="material-symbols-outlined">tune</span>
+                                </div>
+                                <h3 class="text-lg font-bold text-[#111811]">Preferencias de Reserva</h3>
+                            </div>
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                <div class="space-y-1.5">
+                                    <label class="text-sm font-semibold text-[#111811]">Zona preferida</label>
+                                    <select class="w-full px-4 py-2.5 rounded-lg border border-[#d1d5db] bg-white text-[#111811] outline-none">
+                                        <option>San José</option>
+                                        <option>Cartago</option>
+                                        <option>Heredia</option>
+                                        <option>Alajuela</option>
+                                    </select>
+                                </div>
+                                <div class="space-y-1.5">
+                                    <label class="text-sm font-semibold text-[#111811]">Tipo de cancha</label>
+                                    <select class="w-full px-4 py-2.5 rounded-lg border border-[#d1d5db] bg-white text-[#111811] outline-none">
+                                        <option>Fútbol 11</option>
+                                        <option>Fútbol 7</option>
+                                        <option>Fútbol 5</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="mt-6 flex justify-end">
+                                <button class="px-6 py-2.5 rounded-lg bg-primary text-primary-content font-bold hover:bg-[#0be00b] transition-colors flex items-center gap-2" type="button">
+                                    <span class="material-symbols-outlined text-[20px]">save</span>
+                                    Guardar preferencias
+                                </button>
+                            </div>
+                        </section>
+
+                        <!-- Privacidad -->
+                        <section class="bg-white rounded-2xl p-6 lg:p-8 shadow-sm border border-[#e5e7eb]">
+                            <div class="flex items-center gap-3 mb-6">
+                                <div class="p-2 bg-primary/10 rounded-lg text-primary-content">
+                                    <span class="material-symbols-outlined">lock</span>
+                                </div>
+                                <h3 class="text-lg font-bold text-[#111811]">Privacidad</h3>
+                            </div>
+                            <div class="flex flex-col gap-4">
+                                <div class="flex items-center justify-between py-3 border-b border-[#f0f0f0]">
+                                    <div>
+                                        <p class="text-sm font-semibold text-[#111811]">Perfil público</p>
+                                        <p class="text-xs text-[#608a60]">Permitir que otros usuarios vean tu perfil</p>
+                                    </div>
+                                    <label class="relative inline-flex items-center cursor-pointer">
+                                        <input type="checkbox" class="sr-only peer">
+                                        <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:bg-primary"></div>
+                                    </label>
+                                </div>
+                                <div class="flex items-center justify-between py-3">
+                                    <div>
+                                        <p class="text-sm font-semibold text-[#111811]">Historial de reservas visible</p>
+                                        <p class="text-xs text-[#608a60]">Mostrar tu historial de reservas en tu perfil</p>
+                                    </div>
+                                    <label class="relative inline-flex items-center cursor-pointer">
+                                        <input type="checkbox" class="sr-only peer" checked>
+                                        <div class="w-11 h-6 bg-gray-200 peer-focus:outline-none rounded-full peer peer-checked:bg-primary"></div>
+                                    </label>
+                                </div>
+                            </div>
+                        </section>
+
+                    </div>
+                </div>
+            </main>
+        </div>
+    </body>
+</html>
