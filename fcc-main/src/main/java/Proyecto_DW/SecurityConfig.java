@@ -8,6 +8,7 @@ package Proyecto_DW;
  *
  * @author Alfaro
  */
+import Proyecto_DW.service.GoogleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,6 +22,10 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 public class SecurityConfig {
+
+    @Autowired
+    @Lazy
+    private GoogleService googleOAuth2UserService;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -54,6 +59,14 @@ public class SecurityConfig {
                 .defaultSuccessUrl("/usuario/inicio", true)
                 .failureUrl("/auth/login?error=true")
                 .permitAll()
+                
+                //Inicio con google
+         ).oauth2Login(oauth2 -> oauth2       
+                .loginPage("/auth/login")
+                .defaultSuccessUrl("/usuario/inicio", true)
+                .userInfoEndpoint(userInfo -> userInfo
+                        .userService(googleOAuth2UserService)
+                )
         ).logout(logout -> logout
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/auth/login?logout=true")
