@@ -68,6 +68,14 @@ public class CanchaService {
     }
 
     /**
+     * Obtener canchas de un vendedor específico
+     */
+    @Transactional(readOnly = true)
+    public List<Cancha> getCanchasByVendedor(Integer idUsuario) {
+        return canchaRepository.findByVendedorIdUsuario(idUsuario);
+    }
+
+    /**
      * Guardar una nueva cancha
      */
     @Transactional

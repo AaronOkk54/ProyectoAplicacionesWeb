@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"><head>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"><head>
         <meta charset="utf-8">
         <meta content="width=device-width, initial-scale=1.0" name="viewport">
         <title>Registro - ReservaCanchaCR</title>
@@ -1181,6 +1181,28 @@
                                     </div>
                                     <div id="password-mismatch-error" class="hidden p-3 bg-red-50 border border-red-300 rounded-lg text-red-700 text-sm">
                                         Las contraseñas no coinciden.
+                                    </div>
+                                    <!-- Tipo de cuenta -->
+                                    <div class="flex flex-col gap-2">
+                                        <label class="text-sm font-medium text-text-main dark:text-gray-200">Tipo de cuenta</label>
+                                        <div class="grid grid-cols-2 gap-3">
+                                            <label class="flex items-center gap-3 p-3 rounded-lg border border-[#dbe6db] dark:border-white/10 cursor-pointer hover:border-primary transition-colors has-[:checked]:border-primary has-[:checked]:bg-primary/5">
+                                                <input type="radio" name="rol" value="CLIENTE" checked
+                                                       class="text-primary focus:ring-primary dark:ring-offset-gray-800"/>
+                                                <div>
+                                                    <p class="text-sm font-semibold text-text-main dark:text-white">Cliente</p>
+                                                    <p class="text-xs text-text-muted dark:text-gray-400">Reservar canchas</p>
+                                                </div>
+                                            </label>
+                                            <label class="flex items-center gap-3 p-3 rounded-lg border border-[#dbe6db] dark:border-white/10 cursor-pointer hover:border-primary transition-colors has-[:checked]:border-primary has-[:checked]:bg-primary/5">
+                                                <input type="radio" name="rol" value="VENDEDOR"
+                                                       class="text-primary focus:ring-primary dark:ring-offset-gray-800"/>
+                                                <div>
+                                                    <p class="text-sm font-semibold text-text-main dark:text-white">Vendedor</p>
+                                                    <p class="text-xs text-text-muted dark:text-gray-400">Registrar canchas</p>
+                                                </div>
+                                            </label>
+                                        </div>
                                     </div>
                                     <div class="mt-4">
                                         <button type="submit" class="flex w-full items-center justify-center rounded-lg bg-primary px-5 py-3 text-sm font-bold tracking-wide text-text-main shadow-sm transition-colors hover:bg-[#0be00b] focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 dark:ring-offset-surface-dark">

@@ -29,9 +29,11 @@ public class AuthController {
     }
 
     @PostMapping("/registro")
-    public String registrar(@ModelAttribute("usuario") Usuario usuario, Model model) {
+    public String registrar(@ModelAttribute("usuario") Usuario usuario,
+                            @RequestParam(defaultValue = "CLIENTE") String rol,
+                            Model model) {
         try {
-            usuarioService.registrar(usuario);
+            usuarioService.registrar(usuario, rol);
             return "redirect:/auth/login?registrado=true";
         } catch (Exception e) {
             model.addAttribute("usuario", usuario);

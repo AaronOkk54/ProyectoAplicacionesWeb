@@ -36,11 +36,12 @@ public class SecurityConfig {
                 // Canchas: listado y detalles son públicos, gestión solo ADMIN
                 .requestMatchers("/canchas/listado", "/canchas/buscar", "/canchas/detalles/**").permitAll()
                 .requestMatchers("/canchas/crear", "/canchas/guardar", "/canchas/modificar/**",
-                        "/canchas/actualizar", "/canchas/eliminar").hasRole("ADMIN")
+                        "/canchas/actualizar").hasAnyRole("ADMIN", "VENDEDOR")
+                .requestMatchers("/canchas/eliminar").hasRole("ADMIN")
                 // Listado de usuarios solo ADMIN
                 .requestMatchers("/admin/**", "/usuarios/**", "/usuario/listado").hasRole("ADMIN")
                 // Reservas y área de usuario requieren autenticación
-                .requestMatchers("/reserva/**", "/usuario/**").hasAnyRole("ADMIN", "USUARIO")
+                .requestMatchers("/reserva/**", "/usuario/**", "/canchas/mis-canchas").hasAnyRole("ADMIN", "USUARIO", "CLIENTE", "VENDEDOR")
                 // Cualquier otra ruta requiere autenticación
                 .anyRequest().authenticated()
         );

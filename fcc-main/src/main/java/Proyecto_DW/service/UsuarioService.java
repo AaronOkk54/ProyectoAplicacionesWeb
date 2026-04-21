@@ -73,15 +73,36 @@ public class UsuarioService {
         usuario.setActivo(true);
         usuario.setFechaCreacion(java.time.LocalDateTime.now());
 
-        Rol rolUsuario = rolRepository.findByNombre("USUARIO");
+        return usuarioRepository.save(asignarRol(usuario, "CLIENTE"));
+    }
 
-        if (rolUsuario != null) {
+    @Transactional
+    public Usuario registrar(Usuario usuario, String rolNombre) {
+        if (usuarioRepository.existsByEmail(usuario.getEmail())) {
+            throw new IllegalArgumentException("El email ya está registrado en el sistema.");
+        }
+        if (usuario.getNombre() == null || usuario.getNombre().trim().isEmpty()) {
+            throw new IllegalArgumentException("El nombre del usuario no puede estar vacío.");
+        }
+        if (usuario.getPassword() == null || usuario.getPassword().trim().isEmpty()) {
+            throw new IllegalArgumentException("La contraseña no puede estar vacía.");
+        }
+        usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
+        usuario.setActivo(true);
+        usuario.setFechaCreacion(java.time.LocalDateTime.now());
+        return usuarioRepository.save(asignarRol(usuario, rolNombre));
+    }
+
+    private Usuario asignarRol(Usuario usuario, String rolNombre) {
+        Rol rol = rolRepository.findByNombre(rolNombre);
+        if (rol == null) rol = rolRepository.findByNombre("CLIENTE");
+        if (rol == null) rol = rolRepository.findByNombre("USUARIO");
+        if (rol != null) {
             Set<Rol> roles = new HashSet<>();
-            roles.add(rolUsuario);
+            roles.add(rol);
             usuario.setRoles(roles);
         }
-
-        return usuarioRepository.save(usuario);
+        return usuario;
     }
 
     @Transactional

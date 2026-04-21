@@ -1,107 +1,197 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Modificar Cancha - ReservaCanchaCR</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
-    <style>
-        body { background-color: #f8f9fa; }
-        .form-container { max-width: 600px; margin: 40px auto; }
-        .card { box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
-        .btn-primary { background-color: #007bff; }
-        .btn-primary:hover { background-color: #0056b3; }
-    </style>
-</head>
-<body>
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="/">ReservaCanchaCR</a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item"><a class="nav-link" href="/cancha/listado">Listado Canchas</a></li>
-                    <li class="nav-item"><a class="nav-link" href="/">Inicio</a></li>
-                </ul>
-            </div>
-        </div>
-    </nav>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head>
+        <meta charset="utf-8"/>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+        <title>Editar Cancha | ReservaCanchaCR</title>
+        <link href="https://fonts.googleapis.com" rel="preconnect"/>
+        <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+        <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&amp;family=Noto+Sans:wght@100..900&amp;display=swap" rel="stylesheet"/>
+        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+        <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+        <script>
+            tailwind.config = {
+                darkMode: "class",
+                theme: {
+                    extend: {
+                        colors: {
+                            "primary": "#0df20d",
+                            "primary-dark": "#0bc00b",
+                            "background-light": "#f5f8f5",
+                            "background-dark": "#102210",
+                            "secondary-dark": "#1a2e1a",
+                        },
+                        fontFamily: {
+                            "display": ["Lexend", "sans-serif"],
+                            "body": ["Noto Sans", "sans-serif"],
+                        },
+                        borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                    },
+                },
+            }
+        </script>
+        <style>body { font-family: 'Lexend', 'Noto Sans', sans-serif; }</style>
+    </head>
+    <body class="bg-background-light dark:bg-background-dark text-[#111811] dark:text-gray-100">
+        <div class="relative flex h-screen w-full overflow-hidden">
+            <!-- Sidebar -->
+            <aside th:replace="~{fragments/sidebar :: sidebar('misCanchas')}"></aside>
+            <!-- Main Content -->
+            <main class="flex-1 flex flex-col h-full overflow-hidden bg-background-light dark:bg-background-dark relative">
+                <!-- Top Bar -->
+                <header class="flex items-center justify-between px-6 py-4 bg-white dark:bg-secondary-dark border-b border-[#f0f5f0] dark:border-gray-800 shadow-sm z-10">
+                    <div class="flex items-center gap-4">
+                        <div class="flex items-center gap-2 text-[#111811] dark:text-white">
+                            <div class="size-8 text-primary">
+                                <svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M24 4C12.95 4 4 12.95 4 24C4 35.05 12.95 44 24 44C35.05 44 44 35.05 44 24C44 12.95 35.05 4 24 4ZM24 40C15.16 40 8 32.84 8 24C8 15.16 15.16 8 24 8C32.84 8 40 15.16 40 24C40 32.84 32.84 40 24 40Z" fill="currentColor"></path>
+                                    <path d="M24 13L16 27H32L24 13Z" fill="currentColor"></path>
+                                </svg>
+                            </div>
+                            <h2 class="text-lg font-bold tracking-tight hidden sm:block">ReservaCanchaCR</h2>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <div class="rounded-full size-9 border border-gray-200 dark:border-gray-700 cursor-pointer bg-slate-200 flex items-center justify-center">
+                            <span class="material-symbols-outlined text-slate-500 text-base">person</span>
+                        </div>
+                    </div>
+                </header>
+                <!-- Scrollable Content -->
+                <div class="flex-1 overflow-y-auto p-4 md:p-8">
+                    <div class="max-w-3xl mx-auto space-y-6">
+                        <!-- Breadcrumbs & Title -->
+                        <div class="flex flex-col gap-1">
+                            <div class="flex items-center gap-2 text-sm text-[#608a60] dark:text-gray-400">
+                                <a class="hover:text-primary transition-colors" th:href="@{/usuario/inicio}">Inicio</a>
+                                <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+                                <a class="hover:text-primary transition-colors" th:href="@{/canchas/mis-canchas}">Mis Canchas</a>
+                                <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+                                <span class="font-medium text-[#111811] dark:text-white" th:text="${cancha.nombre}">Cancha</span>
+                            </div>
+                            <h1 class="text-3xl md:text-4xl font-black tracking-tight text-[#111811] dark:text-white mt-2">Editar Cancha</h1>
+                            <p class="text-[#608a60] dark:text-gray-400 mt-1 text-sm">Modifica los datos de tu cancha. Los campos marcados con * son obligatorios.</p>
+                        </div>
 
-    <div class="form-container">
-        <div class="card">
-            <div class="card-header bg-primary text-white">
-                <h2>Modificar Cancha</h2>
-            </div>
-            <div class="card-body">
-                <div th:if="${error}" class="alert alert-danger alert-dismissible fade show" role="alert">
-                    <span th:text="${error}"></span>
-                    <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        <!-- Error message -->
+                        <div th:if="${error}" class="bg-red-50 border border-red-200 text-red-700 rounded-xl p-4 text-sm flex items-center gap-2">
+                            <span class="material-symbols-outlined text-[18px]">error</span>
+                            <span th:text="${error}"></span>
+                        </div>
+
+                        <!-- Form -->
+                        <form th:action="@{/canchas/actualizar}" th:object="${cancha}" method="POST"
+                              class="bg-white dark:bg-secondary-dark rounded-xl shadow-sm border border-[#f0f5f0] dark:border-gray-800 divide-y divide-[#f0f5f0] dark:divide-gray-800">
+
+                            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                            <input type="hidden" th:field="*{idCancha}"/>
+
+                            <!-- Información básica -->
+                            <div class="p-6 space-y-5">
+                                <h2 class="text-base font-bold text-[#111811] dark:text-white flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-primary-dark text-[20px]">info</span>
+                                    Información básica
+                                </h2>
+
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                                    <!-- Nombre -->
+                                    <div class="md:col-span-2 flex flex-col gap-1.5">
+                                        <label for="nombre" class="text-sm font-semibold text-[#111811] dark:text-gray-200">Nombre de la cancha *</label>
+                                        <input type="text" id="nombre" th:field="*{nombre}" required
+                                               class="w-full px-4 py-2.5 rounded-lg border border-gray-200 dark:border-gray-700 bg-background-light dark:bg-background-dark text-[#111811] dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors"/>
+                                    </div>
+
+                                    <!-- Ubicación -->
+                                    <div class="md:col-span-2 flex flex-col gap-1.5">
+                                        <label for="ubicacion" class="text-sm font-semibold text-[#111811] dark:text-gray-200">Ubicación *</label>
+                                        <input type="text" id="ubicacion" th:field="*{ubicacion}" required
+                                               class="w-full px-4 py-2.5 rounded-lg border border-gray-200 dark:border-gray-700 bg-background-light dark:bg-background-dark text-[#111811] dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors"/>
+                                    </div>
+
+                                    <!-- Precio -->
+                                    <div class="flex flex-col gap-1.5">
+                                        <label for="precioHora" class="text-sm font-semibold text-[#111811] dark:text-gray-200">Precio por hora (₡) *</label>
+                                        <input type="number" id="precioHora" th:field="*{precioHora}" required
+                                               step="500" min="1000"
+                                               class="w-full px-4 py-2.5 rounded-lg border border-gray-200 dark:border-gray-700 bg-background-light dark:bg-background-dark text-[#111811] dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors"/>
+                                    </div>
+
+                                    <!-- Capacidad -->
+                                    <div class="flex flex-col gap-1.5">
+                                        <label for="capacidad" class="text-sm font-semibold text-[#111811] dark:text-gray-200">Capacidad (jugadores)</label>
+                                        <input type="number" id="capacidad" th:field="*{capacidad}"
+                                               min="2" max="50"
+                                               class="w-full px-4 py-2.5 rounded-lg border border-gray-200 dark:border-gray-700 bg-background-light dark:bg-background-dark text-[#111811] dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors"/>
+                                    </div>
+
+                                    <!-- Estado -->
+                                    <div class="flex flex-col gap-1.5">
+                                        <label for="estado" class="text-sm font-semibold text-[#111811] dark:text-gray-200">Estado *</label>
+                                        <select id="estado" th:field="*{estado}" required
+                                                class="w-full px-4 py-2.5 rounded-lg border border-gray-200 dark:border-gray-700 bg-background-light dark:bg-background-dark text-[#111811] dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors">
+                                            <option value="DISPONIBLE">Disponible</option>
+                                            <option value="MANTENIMIENTO">En mantenimiento</option>
+                                            <option value="CLAUSURADA">Clausurada</option>
+                                        </select>
+                                    </div>
+
+                                    <!-- Descripción -->
+                                    <div class="md:col-span-2 flex flex-col gap-1.5">
+                                        <label for="descripcion" class="text-sm font-semibold text-[#111811] dark:text-gray-200">Descripción</label>
+                                        <textarea id="descripcion" th:field="*{descripcion}" rows="3"
+                                                  class="w-full px-4 py-2.5 rounded-lg border border-gray-200 dark:border-gray-700 bg-background-light dark:bg-background-dark text-[#111811] dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors resize-none"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Características y horarios -->
+                            <div class="p-6 space-y-5">
+                                <h2 class="text-base font-bold text-[#111811] dark:text-white flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-primary-dark text-[20px]">settings</span>
+                                    Características y horarios
+                                </h2>
+
+                                <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+                                    <!-- Horario apertura -->
+                                    <div class="flex flex-col gap-1.5">
+                                        <label for="horarioApertura" class="text-sm font-semibold text-[#111811] dark:text-gray-200">Hora de apertura</label>
+                                        <input type="time" id="horarioApertura" th:field="*{horarioApertura}"
+                                               class="w-full px-4 py-2.5 rounded-lg border border-gray-200 dark:border-gray-700 bg-background-light dark:bg-background-dark text-[#111811] dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors"/>
+                                    </div>
+
+                                    <!-- Horario cierre -->
+                                    <div class="flex flex-col gap-1.5">
+                                        <label for="horarioCierre" class="text-sm font-semibold text-[#111811] dark:text-gray-200">Hora de cierre</label>
+                                        <input type="time" id="horarioCierre" th:field="*{horarioCierre}"
+                                               class="w-full px-4 py-2.5 rounded-lg border border-gray-200 dark:border-gray-700 bg-background-light dark:bg-background-dark text-[#111811] dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors"/>
+                                    </div>
+
+                                    <!-- Características -->
+                                    <div class="md:col-span-2 flex flex-col gap-1.5">
+                                        <label for="caracteristicas" class="text-sm font-semibold text-[#111811] dark:text-gray-200">Características</label>
+                                        <textarea id="caracteristicas" th:field="*{caracteristicas}" rows="3"
+                                                  class="w-full px-4 py-2.5 rounded-lg border border-gray-200 dark:border-gray-700 bg-background-light dark:bg-background-dark text-[#111811] dark:text-white text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 focus:border-primary transition-colors resize-none"></textarea>
+                                        <p class="text-xs text-[#608a60] dark:text-gray-400">Ej: Césped artificial, iluminación nocturna, vestuarios, estacionamiento</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Acciones -->
+                            <div class="p-6 flex flex-col sm:flex-row gap-3 justify-end">
+                                <a th:href="@{/canchas/mis-canchas}"
+                                   class="px-5 py-2.5 rounded-lg border border-gray-200 dark:border-gray-700 text-[#111811] dark:text-white text-sm font-medium hover:border-primary transition-colors text-center">
+                                    Cancelar
+                                </a>
+                                <button type="submit"
+                                        class="bg-primary hover:bg-primary-dark text-black font-bold py-2.5 px-6 rounded-lg shadow-lg shadow-primary/20 transition-all flex items-center justify-center gap-2 text-sm">
+                                    <span class="material-symbols-outlined text-[18px]">save</span>
+                                    Guardar Cambios
+                                </button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-                
-                <form th:action="@{/canchas/actualizar}" th:object="${cancha}" method="POST">
-                    <input type="hidden" th:field="*{idCancha}">
-
-                    <div class="mb-3">
-                        <label for="nombre" class="form-label">Nombre *</label>
-                        <input type="text" class="form-control" id="nombre" th:field="*{nombre}" required>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="ubicacion" class="form-label">Ubicación *</label>
-                        <input type="text" class="form-control" id="ubicacion" th:field="*{ubicacion}" required>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="precioHora" class="form-label">Precio por Hora *</label>
-                        <input type="number" class="form-control" id="precioHora" th:field="*{precioHora}" step="0.01" required>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="tipo" class="form-label">Tipo de Superficie *</label>
-                        <select class="form-select" id="tipo" th:field="*{tipo}" required>
-                            <option value="">-- Seleccionar --</option>
-                            <option value="Grass">Grass</option>
-                            <option value="Artificial">Artificial</option>
-                            <option value="Cemento">Cemento</option>
-                            <option value="Arenilla">Arenilla</option>
-                        </select>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="capacidad" class="form-label">Capacidad *</label>
-                        <input type="number" class="form-control" id="capacidad" th:field="*{capacidad}" required>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="estado" class="form-label">Estado *</label>
-                        <select class="form-select" id="estado" th:field="*{estado}" required>
-                            <option value="">-- Seleccionar --</option>
-                            <option value="DISPONIBLE">Disponible</option>
-                            <option value="MANTENIMIENTO">Mantenimiento</option>
-                            <option value="CLAUSURADA">Clausurada</option>
-                        </select>
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="descripcion" class="form-label">Descripción</label>
-                        <textarea class="form-control" id="descripcion" th:field="*{descripcion}" rows="4"></textarea>
-                    </div>
-
-                    <div class="d-grid gap-2">
-                        <button type="submit" class="btn btn-primary btn-lg">Actualizar Cancha</button>
-                        <a href="/cancha/listado" class="btn btn-secondary">Cancelar</a>
-                    </div>
-                </form>
-            </div>
+            </main>
         </div>
-    </div>
-
-    <footer class="bg-dark text-white text-center py-4 mt-5">
-        <p>&copy; 2024 ReservaCanchaCR. Todos los derechos reservados.</p>
-    </footer>
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+    </body>
 </html>

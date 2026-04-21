@@ -95,7 +95,7 @@ public class ReservaController {
     @PostMapping("/guardar")
     public String guardar(@Valid Reserva reserva, RedirectAttributes redirectAttributes) {
         try {
-            // Se establecería el usuario del contexto de seguridad
+            reserva.setUsuario(getUsuarioActual());
             reservaService.save(reserva);
             redirectAttributes.addFlashAttribute("todoOk", 
                 messageSource.getMessage("reserva.creada", null, Locale.getDefault()));

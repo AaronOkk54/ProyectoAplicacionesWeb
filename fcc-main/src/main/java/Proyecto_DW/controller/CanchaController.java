@@ -17,8 +17,11 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import jakarta.servlet.http.HttpSession;
 
 import Proyecto_DW.domain.Cancha;
+import Proyecto_DW.domain.Usuario;
 import Proyecto_DW.service.CanchaService;
+import Proyecto_DW.service.UsuarioService;
 import jakarta.validation.Valid;
+import org.springframework.security.core.context.SecurityContextHolder;
 
 /**
  * CanchaController
@@ -29,12 +32,25 @@ import jakarta.validation.Valid;
 public class CanchaController {
 
     private final CanchaService canchaService;
+    private final UsuarioService usuarioService;
 
     @Autowired
     private MessageSource messageSource;
 
-    public CanchaController(CanchaService canchaService) {
+    public CanchaController(CanchaService canchaService, UsuarioService usuarioService) {
         this.canchaService = canchaService;
+        this.usuarioService = usuarioService;
+    }
+
+    private Usuario getUsuarioActual() {
+        String email = SecurityContextHolder.getContext().getAuthentication().getName();
+        return usuarioService.getUsuarioByEmail(email).orElse(null);
+    }
+
+    private boolean esVendedorOAdmin() {
+        return SecurityContextHolder.getContext().getAuthentication()
+                .getAuthorities().stream()
+                .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN") || a.getAuthority().equals("ROLE_VENDEDOR"));
     }
 
     /**
@@ -78,13 +94,10 @@ public class CanchaController {
     }
 
     /**
-     * Detalles de una cancha específica
+     * Detalles de una cancha específica (público, la reserva requiere autenticación)
      */
     @GetMapping("/detalles/{idCancha}")
-    public String detalles(@PathVariable("idCancha") Integer idCancha, Model model, RedirectAttributes redirectAttributes, HttpSession session) {
-        if (session.getAttribute("usuarioLogueado") == null) {
-            return "redirect:/auth/login";
-        }
+    public String detalles(@PathVariable("idCancha") Integer idCancha, Model model, RedirectAttributes redirectAttributes) {
         Optional<Cancha> canchaOpt = canchaService.getCancha(idCancha);
         if (canchaOpt.isEmpty()) {
             redirectAttributes.addFlashAttribute("error",
@@ -93,6 +106,20 @@ public class CanchaController {
         }
         model.addAttribute("cancha", canchaOpt.get());
         return "canchas/detalleCancha";
+    }
+
+    /**
+     * Mis canchas (VENDEDOR y ADMIN)
+     */
+    @GetMapping("/mis-canchas")
+    public String misCanchas(Model model) {
+        Usuario usuario = getUsuarioActual();
+        if (usuario == null) return "redirect:/auth/login";
+        var canchas = canchaService.getCanchasByVendedor(usuario.getIdUsuario());
+        model.addAttribute("canchas", canchas);
+        model.addAttribute("totalCanchas", canchas.size());
+        model.addAttribute("usuario", usuario);
+        return "canchas/misCanchas";
     }
 
     /**
@@ -105,15 +132,19 @@ public class CanchaController {
     }
 
     /**
-     * Guardar una nueva cancha (solo administrador)
+     * Guardar una nueva cancha (ADMIN o VENDEDOR)
      */
     @PostMapping("/guardar")
     public String guardar(@Valid Cancha cancha, RedirectAttributes redirectAttributes) {
         try {
+            Usuario usuario = getUsuarioActual();
+            if (usuario != null) {
+                cancha.setVendedor(usuario);
+            }
             canchaService.save(cancha);
-            redirectAttributes.addFlashAttribute("todoOk",
+            redirectAttributes.addFlashAttribute("mensaje",
                 messageSource.getMessage("cancha.guardada", null, Locale.getDefault()));
-            return "redirect:/canchas/listado";
+            return "redirect:/canchas/mis-canchas";
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error",
                 messageSource.getMessage("cancha.error.guardar", null, Locale.getDefault()));
@@ -137,15 +168,21 @@ public class CanchaController {
     }
 
     /**
-     * Actualizar una cancha existente (solo administrador)
+     * Actualizar una cancha existente (ADMIN o VENDEDOR dueño)
      */
     @PostMapping("/actualizar")
     public String actualizar(@Valid Cancha cancha, RedirectAttributes redirectAttributes) {
         try {
+            // Preserve vendedor from the original cancha — form cannot bind nested objects
+            canchaService.getCancha(cancha.getIdCancha()).ifPresent(original -> {
+                if (cancha.getVendedor() == null) {
+                    cancha.setVendedor(original.getVendedor());
+                }
+            });
             canchaService.update(cancha);
-            redirectAttributes.addFlashAttribute("todoOk",
+            redirectAttributes.addFlashAttribute("mensaje",
                 messageSource.getMessage("cancha.actualizada", null, Locale.getDefault()));
-            return "redirect:/canchas/listado";
+            return "redirect:/canchas/mis-canchas";
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error",
                 messageSource.getMessage("cancha.error.actualizar", null, Locale.getDefault()));
@@ -174,6 +211,6 @@ public class CanchaController {
         }
         redirectAttributes.addFlashAttribute(titulo,
             messageSource.getMessage(detalle, null, Locale.getDefault()));
-        return "redirect:/canchas/listado";
+        return "redirect:/canchas/mis-canchas";
     }
 }

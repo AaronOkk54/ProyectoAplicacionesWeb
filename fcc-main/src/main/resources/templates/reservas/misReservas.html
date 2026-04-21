@@ -54,53 +54,7 @@
     <body class="bg-background-light dark:bg-background-dark text-accent-blue dark:text-white antialiased overflow-hidden">
         <div class="flex h-screen w-full overflow-hidden">
             <!-- Sidebar Navigation -->
-            <aside class="hidden md:flex flex-col w-72 bg-white dark:bg-[#1a2e1a] border-r border-gray-100 dark:border-gray-800 h-full flex-shrink-0">
-                <div class="p-6">
-                    <div class="flex items-center gap-3 mb-8">
-                        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-primary to-green-300 flex items-center justify-center text-accent-blue font-bold text-xl">
-                            R
-                        </div>
-                        <span class="text-xl font-bold tracking-tight text-accent-blue dark:text-white">ReservaCanchaCR</span>
-                    </div>
-                    <div class="flex flex-col gap-6">
-                        <!-- User Profile Snippet -->
-                        <div class="flex gap-3 p-3 bg-gray-50 dark:bg-gray-800/50 rounded-xl">
-                            <div class="rounded-full size-10 shrink-0 bg-slate-200 flex items-center justify-center">
-                                <span class="material-symbols-outlined text-slate-500">person</span>
-                            </div>
-                            <div class="flex flex-col overflow-hidden">
-                                <h1 class="text-accent-blue dark:text-white text-sm font-semibold truncate" th:text="${usuario.nombre ?: 'Usuario'}">Usuario</h1>
-                            </div>
-                        </div>
-                        <!-- Navigation Links -->
-                        <nav class="flex flex-col gap-1">
-                            <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors group" th:href="@{/usuario/inicio}">
-                                <span class="material-symbols-outlined text-gray-400 group-hover:text-primary transition-colors">home</span>
-                                <span class="text-sm font-medium">Inicio</span>
-                            </a>
-                            <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg bg-primary/10 text-primary-dark dark:text-primary" th:href="@{/reserva/mis-reservas}">
-                                <span class="material-symbols-outlined text-primary-dark dark:text-primary fill-current">calendar_month</span>
-                                <span class="text-sm font-bold">Mis Reservas</span>
-                            </a>
-                            <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors group" th:href="@{/canchas}">
-                                <span class="material-symbols-outlined text-gray-400 group-hover:text-primary transition-colors">location_on</span>
-                                <span class="text-sm font-medium">Buscar Canchas</span>
-                            </a>
-                            
-                            <a class="flex items-center gap-3 px-3 py-2.5 rounded-lg text-gray-600 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors group" th:href="@{/usuario/perfil}">
-                                <span class="material-symbols-outlined text-gray-400 group-hover:text-primary transition-colors">settings</span>
-                                <span class="text-sm font-medium">Perfil</span>
-                            </a>
-                        </nav>
-                    </div>
-                </div>
-                <div class="mt-auto p-6">
-                    <a class="flex w-full items-center justify-center gap-2 rounded-lg h-10 bg-primary text-accent-blue font-bold text-sm shadow-sm hover:bg-primary-dark hover:shadow-md transition-all" th:href="@{/reserva/crear}">
-                        <span class="material-symbols-outlined text-lg">add</span>
-                        <span>Nueva Reserva</span>
-                    </a>
-                </div>
-            </aside>
+            <aside th:replace="~{fragments/sidebar :: sidebar('misReservas')}"></aside>
             <!-- Main Content Area -->
             <main class="flex-1 flex flex-col h-full overflow-hidden bg-background-light dark:bg-background-dark relative">
                 <!-- Mobile Header -->
@@ -116,6 +70,15 @@
                 <!-- Scrollable Content -->
                 <div class="flex-1 overflow-y-auto no-scrollbar p-4 md:p-8 lg:px-12">
                     <div class="max-w-5xl mx-auto space-y-8">
+                        <!-- Breadcrumb -->
+                        <nav class="flex items-center gap-1 text-sm text-gray-500">
+                            <a th:href="@{/usuario/inicio}" class="hover:text-green-700 flex items-center gap-1">
+                                <span class="material-symbols-outlined text-base">home</span>
+                                Inicio
+                            </a>
+                            <span class="material-symbols-outlined text-sm">chevron_right</span>
+                            <span class="text-gray-900 font-medium">Mis Reservas</span>
+                        </nav>
                         <!-- Page Header -->
                         <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
                             <div class="space-y-1">
@@ -125,7 +88,7 @@
                             <div class="flex items-center gap-3">
                                 <div class="hidden sm:flex flex-col items-end mr-2">
                                     <span class="text-xs text-gray-400 font-medium uppercase tracking-wider">Próximo Partido</span>
-                                    <span class="text-sm font-bold text-primary-dark dark:text-primary" th:text="${proximoPartido ?: 'En 2 días'}">En 2 días</span>
+                                    <span class="text-sm font-bold text-primary-dark dark:text-primary" th:text="${proximoPartido != null ? proximoPartido : 'Sin reservas próximas'}">Sin reservas próximas</span>
                                 </div>
                                 <a class="md:hidden flex items-center justify-center rounded-lg h-10 px-4 bg-primary text-accent-blue font-bold text-sm shadow-sm inline-flex items-center justify-center" th:href="@{/reserva/crear}">
                                     Nueva Reserva
@@ -140,8 +103,8 @@
                                 </div>
                                 <span class="text-sm font-medium text-gray-500 dark:text-gray-400">Partidos Próximos</span>
                                 <div class="flex items-baseline gap-2">
-                                    <span class="text-3xl font-extrabold text-accent-blue dark:text-white" th:text="${estadisticas.partidosProximos ?: '3'}">3</span>
-                                    <span class="text-xs font-bold text-primary bg-primary/10 px-1.5 py-0.5 rounded" th:if="${estadisticas.nuevos > 0}" th:text="'+ ' + ${estadisticas.nuevos} + ' nuevo(s)'">+1 nuevo</span>
+                                    <span class="text-3xl font-extrabold text-accent-blue dark:text-white" th:text="${estadisticas != null and estadisticas.partidosProximos != null ? estadisticas.partidosProximos : totalReservas}">0</span>
+                                    <span class="text-xs font-bold text-primary bg-primary/10 px-1.5 py-0.5 rounded" th:if="${estadisticas != null and estadisticas.nuevos != null and estadisticas.nuevos > 0}" th:text="'+ ' + ${estadisticas.nuevos} + ' nuevo(s)'">+1 nuevo</span>
                                 </div>
                             </div>
                             <div class="bg-white dark:bg-[#1a2e1a] p-5 rounded-xl border border-gray-100 dark:border-gray-800 shadow-sm flex flex-col gap-1 relative overflow-hidden group">
@@ -150,7 +113,7 @@
                                 </div>
                                 <span class="text-sm font-medium text-gray-500 dark:text-gray-400">Horas Jugadas</span>
                                 <div class="flex items-baseline gap-2">
-                                    <span class="text-3xl font-extrabold text-accent-blue dark:text-white" th:text="${estadisticas.horasJugadas ?: '14.5'}">14.5</span>
+                                    <span class="text-3xl font-extrabold text-accent-blue dark:text-white" th:text="${estadisticas != null and estadisticas.horasJugadas != null ? estadisticas.horasJugadas : '0'}">0</span>
                                     <span class="text-xs font-bold text-blue-600 bg-blue-50 dark:bg-blue-900/30 dark:text-blue-300 px-1.5 py-0.5 rounded">este mes</span>
                                 </div>
                             </div>
@@ -160,21 +123,15 @@
                                 </div>
                                 <span class="text-sm font-medium text-gray-500 dark:text-gray-400">Reservas Totales</span>
                                 <div class="flex items-baseline gap-2">
-                                    <span class="text-3xl font-extrabold text-accent-blue dark:text-white" th:text="${estadisticas.reservasTotales ?: '28'}">28</span>
+                                    <span class="text-3xl font-extrabold text-accent-blue dark:text-white" th:text="${estadisticas != null and estadisticas.reservasTotales != null ? estadisticas.reservasTotales : totalReservas}">0</span>
                                 </div>
                             </div>
                         </div>
                         <!-- Tabs -->
                         <div class="border-b border-gray-200 dark:border-gray-800">
                             <nav aria-label="Tabs" class="-mb-px flex gap-6">
-                                <a aria-current="page" class="border-b-[3px] border-accent-blue dark:border-primary py-4 px-1 text-sm font-bold text-accent-blue dark:text-white" href="#" th:classappend="${filtro == 'proximas' ? 'border-accent-blue dark:border-primary' : 'border-transparent'}">
-                                    Próximas
-                                </a>
-                                <a class="border-b-[3px] border-transparent py-4 px-1 text-sm font-medium text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 hover:border-gray-300 transition-colors" href="#" th:classappend="${filtro == 'historial' ? 'border-accent-blue dark:border-primary text-accent-blue dark:text-white' : ''}">
-                                    Historial
-                                </a>
-                                <a class="border-b-[3px] border-transparent py-4 px-1 text-sm font-medium text-gray-500 hover:text-gray-700 dark:text-gray-400 dark:hover:text-gray-300 hover:border-gray-300 transition-colors" href="#" th:classappend="${filtro == 'canceladas' ? 'border-accent-blue dark:border-primary text-accent-blue dark:text-white' : ''}">
-                                    Canceladas
+                                <a aria-current="page" class="border-b-[3px] border-accent-blue dark:border-primary py-4 px-1 text-sm font-bold text-accent-blue dark:text-white" href="#">
+                                    Todas
                                 </a>
                             </nav>
                         </div>
@@ -226,7 +183,7 @@
                                     </div>
                                     <!-- Actions -->
                                     <div class="flex items-center gap-3 mt-2 md:mt-0 pt-4 border-t border-gray-100 dark:border-gray-700 md:border-0 md:pt-0">
-                                        <a class="flex-1 md:flex-none md:w-auto px-4 py-2 bg-gray-100 dark:bg-gray-800 text-accent-blue dark:text-white text-sm font-bold rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors inline-flex items-center justify-center" th:href="@{/reserva/detalles(id=${reserva.idReserva})}">
+                                        <a class="flex-1 md:flex-none md:w-auto px-4 py-2 bg-gray-100 dark:bg-gray-800 text-accent-blue dark:text-white text-sm font-bold rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors inline-flex items-center justify-center" th:href="@{/reserva/detalles/{id}(id=${reserva.idReserva})}">
                                             Ver Detalles
                                         </a>
                                         <a class="flex-1 md:flex-none md:w-auto px-4 py-2 bg-primary text-accent-blue text-sm font-bold rounded-lg hover:bg-primary-dark shadow-sm hover:shadow transition-all inline-flex items-center justify-center" th:if="${reserva.estado == 'PENDIENTE'}" th:href="@{/reservas/pagar(id=${reserva.idReserva})}">

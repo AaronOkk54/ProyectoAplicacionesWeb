@@ -34,4 +34,9 @@ public interface CanchaRepository extends JpaRepository<Cancha, Integer> {
      */
     List<Cancha> findByUbicacionContainingIgnoreCase(String ubicacion);
 
+    /**
+     * Buscar canchas por vendedor
+     */
+    List<Cancha> findByVendedorIdUsuario(Integer idUsuario);
+
 }
