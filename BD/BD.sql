@@ -135,3 +135,46 @@ INSERT INTO cancha (
     
     
 );
+
+USE reservas_canchas
+SELECT * FROM usuario
+
+DELETE FROM usuario
+WHERE id_usuario = 1;
+
+
+INSERT INTO rol (nombre, descripcion) VALUES ('CLIENTE', 'Usuario que puede reservar canchas');
+INSERT INTO rol (nombre, descripcion) VALUES ('VENDEDOR', 'Propietario que puede registrar y gestionar canchas');
+
+-- Insertar usuario admin (password: admin123 encriptado con BCrypt)
+INSERT INTO usuario (nombre, email, password, activo, fecha_creacion)
+VALUES ('Administrador', 'admin@reserva.cr', '$2a$10$N.zmdr9k7uOCQb376NoUnuTJ8iAt6Z5EHsM5lOux6bmt.XBw5sSia', true, NOW());
+
+-- Asignar rol ADMIN (asume que ADMIN tiene id_rol = 1)
+INSERT INTO usuario_rol (id_usuario, id_rol)
+SELECT u.id_usuario, r.id_rol FROM usuario u, rol r
+WHERE u.email = 'admin@reserva.cr' AND r.nombre = 'ADMIN';
+
+DELETE FROM usuario WHERE email = 'admin@reserva.cr';
+
+USE reservas_canchas;
+
+-- Verifica que el usuario se creó
+SELECT id_usuario, email FROM usuario WHERE email = 'admin@reservacancha.com';
+
+-- Quita el rol actual (CLIENTE/VENDEDOR) y asigna ADMIN
+DELETE FROM usuario_rol 
+WHERE id_usuario = (SELECT id_usuario FROM usuario WHERE email = 'admin@reservacancha.com');
+
+INSERT INTO usuario_rol (id_usuario, id_rol)
+SELECT u.id_usuario, r.id_rol 
+FROM usuario u, rol r 
+WHERE u.email = 'admin@reservacancha.com' AND r.nombre = 'ADMIN';
+
+-- Verifica
+SELECT u.email, r.nombre AS rol 
+FROM usuario u 
+JOIN usuario_rol ur ON u.id_usuario = ur.id_usuario 
+JOIN rol r ON ur.id_rol = r.id_rol
+WHERE u.email = 'admin@reservacancha.com';
+
