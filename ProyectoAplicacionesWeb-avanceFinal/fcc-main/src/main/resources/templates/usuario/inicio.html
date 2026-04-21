@@ -1,0 +1,1414 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security6">
+    <head>
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <title>Inicio - ReservaCanchaCR</title>
+        <!-- Tailwind CSS -->
+        <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+        <!-- Google Fonts: Lexend -->
+        <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet">
+        <!-- Material Symbols -->
+        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+        <!-- Theme Configuration -->
+        <script id="tailwind-config">
+            tailwind.config = {
+                darkMode: "class",
+                theme: {
+                    extend: {
+                        colors: {
+                            "primary": "#0df20d", // Electric Green
+                            "primary-dark": "#0bb80b",
+                            "secondary": "#111827", // Deep Navy/Black
+                            "accent-blue": "#1e3a8a", // Sports Blue
+                            "background-light": "#f8f9fa",
+                            "background-white": "#ffffff",
+                            "surface-light": "#ffffff",
+                            "border-light": "#e5e7eb",
+                            "text-main": "#111811",
+                            "text-muted": "#6b7280",
+                        },
+                        fontFamily: {
+                            "display": ["Lexend", "sans-serif"],
+                            "body": ["Lexend", "sans-serif"],
+                        },
+                        borderRadius: {
+                            "DEFAULT": "0.375rem",
+                            "lg": "0.5rem",
+                            "xl": "0.75rem",
+                            "2xl": "1rem",
+                            "full": "9999px",
+                        },
+                    },
+                },
+            }
+        </script>
+        <style>
+            body {
+                font-family: 'Lexend', sans-serif;
+            }
+            .material-symbols-outlined {
+                font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            }
+            .material-symbols-outlined.filled {
+                font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            }
+        </style>
+        <style>*, ::before, ::after{
+                --tw-border-spacing-x:0;
+                --tw-border-spacing-y:0;
+                --tw-translate-x:0;
+                --tw-translate-y:0;
+                --tw-rotate:0;
+                --tw-skew-x:0;
+                --tw-skew-y:0;
+                --tw-scale-x:1;
+                --tw-scale-y:1;
+                --tw-pan-x: ;
+                --tw-pan-y: ;
+                --tw-pinch-zoom: ;
+                --tw-scroll-snap-strictness:proximity;
+                --tw-gradient-from-position: ;
+                --tw-gradient-via-position: ;
+                --tw-gradient-to-position: ;
+                --tw-ordinal: ;
+                --tw-slashed-zero: ;
+                --tw-numeric-figure: ;
+                --tw-numeric-spacing: ;
+                --tw-numeric-fraction: ;
+                --tw-ring-inset: ;
+                --tw-ring-offset-width:0px;
+                --tw-ring-offset-color:#fff;
+                --tw-ring-color:rgb(59 130 246 / 0.5);
+                --tw-ring-offset-shadow:0 0 #0000;
+                --tw-ring-shadow:0 0 #0000;
+                --tw-shadow:0 0 #0000;
+                --tw-shadow-colored:0 0 #0000;
+                --tw-blur: ;
+                --tw-brightness: ;
+                --tw-contrast: ;
+                --tw-grayscale: ;
+                --tw-hue-rotate: ;
+                --tw-invert: ;
+                --tw-saturate: ;
+                --tw-sepia: ;
+                --tw-drop-shadow: ;
+                --tw-backdrop-blur: ;
+                --tw-backdrop-brightness: ;
+                --tw-backdrop-contrast: ;
+                --tw-backdrop-grayscale: ;
+                --tw-backdrop-hue-rotate: ;
+                --tw-backdrop-invert: ;
+                --tw-backdrop-opacity: ;
+                --tw-backdrop-saturate: ;
+                --tw-backdrop-sepia: ;
+                --tw-contain-size: ;
+                --tw-contain-layout: ;
+                --tw-contain-paint: ;
+                --tw-contain-style:
+            }
+            ::backdrop{
+                --tw-border-spacing-x:0;
+                --tw-border-spacing-y:0;
+                --tw-translate-x:0;
+                --tw-translate-y:0;
+                --tw-rotate:0;
+                --tw-skew-x:0;
+                --tw-skew-y:0;
+                --tw-scale-x:1;
+                --tw-scale-y:1;
+                --tw-pan-x: ;
+                --tw-pan-y: ;
+                --tw-pinch-zoom: ;
+                --tw-scroll-snap-strictness:proximity;
+                --tw-gradient-from-position: ;
+                --tw-gradient-via-position: ;
+                --tw-gradient-to-position: ;
+                --tw-ordinal: ;
+                --tw-slashed-zero: ;
+                --tw-numeric-figure: ;
+                --tw-numeric-spacing: ;
+                --tw-numeric-fraction: ;
+                --tw-ring-inset: ;
+                --tw-ring-offset-width:0px;
+                --tw-ring-offset-color:#fff;
+                --tw-ring-color:rgb(59 130 246 / 0.5);
+                --tw-ring-offset-shadow:0 0 #0000;
+                --tw-ring-shadow:0 0 #0000;
+                --tw-shadow:0 0 #0000;
+                --tw-shadow-colored:0 0 #0000;
+                --tw-blur: ;
+                --tw-brightness: ;
+                --tw-contrast: ;
+                --tw-grayscale: ;
+                --tw-hue-rotate: ;
+                --tw-invert: ;
+                --tw-saturate: ;
+                --tw-sepia: ;
+                --tw-drop-shadow: ;
+                --tw-backdrop-blur: ;
+                --tw-backdrop-brightness: ;
+                --tw-backdrop-contrast: ;
+                --tw-backdrop-grayscale: ;
+                --tw-backdrop-hue-rotate: ;
+                --tw-backdrop-invert: ;
+                --tw-backdrop-opacity: ;
+                --tw-backdrop-saturate: ;
+                --tw-backdrop-sepia: ;
+                --tw-contain-size: ;
+                --tw-contain-layout: ;
+                --tw-contain-paint: ;
+                --tw-contain-style:
+            }/* ! tailwindcss v3.4.17 | MIT License | https://tailwindcss.com */
+            *,::after,::before{
+                box-sizing:border-box;
+                border-width:0;
+                border-style:solid;
+                border-color:#e5e7eb
+            }
+            ::after,::before{
+                --tw-content:''
+            }
+            :host,html{
+                line-height:1.5;
+                -webkit-text-size-adjust:100%;
+                -moz-tab-size:4;
+                tab-size:4;
+                font-family:ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+                font-feature-settings:normal;
+                font-variation-settings:normal;
+                -webkit-tap-highlight-color:transparent
+            }
+            body{
+                margin:0;
+                line-height:inherit
+            }
+            hr{
+                height:0;
+                color:inherit;
+                border-top-width:1px
+            }
+            abbr:where([title]){
+                -webkit-text-decoration:underline dotted;
+                text-decoration:underline dotted
+            }
+            h1,h2,h3,h4,h5,h6{
+                font-size:inherit;
+                font-weight:inherit
+            }
+            a{
+                color:inherit;
+                text-decoration:inherit
+            }
+            b,strong{
+                font-weight:bolder
+            }
+            code,kbd,pre,samp{
+                font-family:ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+                font-feature-settings:normal;
+                font-variation-settings:normal;
+                font-size:1em
+            }
+            small{
+                font-size:80%
+            }
+            sub,sup{
+                font-size:75%;
+                line-height:0;
+                position:relative;
+                vertical-align:baseline
+            }
+            sub{
+                bottom:-.25em
+            }
+            sup{
+                top:-.5em
+            }
+            table{
+                text-indent:0;
+                border-color:inherit;
+                border-collapse:collapse
+            }
+            button,input,optgroup,select,textarea{
+                font-family:inherit;
+                font-feature-settings:inherit;
+                font-variation-settings:inherit;
+                font-size:100%;
+                font-weight:inherit;
+                line-height:inherit;
+                letter-spacing:inherit;
+                color:inherit;
+                margin:0;
+                padding:0
+            }
+            button,select{
+                text-transform:none
+            }
+            button,input:where([type=button]),input:where([type=reset]),input:where([type=submit]){
+                -webkit-appearance:button;
+                background-color:transparent;
+                background-image:none
+            }
+            :-moz-focusring{
+                outline:auto
+            }
+            :-moz-ui-invalid{
+                box-shadow:none
+            }
+            progress{
+                vertical-align:baseline
+            }
+            ::-webkit-inner-spin-button,::-webkit-outer-spin-button{
+                height:auto
+            }
+            [type=search]{
+                -webkit-appearance:textfield;
+                outline-offset:-2px
+            }
+            ::-webkit-search-decoration{
+                -webkit-appearance:none
+            }
+            ::-webkit-file-upload-button{
+                -webkit-appearance:button;
+                font:inherit
+            }
+            summary{
+                display:list-item
+            }
+            blockquote,dd,dl,figure,h1,h2,h3,h4,h5,h6,hr,p,pre{
+                margin:0
+            }
+            fieldset{
+                margin:0;
+                padding:0
+            }
+            legend{
+                padding:0
+            }
+            menu,ol,ul{
+                list-style:none;
+                margin:0;
+                padding:0
+            }
+            dialog{
+                padding:0
+            }
+            textarea{
+                resize:vertical
+            }
+            input::placeholder,textarea::placeholder{
+                opacity:1;
+                color:#9ca3af
+            }
+            [role=button],button{
+                cursor:pointer
+            }
+            :disabled{
+                cursor:default
+            }
+            audio,canvas,embed,iframe,img,object,svg,video{
+                display:block;
+                vertical-align:middle
+            }
+            img,video{
+                max-width:100%;
+                height:auto
+            }
+            [hidden]:where(:not([hidden=until-found])){
+                display:none
+            }
+            [type='text'],input:where(:not([type])),[type='email'],[type='url'],[type='password'],[type='number'],[type='date'],[type='datetime-local'],[type='month'],[type='search'],[type='tel'],[type='time'],[type='week'],[multiple],textarea,select{
+                -webkit-appearance:none;
+                appearance:none;
+                background-color:#fff;
+                border-color:#6b7280;
+                border-width:1px;
+                border-radius:0px;
+                padding-top:0.5rem;
+                padding-right:0.75rem;
+                padding-bottom:0.5rem;
+                padding-left:0.75rem;
+                font-size:1rem;
+                line-height:1.5rem;
+                --tw-shadow:0 0 #0000;
+            }
+            [type='text']:focus, input:where(:not([type])):focus, [type='email']:focus, [type='url']:focus, [type='password']:focus, [type='number']:focus, [type='date']:focus, [type='datetime-local']:focus, [type='month']:focus, [type='search']:focus, [type='tel']:focus, [type='time']:focus, [type='week']:focus, [multiple]:focus, textarea:focus, select:focus{
+                outline:2px solid transparent;
+                outline-offset:2px;
+                --tw-ring-inset:var(--tw-empty,/*!*/ /*!*/);
+                --tw-ring-offset-width:0px;
+                --tw-ring-offset-color:#fff;
+                --tw-ring-color:#2563eb;
+                --tw-ring-offset-shadow:var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+                --tw-ring-shadow:var(--tw-ring-inset) 0 0 0 calc(1px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+                box-shadow:var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+                border-color:#2563eb
+            }
+            input::placeholder,textarea::placeholder{
+                color:#6b7280;
+                opacity:1
+            }
+            ::-webkit-datetime-edit-fields-wrapper{
+                padding:0
+            }
+            ::-webkit-date-and-time-value{
+                min-height:1.5em;
+                text-align:inherit
+            }
+            ::-webkit-datetime-edit{
+                display:inline-flex
+            }
+            ::-webkit-datetime-edit,::-webkit-datetime-edit-year-field,::-webkit-datetime-edit-month-field,::-webkit-datetime-edit-day-field,::-webkit-datetime-edit-hour-field,::-webkit-datetime-edit-minute-field,::-webkit-datetime-edit-second-field,::-webkit-datetime-edit-millisecond-field,::-webkit-datetime-edit-meridiem-field{
+                padding-top:0;
+                padding-bottom:0
+            }
+            select{
+                background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+                background-position:right 0.5rem center;
+                background-repeat:no-repeat;
+                background-size:1.5em 1.5em;
+                padding-right:2.5rem;
+                print-color-adjust:exact
+            }
+            [multiple],[size]:where(select:not([size="1"])){
+                background-image:initial;
+                background-position:initial;
+                background-repeat:unset;
+                background-size:initial;
+                padding-right:0.75rem;
+                print-color-adjust:unset
+            }
+            [type='checkbox'],[type='radio']{
+                -webkit-appearance:none;
+                appearance:none;
+                padding:0;
+                print-color-adjust:exact;
+                display:inline-block;
+                vertical-align:middle;
+                background-origin:border-box;
+                -webkit-user-select:none;
+                user-select:none;
+                flex-shrink:0;
+                height:1rem;
+                width:1rem;
+                color:#2563eb;
+                background-color:#fff;
+                border-color:#6b7280;
+                border-width:1px;
+                --tw-shadow:0 0 #0000
+            }
+            [type='checkbox']{
+                border-radius:0px
+            }
+            [type='radio']{
+                border-radius:100%
+            }
+            [type='checkbox']:focus,[type='radio']:focus{
+                outline:2px solid transparent;
+                outline-offset:2px;
+                --tw-ring-inset:var(--tw-empty,/*!*/ /*!*/);
+                --tw-ring-offset-width:2px;
+                --tw-ring-offset-color:#fff;
+                --tw-ring-color:#2563eb;
+                --tw-ring-offset-shadow:var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+                --tw-ring-shadow:var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+                box-shadow:var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow)
+            }
+            [type='checkbox']:checked,[type='radio']:checked{
+                border-color:transparent;
+                background-color:currentColor;
+                background-size:100% 100%;
+                background-position:center;
+                background-repeat:no-repeat
+            }
+            [type='checkbox']:checked{
+                background-image:url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 9.086l4.293-4.293a1 1 0 011.414 0z'/%3e%3c/svg%3e");
+            }
+            @media (forced-colors: active) {
+                [type='checkbox']:checked{
+                    -webkit-appearance:auto;
+                    appearance:auto
+                }
+            }
+            [type='radio']:checked{
+                background-image:url("data:image/svg+xml,%3csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3e%3ccircle cx='8' cy='8' r='3'/%3e%3c/svg%3e");
+            }
+            @media (forced-colors: active) {
+                [type='radio']:checked{
+                    -webkit-appearance:auto;
+                    appearance:auto
+                }
+            }
+            [type='checkbox']:checked:hover,[type='checkbox']:checked:focus,[type='radio']:checked:hover,[type='radio']:checked:focus{
+                border-color:transparent;
+                background-color:currentColor
+            }
+            [type='checkbox']:indeterminate{
+                background-image:url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 16 16'%3e%3cpath stroke='white' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M4 8h8'/%3e%3c/svg%3e");
+                border-color:transparent;
+                background-color:currentColor;
+                background-size:100% 100%;
+                background-position:center;
+                background-repeat:no-repeat;
+            }
+            @media (forced-colors: active) {
+                [type='checkbox']:indeterminate{
+                    -webkit-appearance:auto;
+                    appearance:auto
+                }
+            }
+            [type='checkbox']:indeterminate:hover,[type='checkbox']:indeterminate:focus{
+                border-color:transparent;
+                background-color:currentColor
+            }
+            [type='file']{
+                background:unset;
+                border-color:inherit;
+                border-width:0;
+                border-radius:0;
+                padding:0;
+                font-size:unset;
+                line-height:inherit
+            }
+            [type='file']:focus{
+                outline:1px solid ButtonText;
+                outline:1px auto -webkit-focus-ring-color
+            }
+            .absolute{
+                position:absolute
+            }
+            .relative{
+                position:relative
+            }
+            .inset-0{
+                inset:0px
+            }
+            .bottom-0{
+                bottom:0px
+            }
+            .bottom-3{
+                bottom:0.75rem
+            }
+            .left-0{
+                left:0px
+            }
+            .left-3{
+                left:0.75rem
+            }
+            .right-0{
+                right:0px
+            }
+            .right-2{
+                right:0.5rem
+            }
+            .right-3{
+                right:0.75rem
+            }
+            .top-0{
+                top:0px
+            }
+            .top-2{
+                top:0.5rem
+            }
+            .top-3{
+                top:0.75rem
+            }
+            .z-10{
+                z-index:10
+            }
+            .z-20{
+                z-index:20
+            }
+            .mx-auto{
+                margin-left:auto;
+                margin-right:auto
+            }
+            .-mr-2{
+                margin-right:-0.5rem
+            }
+            .-mt-2{
+                margin-top:-0.5rem
+            }
+            .mb-1{
+                margin-bottom:0.25rem
+            }
+            .mb-2{
+                margin-bottom:0.5rem
+            }
+            .mb-4{
+                margin-bottom:1rem
+            }
+            .mb-8{
+                margin-bottom:2rem
+            }
+            .ml-2{
+                margin-left:0.5rem
+            }
+            .mr-1{
+                margin-right:0.25rem
+            }
+            .mt-1{
+                margin-top:0.25rem
+            }
+            .mt-2{
+                margin-top:0.5rem
+            }
+            .mt-4{
+                margin-top:1rem
+            }
+            .mt-8{
+                margin-top:2rem
+            }
+            .mt-auto{
+                margin-top:auto
+            }
+            .line-clamp-2{
+                overflow:hidden;
+                display:-webkit-box;
+                -webkit-box-orient:vertical;
+                -webkit-line-clamp:2
+            }
+            .inline-block{
+                display:inline-block
+            }
+            .flex{
+                display:flex
+            }
+            .grid{
+                display:grid
+            }
+            .hidden{
+                display:none
+            }
+            .h-1\/2{
+                height:50%
+            }
+            .h-10{
+                height:2.5rem
+            }
+            .h-16{
+                height:4rem
+            }
+            .h-2{
+                height:0.5rem
+            }
+            .h-48{
+                height:12rem
+            }
+            .h-8{
+                height:2rem
+            }
+            .h-9{
+                height:2.25rem
+            }
+            .h-auto{
+                height:auto
+            }
+            .h-full{
+                height:100%
+            }
+            .h-screen{
+                height:100vh
+            }
+            .min-h-\[320px\]{
+                min-height:320px
+            }
+            .w-10{
+                width:2.5rem
+            }
+            .w-16{
+                width:4rem
+            }
+            .w-2{
+                width:0.5rem
+            }
+            .w-64{
+                width:16rem
+            }
+            .w-9{
+                width:2.25rem
+            }
+            .w-full{
+                width:100%
+            }
+            .max-w-2xl{
+                max-width:42rem
+            }
+            .max-w-7xl{
+                max-width:80rem
+            }
+            .max-w-xl{
+                max-width:36rem
+            }
+            .flex-1{
+                flex:1 1 0%
+            }
+            .shrink-0{
+                flex-shrink:0
+            }
+            .transform{
+                transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))
+            }
+            .cursor-pointer{
+                cursor:pointer
+            }
+            .grid-cols-1{
+                grid-template-columns:repeat(1, minmax(0, 1fr))
+            }
+            .flex-col{
+                flex-direction:column
+            }
+            .flex-wrap{
+                flex-wrap:wrap
+            }
+            .items-start{
+                align-items:flex-start
+            }
+            .items-end{
+                align-items:flex-end
+            }
+            .items-center{
+                align-items:center
+            }
+            .justify-center{
+                justify-content:center
+            }
+            .justify-between{
+                justify-content:space-between
+            }
+            .gap-1{
+                gap:0.25rem
+            }
+            .gap-2{
+                gap:0.5rem
+            }
+            .gap-3{
+                gap:0.75rem
+            }
+            .gap-4{
+                gap:1rem
+            }
+            .gap-6{
+                gap:1.5rem
+            }
+            .space-y-8 > :not([hidden]) ~ :not([hidden]){
+                --tw-space-y-reverse:0;
+                margin-top:calc(2rem * calc(1 - var(--tw-space-y-reverse)));
+                margin-bottom:calc(2rem * var(--tw-space-y-reverse))
+            }
+            .overflow-hidden{
+                overflow:hidden
+            }
+            .overflow-y-auto{
+                overflow-y:auto
+            }
+            .rounded-2xl{
+                border-radius:1rem
+            }
+            .rounded-full{
+                border-radius:9999px
+            }
+            .rounded-lg{
+                border-radius:0.5rem
+            }
+            .rounded-md{
+                border-radius:0.375rem
+            }
+            .rounded-xl{
+                border-radius:0.75rem
+            }
+            .rounded-bl-full{
+                border-bottom-left-radius:9999px
+            }
+            .border{
+                border-width:1px
+            }
+            .border-2{
+                border-width:2px
+            }
+            .border-b{
+                border-bottom-width:1px
+            }
+            .border-l{
+                border-left-width:1px
+            }
+            .border-r{
+                border-right-width:1px
+            }
+            .border-t{
+                border-top-width:1px
+            }
+            .border-none{
+                border-style:none
+            }
+            .border-border-light{
+                --tw-border-opacity:1;
+                border-color:rgb(229 231 235 / var(--tw-border-opacity, 1))
+            }
+            .border-border-light\/50{
+                border-color:rgb(229 231 235 / 0.5)
+            }
+            .border-primary\/20{
+                border-color:rgb(13 242 13 / 0.2)
+            }
+            .border-primary\/30{
+                border-color:rgb(13 242 13 / 0.3)
+            }
+            .border-white{
+                --tw-border-opacity:1;
+                border-color:rgb(255 255 255 / var(--tw-border-opacity, 1))
+            }
+            .bg-background-light{
+                --tw-bg-opacity:1;
+                background-color:rgb(248 249 250 / var(--tw-bg-opacity, 1))
+            }
+            .bg-blue-50{
+                --tw-bg-opacity:1;
+                background-color:rgb(239 246 255 / var(--tw-bg-opacity, 1))
+            }
+            .bg-gray-50{
+                --tw-bg-opacity:1;
+                background-color:rgb(249 250 251 / var(--tw-bg-opacity, 1))
+            }
+            .bg-orange-50{
+                --tw-bg-opacity:1;
+                background-color:rgb(255 247 237 / var(--tw-bg-opacity, 1))
+            }
+            .bg-primary{
+                --tw-bg-opacity:1;
+                background-color:rgb(13 242 13 / var(--tw-bg-opacity, 1))
+            }
+            .bg-primary\/10{
+                background-color:rgb(13 242 13 / 0.1)
+            }
+            .bg-primary\/20{
+                background-color:rgb(13 242 13 / 0.2)
+            }
+            .bg-red-500{
+                --tw-bg-opacity:1;
+                background-color:rgb(239 68 68 / var(--tw-bg-opacity, 1))
+            }
+            .bg-secondary{
+                --tw-bg-opacity:1;
+                background-color:rgb(17 24 39 / var(--tw-bg-opacity, 1))
+            }
+            .bg-surface-light{
+                --tw-bg-opacity:1;
+                background-color:rgb(255 255 255 / var(--tw-bg-opacity, 1))
+            }
+            .bg-transparent{
+                background-color:transparent
+            }
+            .bg-white\/90{
+                background-color:rgb(255 255 255 / 0.9)
+            }
+            .bg-gradient-to-r{
+                background-image:linear-gradient(to right, var(--tw-gradient-stops))
+            }
+            .bg-gradient-to-t{
+                background-image:linear-gradient(to top, var(--tw-gradient-stops))
+            }
+            .from-black\/60{
+                --tw-gradient-from:rgb(0 0 0 / 0.6) var(--tw-gradient-from-position);
+                --tw-gradient-to:rgb(0 0 0 / 0) var(--tw-gradient-to-position);
+                --tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)
+            }
+            .from-secondary\/90{
+                --tw-gradient-from:rgb(17 24 39 / 0.9) var(--tw-gradient-from-position);
+                --tw-gradient-to:rgb(17 24 39 / 0) var(--tw-gradient-to-position);
+                --tw-gradient-stops:var(--tw-gradient-from), var(--tw-gradient-to)
+            }
+            .via-secondary\/60{
+                --tw-gradient-to:rgb(17 24 39 / 0)  var(--tw-gradient-to-position);
+                --tw-gradient-stops:var(--tw-gradient-from), rgb(17 24 39 / 0.6) var(--tw-gradient-via-position), var(--tw-gradient-to)
+            }
+            .to-transparent{
+                --tw-gradient-to:transparent var(--tw-gradient-to-position)
+            }
+            .bg-cover{
+                background-size:cover
+            }
+            .bg-center{
+                background-position:center
+            }
+            .p-0{
+                padding:0px
+            }
+            .p-2{
+                padding:0.5rem
+            }
+            .p-3{
+                padding:0.75rem
+            }
+            .p-4{
+                padding:1rem
+            }
+            .p-6{
+                padding:1.5rem
+            }
+            .px-2{
+                padding-left:0.5rem;
+                padding-right:0.5rem
+            }
+            .px-3{
+                padding-left:0.75rem;
+                padding-right:0.75rem
+            }
+            .px-4{
+                padding-left:1rem;
+                padding-right:1rem
+            }
+            .px-6{
+                padding-left:1.5rem;
+                padding-right:1.5rem
+            }
+            .py-0\.5{
+                padding-top:0.125rem;
+                padding-bottom:0.125rem
+            }
+            .py-1{
+                padding-top:0.25rem;
+                padding-bottom:0.25rem
+            }
+            .py-12{
+                padding-top:3rem;
+                padding-bottom:3rem
+            }
+            .py-2{
+                padding-top:0.5rem;
+                padding-bottom:0.5rem
+            }
+            .py-3{
+                padding-top:0.75rem;
+                padding-bottom:0.75rem
+            }
+            .py-6{
+                padding-top:1.5rem;
+                padding-bottom:1.5rem
+            }
+            .pl-2{
+                padding-left:0.5rem
+            }
+            .pt-4{
+                padding-top:1rem
+            }
+            .text-2xl{
+                font-size:1.5rem;
+                line-height:2rem
+            }
+            .text-3xl{
+                font-size:1.875rem;
+                line-height:2.25rem
+            }
+            .text-\[14px\]{
+                font-size:14px
+            }
+            .text-\[16px\]{
+                font-size:16px
+            }
+            .text-\[20px\]{
+                font-size:20px
+            }
+            .text-\[28px\]{
+                font-size:28px
+            }
+            .text-base{
+                font-size:1rem;
+                line-height:1.5rem
+            }
+            .text-lg{
+                font-size:1.125rem;
+                line-height:1.75rem
+            }
+            .text-sm{
+                font-size:0.875rem;
+                line-height:1.25rem
+            }
+            .text-xs{
+                font-size:0.75rem;
+                line-height:1rem
+            }
+            .font-bold{
+                font-weight:700
+            }
+            .font-extrabold{
+                font-weight:800
+            }
+            .font-light{
+                font-weight:300
+            }
+            .font-medium{
+                font-weight:500
+            }
+            .font-semibold{
+                font-weight:600
+            }
+            .uppercase{
+                text-transform:uppercase
+            }
+            .leading-none{
+                line-height:1
+            }
+            .leading-relaxed{
+                line-height:1.625
+            }
+            .leading-tight{
+                line-height:1.25
+            }
+            .tracking-tight{
+                letter-spacing:-0.025em
+            }
+            .tracking-wide{
+                letter-spacing:0.025em
+            }
+            .tracking-wider{
+                letter-spacing:0.05em
+            }
+            .text-accent-blue{
+                --tw-text-opacity:1;
+                color:rgb(30 58 138 / var(--tw-text-opacity, 1))
+            }
+            .text-gray-200{
+                --tw-text-opacity:1;
+                color:rgb(229 231 235 / var(--tw-text-opacity, 1))
+            }
+            .text-green-600{
+                --tw-text-opacity:1;
+                color:rgb(22 163 74 / var(--tw-text-opacity, 1))
+            }
+            .text-green-800{
+                --tw-text-opacity:1;
+                color:rgb(22 101 52 / var(--tw-text-opacity, 1))
+            }
+            .text-orange-600{
+                --tw-text-opacity:1;
+                color:rgb(234 88 12 / var(--tw-text-opacity, 1))
+            }
+            .text-primary{
+                --tw-text-opacity:1;
+                color:rgb(13 242 13 / var(--tw-text-opacity, 1))
+            }
+            .text-primary-dark{
+                --tw-text-opacity:1;
+                color:rgb(11 184 11 / var(--tw-text-opacity, 1))
+            }
+            .text-red-400{
+                --tw-text-opacity:1;
+                color:rgb(248 113 113 / var(--tw-text-opacity, 1))
+            }
+            .text-secondary{
+                --tw-text-opacity:1;
+                color:rgb(17 24 39 / var(--tw-text-opacity, 1))
+            }
+            .text-text-main{
+                --tw-text-opacity:1;
+                color:rgb(17 24 17 / var(--tw-text-opacity, 1))
+            }
+            .text-text-muted{
+                --tw-text-opacity:1;
+                color:rgb(107 114 128 / var(--tw-text-opacity, 1))
+            }
+            .text-white{
+                --tw-text-opacity:1;
+                color:rgb(255 255 255 / var(--tw-text-opacity, 1))
+            }
+            .text-yellow-500{
+                --tw-text-opacity:1;
+                color:rgb(234 179 8 / var(--tw-text-opacity, 1))
+            }
+            .line-through{
+                -webkit-text-decoration-line:line-through;
+                text-decoration-line:line-through
+            }
+            .placeholder-text-muted::placeholder{
+                --tw-placeholder-opacity:1;
+                color:rgb(107 114 128 / var(--tw-placeholder-opacity, 1))
+            }
+            .shadow-lg{
+                --tw-shadow:0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+                --tw-shadow-colored:0 10px 15px -3px var(--tw-shadow-color), 0 4px 6px -4px var(--tw-shadow-color);
+                box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)
+            }
+            .shadow-md{
+                --tw-shadow:0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+                --tw-shadow-colored:0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);
+                box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)
+            }
+            .shadow-sm{
+                --tw-shadow:0 1px 2px 0 rgb(0 0 0 / 0.05);
+                --tw-shadow-colored:0 1px 2px 0 var(--tw-shadow-color);
+                box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)
+            }
+            .shadow-primary\/20{
+                --tw-shadow-color:rgb(13 242 13 / 0.2);
+                --tw-shadow:var(--tw-shadow-colored)
+            }
+            .shadow-primary\/30{
+                --tw-shadow-color:rgb(13 242 13 / 0.3);
+                --tw-shadow:var(--tw-shadow-colored)
+            }
+            .drop-shadow-sm{
+                --tw-drop-shadow:drop-shadow(0 1px 1px rgb(0 0 0 / 0.05));
+                filter:var(--tw-blur) var(--tw-brightness) var(--tw-contrast) var(--tw-grayscale) var(--tw-hue-rotate) var(--tw-invert) var(--tw-saturate) var(--tw-sepia) var(--tw-drop-shadow)
+            }
+            .backdrop-blur-sm{
+                --tw-backdrop-blur:blur(4px);
+                -webkit-backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia);
+                backdrop-filter:var(--tw-backdrop-blur) var(--tw-backdrop-brightness) var(--tw-backdrop-contrast) var(--tw-backdrop-grayscale) var(--tw-backdrop-hue-rotate) var(--tw-backdrop-invert) var(--tw-backdrop-opacity) var(--tw-backdrop-saturate) var(--tw-backdrop-sepia)
+            }
+            .transition-all{
+                transition-property:all;
+                transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);
+                transition-duration:150ms
+            }
+            .transition-colors{
+                transition-property:color, background-color, border-color, fill, stroke, -webkit-text-decoration-color;
+                transition-property:color, background-color, border-color, text-decoration-color, fill, stroke;
+                transition-property:color, background-color, border-color, text-decoration-color, fill, stroke, -webkit-text-decoration-color;
+                transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);
+                transition-duration:150ms
+            }
+            .transition-shadow{
+                transition-property:box-shadow;
+                transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);
+                transition-duration:150ms
+            }
+            .transition-transform{
+                transition-property:transform;
+                transition-timing-function:cubic-bezier(0.4, 0, 0.2, 1);
+                transition-duration:150ms
+            }
+            .duration-300{
+                transition-duration:300ms
+            }
+            .duration-500{
+                transition-duration:500ms
+            }
+            .duration-700{
+                transition-duration:700ms
+            }
+            .\@container{
+                container-type:inline-size
+            }
+            .focus-within\:border-primary:focus-within{
+                --tw-border-opacity:1;
+                border-color:rgb(13 242 13 / var(--tw-border-opacity, 1))
+            }
+            .focus-within\:ring-2:focus-within{
+                --tw-ring-offset-shadow:var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+                --tw-ring-shadow:var(--tw-ring-inset) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+                box-shadow:var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000)
+            }
+            .focus-within\:ring-primary\/50:focus-within{
+                --tw-ring-color:rgb(13 242 13 / 0.5)
+            }
+            .hover\:bg-gray-100:hover{
+                --tw-bg-opacity:1;
+                background-color:rgb(243 244 246 / var(--tw-bg-opacity, 1))
+            }
+            .hover\:bg-gray-50:hover{
+                --tw-bg-opacity:1;
+                background-color:rgb(249 250 251 / var(--tw-bg-opacity, 1))
+            }
+            .hover\:bg-primary:hover{
+                --tw-bg-opacity:1;
+                background-color:rgb(13 242 13 / var(--tw-bg-opacity, 1))
+            }
+            .hover\:bg-primary-dark:hover{
+                --tw-bg-opacity:1;
+                background-color:rgb(11 184 11 / var(--tw-bg-opacity, 1))
+            }
+            .hover\:text-primary-dark:hover{
+                --tw-text-opacity:1;
+                color:rgb(11 184 11 / var(--tw-text-opacity, 1))
+            }
+            .hover\:text-red-600:hover{
+                --tw-text-opacity:1;
+                color:rgb(220 38 38 / var(--tw-text-opacity, 1))
+            }
+            .hover\:text-secondary:hover{
+                --tw-text-opacity:1;
+                color:rgb(17 24 39 / var(--tw-text-opacity, 1))
+            }
+            .hover\:underline:hover{
+                -webkit-text-decoration-line:underline;
+                text-decoration-line:underline
+            }
+            .hover\:shadow-md:hover{
+                --tw-shadow:0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+                --tw-shadow-colored:0 4px 6px -1px var(--tw-shadow-color), 0 2px 4px -2px var(--tw-shadow-color);
+                box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)
+            }
+            .hover\:shadow-xl:hover{
+                --tw-shadow:0 20px 25px -5px rgb(0 0 0 / 0.1), 0 8px 10px -6px rgb(0 0 0 / 0.1);
+                --tw-shadow-colored:0 20px 25px -5px var(--tw-shadow-color), 0 8px 10px -6px var(--tw-shadow-color);
+                box-shadow:var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000), var(--tw-shadow)
+            }
+            .focus\:ring-0:focus{
+                --tw-ring-offset-shadow:var(--tw-ring-inset) 0 0 0 var(--tw-ring-offset-width) var(--tw-ring-offset-color);
+                --tw-ring-shadow:var(--tw-ring-inset) 0 0 0 calc(0px + var(--tw-ring-offset-width)) var(--tw-ring-color);
+                box-shadow:var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow, 0 0 #0000)
+            }
+            .active\:scale-95:active{
+                --tw-scale-x:.95;
+                --tw-scale-y:.95;
+                transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))
+            }
+            .group:hover .group-hover\:scale-105{
+                --tw-scale-x:1.05;
+                --tw-scale-y:1.05;
+                transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))
+            }
+            .group:hover .group-hover\:scale-110{
+                --tw-scale-x:1.1;
+                --tw-scale-y:1.1;
+                transform:translate(var(--tw-translate-x), var(--tw-translate-y)) rotate(var(--tw-rotate)) skewX(var(--tw-skew-x)) skewY(var(--tw-skew-y)) scaleX(var(--tw-scale-x)) scaleY(var(--tw-scale-y))
+            }
+            @media (min-width: 640px){
+                .sm\:flex{
+                    display:flex
+                }
+            }
+            @media (min-width: 768px){
+                .md\:mt-0{
+                    margin-top:0px
+                }
+                .md\:flex{
+                    display:flex
+                }
+                .md\:grid-cols-2{
+                    grid-template-columns:repeat(2, minmax(0, 1fr))
+                }
+                .md\:grid-cols-3{
+                    grid-template-columns:repeat(3, minmax(0, 1fr))
+                }
+                .md\:flex-row{
+                    flex-direction:row
+                }
+                .md\:px-10{
+                    padding-left:2.5rem;
+                    padding-right:2.5rem
+                }
+                .md\:py-16{
+                    padding-top:4rem;
+                    padding-bottom:4rem
+                }
+                .md\:text-5xl{
+                    font-size:3rem;
+                    line-height:1
+                }
+                .md\:text-lg{
+                    font-size:1.125rem;
+                    line-height:1.75rem
+                }
+            }
+            @media (min-width: 1024px){
+                .lg\:flex{
+                    display:flex
+                }
+                .lg\:hidden{
+                    display:none
+                }
+                .lg\:grid-cols-3{
+                    grid-template-columns:repeat(3, minmax(0, 1fr))
+                }
+                .lg\:gap-6{
+                    gap:1.5rem
+                }
+                .lg\:p-8{
+                    padding:2rem
+                }
+                .lg\:px-8{
+                    padding-left:2rem;
+                    padding-right:2rem
+                }
+                .lg\:pl-4{
+                    padding-left:1rem
+                }
+                .lg\:text-xl{
+                    font-size:1.25rem;
+                    line-height:1.75rem
+                }
+            }
+            @media (min-width: 1280px){
+                .xl\:flex{
+                    display:flex
+                }
+                .xl\:grid-cols-4{
+                    grid-template-columns:repeat(4, minmax(0, 1fr))
+                }
+            }</style>
+    </head>
+    <body class="bg-background-light text-text-main h-screen overflow-hidden flex">
+        <!-- Sidebar -->
+        <aside th:replace="~{fragments/sidebar :: sidebar('inicio')}"></aside>
+        <!-- Main Content -->
+        <main class="flex-1 flex flex-col h-full overflow-hidden bg-background-light relative">
+            <!-- Navbar Header (Mobile & Desktop) -->
+            <header class="h-16 bg-surface-light border-b border-border-light flex items-center justify-between px-4 lg:px-8 z-10 shrink-0">
+                <div class="flex items-center gap-4">
+                    <!-- Mobile Menu Button -->
+                    <button class="lg:hidden p-2 text-text-muted hover:bg-gray-100 rounded-lg">
+                        <span class="material-symbols-outlined">menu</span>
+                    </button>
+                    <nav class="flex items-center gap-1 text-sm text-text-muted">
+                        <a th:href="@{/usuario/inicio}" class="flex items-center gap-1 hover:text-primary-dark transition-colors font-medium">
+                            <span class="material-symbols-outlined text-base">home</span>
+                            <span>Inicio</span>
+                        </a>
+                        <span class="material-symbols-outlined text-sm">chevron_right</span>
+                        <span class="text-text-main font-medium text-sm">Panel Principal</span>
+                    </nav>
+                </div>
+                <div class="flex items-center gap-3 lg:gap-6">
+                    <!-- Search Bar (Hidden on small mobile) -->
+                    <form th:action="@{/canchas/buscar}" method="GET" class="hidden sm:flex items-center bg-gray-50 border border-border-light rounded-lg px-3 py-2 w-64 focus-within:ring-2 focus-within:ring-primary/50 focus-within:border-primary transition-all">
+                        <span class="material-symbols-outlined text-text-muted text-[20px]">search</span>
+                        <input name="q" class="bg-transparent border-none text-sm w-full focus:ring-0 text-text-main placeholder-text-muted ml-2 p-0 h-auto" placeholder="Buscar cancha, zona..." type="text">
+                    </form>
+                    <!-- Actions -->
+                    <button class="relative p-2 text-text-muted hover:bg-gray-100 rounded-lg transition-colors">
+                        <span class="material-symbols-outlined">notifications</span>
+                        <span class="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full border border-white"></span>
+                    </button>
+                    <!-- Profile Dropdown Trigger -->
+                    <a th:href="@{/usuario/perfil}" class="flex items-center gap-3 pl-2 lg:pl-4 border-l border-border-light cursor-pointer">
+                        <div class="flex flex-col items-end hidden md:flex">
+                            <span class="text-sm font-bold text-secondary leading-none" th:text="${usuario != null ? usuario.nombre : ''}" sec:authentication="name">Usuario</span>
+                            <span class="text-xs text-text-muted">Usuario</span>
+                        </div>
+                        <div class="w-9 h-9 rounded-full bg-cover bg-center border-2 border-primary/20 shadow-sm" data-alt="User profile picture of a smiling man" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAw9mIialtfy1yclPKuW2bD_GokzZ6MxFPVX5GDBYEGB-DRXQgZzNvuIHsXLAv1Ae4f1UuAs8Osa-CO0UCnn50akcZPGDtMLjr1CuyatcxMGwXWiLNWcjsIU7XVYhDZXn5S7teJfmnz9ltHAW9vdoebHNcu-9SGKYSM2sl5HcVFyrYUm_2pHDA6GdHnW6PTkr-azbGtUMMsIy5xD8R767RynSiB70SlK9g6eGxrFY4rp7_wgmT9XhgtfrWOrHk_-62unCOiy0ejdOs');"></div>
+                    </a>
+                </div>
+            </header>
+            <!-- Scrollable Content Area -->
+            <div class="flex-1 overflow-y-auto p-4 lg:p-8">
+                <div class="max-w-7xl mx-auto space-y-8">
+                    <!-- Hero Section -->
+                    <div class="@container w-full">
+                        <div class="relative w-full rounded-2xl overflow-hidden shadow-lg group">
+                            <!-- Hero Background Image -->
+                            <div class="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105" data-alt="Green soccer field at night with stadium lights" style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuD9HU3o4fHXm-v8FwG-21Fpz0rmVpl2TGUpi7ymj7z_tTVXKiWYMXRBMdcuDlpMAoQkFgPgOKcFXlURlUnMHwpZ2ZN4qvg-jmW0OYsFmqMkVhUjNNt4taCAx_dFrQhS8AeVlhn1MkWD2V1vN8OyhP-3hCxf-7ntVDuFpce4XeQZdWXJlZMdL5n_h2geEfCITMK36Fr-nP8J9hbmrHYZgs7sCYWlsQihsCdcqOLRVE0HAGdT4pj6Lbjc37L2jBzjHy3kzwsDkanUPIU');">
+                            </div>
+                            <!-- Gradient Overlay -->
+                            <div class="absolute inset-0 bg-gradient-to-r from-secondary/90 via-secondary/60 to-transparent"></div>
+                            <!-- Content -->
+                            <div class="relative z-10 px-6 py-12 md:px-10 md:py-16 flex flex-col justify-center items-start min-h-[320px]">
+                                <span class="inline-block px-3 py-1 rounded-full bg-primary/20 text-primary border border-primary/30 backdrop-blur-sm text-xs font-bold tracking-wider mb-4">
+                                    ¡NUEVO EN RESERVACANCHACR!
+                                </span>
+                                <h1 class="text-3xl md:text-5xl font-extrabold text-white leading-tight mb-4 max-w-2xl drop-shadow-sm">
+                                    Encuentra y reserva <br>
+                                    <span class="text-primary">tu cancha ideal</span>
+                                </h1>
+                                <p class="text-gray-200 text-base md:text-lg mb-8 max-w-xl font-light leading-relaxed">
+                                    Explora las mejores canchas de fútbol en Costa Rica. Filtra por ubicación, precio y disponibilidad en tiempo real.
+                                </p>
+                                <div class="flex flex-wrap gap-4">
+                                    <a th:href="@{/canchas/listado}" class="bg-primary hover:bg-primary-dark text-secondary font-bold py-3 px-6 rounded-xl transition-all shadow-lg shadow-primary/30 flex items-center gap-2 transform active:scale-95">
+                                        <span class="material-symbols-outlined">sports_soccer</span>
+                                        Buscar cancha
+                                    </a>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Dashboard Stats Grid -->
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 lg:gap-6">
+                        <!-- Card 1: Disponibles -->
+                        <div class="bg-surface-light p-6 rounded-xl border border-border-light shadow-sm hover:shadow-md transition-shadow flex items-start justify-between">
+                            <div class="flex flex-col gap-1">
+                                <span class="text-text-muted text-sm font-medium">Canchas disponibles</span>
+                                <span class="text-3xl font-bold text-secondary" th:text="${totalCanchasDisponibles}">0</span>
+                                <span class="text-xs text-green-600 font-medium flex items-center mt-1">
+                                    <span class="material-symbols-outlined text-[16px] mr-1">trending_up</span>
+                                    +2 nuevas hoy
+                                </span>
+                            </div>
+                            <div class="p-3 bg-blue-50 text-accent-blue rounded-lg">
+                                <span class="material-symbols-outlined filled text-[28px]">stadium</span>
+                            </div>
+                        </div>
+                        <!-- Card 2: Reservas Activas -->
+                        <div class="bg-surface-light p-6 rounded-xl border border-border-light shadow-sm hover:shadow-md transition-shadow flex items-start justify-between relative overflow-hidden">
+                            <div class="absolute top-0 right-0 w-16 h-16 bg-primary/10 rounded-bl-full -mr-2 -mt-2"></div>
+                            <div class="flex flex-col gap-1 relative z-10">
+                                <span class="text-text-muted text-sm font-medium">Reservas activas</span>
+                                <span class="text-3xl font-bold text-secondary" th:text="${totalReservasActivas}">0</span>
+                                <span class="text-xs text-text-muted font-medium mt-1">Próximo juego: Hoy 7PM</span>
+                            </div>
+                            <div class="p-3 bg-primary/20 text-green-800 rounded-lg relative z-10">
+                                <span class="material-symbols-outlined filled text-[28px]">calendar_clock</span>
+                            </div>
+                        </div>
+                        <!-- Card 3: Promociones -->
+                        <div>
+                            <div class="flex flex-col gap-1">
+
+                            </div>
+                            <div class="p-3 bg-orange-50 text-orange-600 rounded-lg">
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Featured Section -->
+                    <div class="flex flex-col gap-6">
+                        <div class="flex items-center justify-between">
+                            <h2 class="text-2xl font-bold text-secondary flex items-center gap-2">
+                                <span class="w-2 h-8 bg-primary rounded-full"></span>
+                                Canchas destacadas
+                            </h2>
+                            <a class="text-primary-dark font-semibold text-sm hover:underline flex items-center gap-1" th:href="@{/canchas/listado}">
+                                Ver todas
+                                <span class="material-symbols-outlined text-sm">arrow_forward</span>
+                            </a>
+                        </div>
+                        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+                            <!-- Sin canchas -->
+                            <div th:if="${canchasDestacadas == null or canchasDestacadas.isEmpty()}" class="col-span-full text-center py-12 text-text-muted">
+                                <span class="material-symbols-outlined text-5xl mb-2">sports_soccer</span>
+                                <p class="font-medium">No hay canchas disponibles en este momento.</p>
+                            </div>
+                            <!-- Card dinámica -->
+                            <div th:each="cancha : ${canchasDestacadas}"
+                                 class="group bg-surface-light rounded-2xl overflow-hidden border border-border-light shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col h-full">
+                                <div class="relative h-48 overflow-hidden bg-gray-200 flex items-center justify-center">
+                                    <span class="material-symbols-outlined text-6xl text-gray-400">sports_soccer</span>
+                                    <div class="absolute bottom-0 left-0 w-full h-1/2 bg-gradient-to-t from-black/60 to-transparent"></div>
+                                    <div class="absolute bottom-3 left-3 text-white text-xs font-medium flex items-center gap-1">
+                                        <span class="material-symbols-outlined text-[14px]">location_on</span>
+                                        <span th:text="${cancha.ubicacion}">Ubicación</span>
+                                    </div>
+                                </div>
+                                <div class="p-4 flex flex-col flex-1">
+                                    <h3 class="text-lg font-bold text-secondary mb-1" th:text="${cancha.nombre}">Cancha</h3>
+                                    <p class="text-sm text-text-muted mb-4 line-clamp-2" th:text="${cancha.descripcion != null and !cancha.descripcion.isEmpty()} ? ${cancha.descripcion} : 'Sin descripción disponible.'">Descripción</p>
+                                    <div class="mt-auto flex items-center justify-between pt-4 border-t border-border-light/50">
+                                        <div class="flex flex-col">
+                                            <span class="text-xs text-text-muted">Precio por hora</span>
+                                            <span class="text-base font-bold text-secondary" th:text="'₡' + ${#numbers.formatDecimal(cancha.precioHora, 0, 'COMMA', 0, 'POINT')}">₡0</span>
+                                        </div>
+                                        <a th:href="@{/canchas/detalles/{id}(id=${cancha.idCancha})}"
+                                           class="bg-secondary hover:bg-primary hover:text-secondary text-white text-sm font-bold py-2 px-4 rounded-lg transition-colors">
+                                            Reservar
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Footer area inside main content -->
+                    <div class="py-6 mt-8 border-t border-border-light flex flex-col md:flex-row justify-between items-center text-text-muted text-sm">
+                        <p>© 2023 ReservaCanchaCR. Todos los derechos reservados.</p>
+                        <div class="flex gap-4 mt-2 md:mt-0">
+                            <a class="hover:text-primary-dark" th:href="@{/terminos}">Términos</a>
+                            <a class="hover:text-primary-dark" th:href="@{/privacidad}">Privacidad</a>
+                            <a class="hover:text-primary-dark" th:href="@{/ayuda}">Soporte</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </body>
+</html>

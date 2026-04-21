@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+    <head>
+        <meta charset="utf-8"/>
+        <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+        <title th:text="'Detalle Reserva #' + ${reserva.idReserva} + ' - ReservaCanchaCR'">Detalle de Reserva | ReservaCanchaCR</title>
+        <link href="https://fonts.googleapis.com" rel="preconnect"/>
+        <link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+        <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@100..900&amp;family=Noto+Sans:wght@100..900&amp;display=swap" rel="stylesheet"/>
+        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+        <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+        <script>
+            tailwind.config = {
+                darkMode: "class",
+                theme: {
+                    extend: {
+                        colors: {
+                            "primary": "#0df20d",
+                            "primary-dark": "#0bc00b",
+                            "background-light": "#f5f8f5",
+                            "background-dark": "#102210",
+                            "secondary-dark": "#1a2e1a",
+                        },
+                        fontFamily: {
+                            "display": ["Lexend", "sans-serif"],
+                            "body": ["Noto Sans", "sans-serif"],
+                        },
+                        borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+                    },
+                },
+            }
+        </script>
+        <style>body { font-family: 'Lexend', 'Noto Sans', sans-serif; }</style>
+    </head>
+    <body class="bg-background-light dark:bg-background-dark text-[#111811] dark:text-gray-100">
+        <div class="relative flex h-screen w-full overflow-hidden">
+            <!-- Sidebar -->
+            <aside th:replace="~{fragments/sidebar :: sidebar('misReservas')}"></aside>
+            <!-- Main Content -->
+            <main class="flex-1 flex flex-col h-full overflow-hidden bg-background-light dark:bg-background-dark relative">
+                <!-- Top Bar -->
+                <header class="flex items-center justify-between px-6 py-4 bg-white dark:bg-secondary-dark border-b border-[#f0f5f0] dark:border-gray-800 shadow-sm z-10">
+                    <div class="flex items-center gap-4">
+                        <button class="lg:hidden p-2 -ml-2 text-[#608a60] dark:text-gray-300">
+                            <span class="material-symbols-outlined">menu</span>
+                        </button>
+                        <div class="flex items-center gap-2 text-[#111811] dark:text-white">
+                            <div class="size-8 text-primary">
+                                <svg fill="none" viewbox="0 0 48 48" xmlns="http://www.w3.org/2000/svg">
+                                    <path d="M24 4C12.95 4 4 12.95 4 24C4 35.05 12.95 44 24 44C35.05 44 44 35.05 44 24C44 12.95 35.05 4 24 4ZM24 40C15.16 40 8 32.84 8 24C8 15.16 15.16 8 24 8C32.84 8 40 15.16 40 24C40 32.84 32.84 40 24 40Z" fill="currentColor"></path>
+                                    <path d="M24 13L16 27H32L24 13Z" fill="currentColor"></path>
+                                </svg>
+                            </div>
+                            <h2 class="text-lg font-bold tracking-tight hidden sm:block">ReservaCanchaCR</h2>
+                        </div>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <div class="rounded-full size-9 border border-gray-200 dark:border-gray-700 cursor-pointer bg-slate-200 flex items-center justify-center">
+                            <span class="material-symbols-outlined text-slate-500 text-base">person</span>
+                        </div>
+                    </div>
+                </header>
+                <!-- Scrollable Content -->
+                <div class="flex-1 overflow-y-auto p-4 md:p-8">
+                    <div class="max-w-3xl mx-auto space-y-6">
+                        <!-- Breadcrumbs & Title -->
+                        <div class="flex flex-col gap-1">
+                            <div class="flex items-center gap-2 text-sm text-[#608a60] dark:text-gray-400">
+                                <a class="hover:text-primary transition-colors" th:href="@{/usuario/inicio}">Inicio</a>
+                                <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+                                <a class="hover:text-primary transition-colors" th:href="@{/reserva/mis-reservas}">Mis Reservas</a>
+                                <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+                                <span class="font-medium text-[#111811] dark:text-white" th:text="'Detalle #' + ${reserva.idReserva}">Detalle</span>
+                            </div>
+                            <div class="flex flex-wrap justify-between items-end gap-4 mt-2">
+                                <div>
+                                    <h1 class="text-3xl md:text-4xl font-black tracking-tight text-[#111811] dark:text-white">Detalle de Reserva</h1>
+                                    <p class="text-[#608a60] dark:text-gray-400 mt-1" th:text="'#RES-' + ${reserva.idReserva}">Reserva</p>
+                                </div>
+                                <!-- Estado badge -->
+                                <span class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-bold"
+                                      th:class="${reserva.estado == 'CONFIRMADA'} ? 'inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-bold bg-green-50 text-green-700 border border-green-200' :
+                                                 (${reserva.estado == 'CANCELADA'} ? 'inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-bold bg-red-50 text-red-700 border border-red-200' :
+                                                 (${reserva.estado == 'COMPLETADA'} ? 'inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-bold bg-gray-100 text-gray-600 border border-gray-200' :
+                                                 'inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-bold bg-yellow-50 text-yellow-700 border border-yellow-200'))">
+                                    <span class="size-2 rounded-full"
+                                          th:class="${reserva.estado == 'CONFIRMADA'} ? 'size-2 rounded-full bg-green-500' :
+                                                     (${reserva.estado == 'CANCELADA'} ? 'size-2 rounded-full bg-red-500' :
+                                                     (${reserva.estado == 'COMPLETADA'} ? 'size-2 rounded-full bg-gray-500' :
+                                                     'size-2 rounded-full bg-yellow-500'))"></span>
+                                    <span th:text="${reserva.estado}">Estado</span>
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Info Cards Grid -->
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <!-- Cancha Info -->
+                            <div class="bg-white dark:bg-secondary-dark rounded-xl shadow-sm border border-[#f0f5f0] dark:border-gray-800 p-5">
+                                <h2 class="text-sm font-bold text-[#608a60] dark:text-gray-400 uppercase tracking-wide mb-4 flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-[18px]">stadium</span>
+                                    Información de la Cancha
+                                </h2>
+                                <div class="space-y-3">
+                                    <div>
+                                        <p class="text-xs text-gray-500 dark:text-gray-400">Cancha</p>
+                                        <p class="font-semibold text-[#111811] dark:text-white" th:text="${reserva.cancha.nombre}">-</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-xs text-gray-500 dark:text-gray-400">Ubicación</p>
+                                        <p class="font-medium text-[#111811] dark:text-white" th:text="${reserva.cancha.ubicacion}">-</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-xs text-gray-500 dark:text-gray-400">Precio por hora</p>
+                                        <p class="font-medium text-[#111811] dark:text-white" th:text="'₡' + ${#numbers.formatDecimal(reserva.cancha.precioHora, 0, 'COMMA', 2, 'POINT')}">-</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Reserva Details -->
+                            <div class="bg-white dark:bg-secondary-dark rounded-xl shadow-sm border border-[#f0f5f0] dark:border-gray-800 p-5">
+                                <h2 class="text-sm font-bold text-[#608a60] dark:text-gray-400 uppercase tracking-wide mb-4 flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-[18px]">calendar_month</span>
+                                    Detalles de la Reserva
+                                </h2>
+                                <div class="space-y-3">
+                                    <div>
+                                        <p class="text-xs text-gray-500 dark:text-gray-400">Fecha</p>
+                                        <p class="font-semibold text-[#111811] dark:text-white" th:text="${#temporals.format(reserva.fecha, 'dd/MM/yyyy')}">-</p>
+                                    </div>
+                                    <div class="flex gap-6">
+                                        <div>
+                                            <p class="text-xs text-gray-500 dark:text-gray-400">Hora inicio</p>
+                                            <p class="font-medium text-[#111811] dark:text-white" th:text="${reserva.horaInicio}">-</p>
+                                        </div>
+                                        <div>
+                                            <p class="text-xs text-gray-500 dark:text-gray-400">Hora fin</p>
+                                            <p class="font-medium text-[#111811] dark:text-white" th:text="${reserva.horaFin}">-</p>
+                                        </div>
+                                    </div>
+                                    <div>
+                                        <p class="text-xs text-gray-500 dark:text-gray-400">Fecha de creación</p>
+                                        <p class="text-sm text-gray-600 dark:text-gray-300" th:text="${#temporals.format(reserva.fechaCreacion, 'dd/MM/yyyy HH:mm')}">-</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Payment Info -->
+                            <div class="bg-white dark:bg-secondary-dark rounded-xl shadow-sm border border-[#f0f5f0] dark:border-gray-800 p-5">
+                                <h2 class="text-sm font-bold text-[#608a60] dark:text-gray-400 uppercase tracking-wide mb-4 flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-[18px]">payments</span>
+                                    Información de Pago
+                                </h2>
+                                <div class="space-y-3">
+                                    <div>
+                                        <p class="text-xs text-gray-500 dark:text-gray-400">Método de pago</p>
+                                        <p class="font-medium text-[#111811] dark:text-white" th:text="${reserva.metodoPago ?: 'No especificado'}">-</p>
+                                    </div>
+                                    <div class="pt-2 border-t border-gray-100 dark:border-gray-700">
+                                        <p class="text-xs text-gray-500 dark:text-gray-400">Total</p>
+                                        <p class="text-2xl font-black text-primary" th:text="'₡' + ${#numbers.formatDecimal(reserva.montoTotal, 0, 'COMMA', 2, 'POINT')}">-</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Contact Info -->
+                            <div class="bg-white dark:bg-secondary-dark rounded-xl shadow-sm border border-[#f0f5f0] dark:border-gray-800 p-5">
+                                <h2 class="text-sm font-bold text-[#608a60] dark:text-gray-400 uppercase tracking-wide mb-4 flex items-center gap-2">
+                                    <span class="material-symbols-outlined text-[18px]">person</span>
+                                    Información de Contacto
+                                </h2>
+                                <div class="space-y-3">
+                                    <div>
+                                        <p class="text-xs text-gray-500 dark:text-gray-400">Usuario</p>
+                                        <p class="font-semibold text-[#111811] dark:text-white" th:text="${reserva.usuario.nombre}">-</p>
+                                    </div>
+                                    <div>
+                                        <p class="text-xs text-gray-500 dark:text-gray-400">Correo</p>
+                                        <p class="text-sm text-gray-600 dark:text-gray-300" th:text="${reserva.usuario.email}">-</p>
+                                    </div>
+                                    <div th:if="${reserva.usuario.telefono}">
+                                        <p class="text-xs text-gray-500 dark:text-gray-400">Teléfono</p>
+                                        <p class="text-sm text-gray-600 dark:text-gray-300" th:text="${reserva.usuario.telefono}">-</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Observaciones -->
+                        <div class="bg-white dark:bg-secondary-dark rounded-xl shadow-sm border border-[#f0f5f0] dark:border-gray-800 p-5" th:if="${reserva.observaciones}">
+                            <h2 class="text-sm font-bold text-[#608a60] dark:text-gray-400 uppercase tracking-wide mb-3 flex items-center gap-2">
+                                <span class="material-symbols-outlined text-[18px]">sticky_note_2</span>
+                                Observaciones
+                            </h2>
+                            <p class="text-gray-600 dark:text-gray-300 text-sm" th:text="${reserva.observaciones}"></p>
+                        </div>
+
+                        <!-- Actions -->
+                        <div class="flex flex-wrap gap-3">
+                            <!-- ADMIN: Confirmar -->
+                            <form th:action="@{/reserva/confirmar/{id}(id=${reserva.idReserva})}" method="POST" sec:authorize="hasRole('ADMIN')"
+                                  th:if="${reserva.estado == 'PENDIENTE'}">
+                                <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                                <button type="submit" class="bg-primary hover:bg-primary-dark text-black font-bold py-2.5 px-5 rounded-lg shadow-lg transition-all flex items-center gap-2 text-sm">
+                                    <span class="material-symbols-outlined text-[18px]">check_circle</span>
+                                    Confirmar Reserva
+                                </button>
+                            </form>
+
+                            <!-- Cancelar (PENDIENTE o CONFIRMADA) -->
+                            <button type="button" onclick="document.getElementById('cancelModal').classList.remove('hidden')"
+                                    th:if="${reserva.estado == 'PENDIENTE' or reserva.estado == 'CONFIRMADA'}"
+                                    class="bg-red-50 hover:bg-red-100 text-red-700 border border-red-200 font-bold py-2.5 px-5 rounded-lg transition-all flex items-center gap-2 text-sm">
+                                <span class="material-symbols-outlined text-[18px]">cancel</span>
+                                Cancelar Reserva
+                            </button>
+
+                            <!-- Reservar de nuevo (COMPLETADA) -->
+                            <a th:if="${reserva.estado == 'COMPLETADA'}"
+                               th:href="@{/reserva/crear(idCancha=${reserva.cancha.idCancha})}"
+                               class="bg-white dark:bg-secondary-dark hover:bg-gray-50 text-[#111811] dark:text-white border border-gray-200 dark:border-gray-700 font-bold py-2.5 px-5 rounded-lg transition-all flex items-center gap-2 text-sm">
+                                <span class="material-symbols-outlined text-[18px]">replay</span>
+                                Reservar Nuevamente
+                            </a>
+
+                            <!-- Ver historial -->
+                            <a th:href="@{/reserva/historial/{id}(id=${reserva.idReserva})}"
+                               class="bg-white dark:bg-secondary-dark hover:bg-gray-50 text-[#111811] dark:text-white border border-gray-200 dark:border-gray-700 font-medium py-2.5 px-5 rounded-lg transition-all flex items-center gap-2 text-sm">
+                                <span class="material-symbols-outlined text-[18px]">history</span>
+                                Ver Historial
+                            </a>
+
+                            <!-- Volver -->
+                            <a th:href="@{/reserva/mis-reservas}"
+                               class="bg-white dark:bg-secondary-dark hover:bg-gray-50 text-[#608a60] dark:text-gray-400 border border-gray-200 dark:border-gray-700 font-medium py-2.5 px-5 rounded-lg transition-all flex items-center gap-2 text-sm">
+                                <span class="material-symbols-outlined text-[18px]">arrow_back</span>
+                                Volver
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <!-- Modal de Cancelación -->
+        <div id="cancelModal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/50">
+            <div class="bg-white dark:bg-secondary-dark rounded-xl shadow-xl border border-gray-200 dark:border-gray-700 w-full max-w-md mx-4">
+                <div class="flex items-center justify-between p-5 border-b border-gray-100 dark:border-gray-700">
+                    <h3 class="text-lg font-bold text-[#111811] dark:text-white flex items-center gap-2">
+                        <span class="material-symbols-outlined text-red-500">warning</span>
+                        Cancelar Reserva
+                    </h3>
+                    <button onclick="document.getElementById('cancelModal').classList.add('hidden')"
+                            class="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200">
+                        <span class="material-symbols-outlined">close</span>
+                    </button>
+                </div>
+                <div class="p-5 space-y-2">
+                    <p class="text-[#111811] dark:text-white">¿Estás seguro de que deseas cancelar esta reserva?</p>
+                    <p class="text-sm text-red-600 dark:text-red-400 font-medium">Esta acción no se puede deshacer.</p>
+                </div>
+                <div class="flex justify-end gap-3 p-5 border-t border-gray-100 dark:border-gray-700">
+                    <button onclick="document.getElementById('cancelModal').classList.add('hidden')"
+                            class="bg-white dark:bg-secondary-dark border border-gray-200 dark:border-gray-700 text-[#111811] dark:text-white font-medium py-2 px-4 rounded-lg text-sm hover:bg-gray-50">
+                        Mantener Reserva
+                    </button>
+                    <form th:action="@{/reserva/cancelar/{id}(id=${reserva.idReserva})}" method="POST">
+                        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                        <button type="submit" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-lg text-sm">
+                            Sí, Cancelar
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
