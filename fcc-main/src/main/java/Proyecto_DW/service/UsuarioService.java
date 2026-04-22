@@ -48,6 +48,11 @@ public class UsuarioService {
     public Optional<Usuario> getUsuarioByEmail(String email) {
         return usuarioRepository.findByEmail(email);
     }
+    @Transactional(readOnly = true)
+    public Optional<Usuario> getUsuarioEmailAndPassword(String nombre,
+            String password) {
+        return usuarioRepository.findByEmailAndPassword(nombre, password);
+    }
 
     @Transactional(readOnly = true)
     public boolean existeEmail(String email) {
