@@ -92,8 +92,7 @@
                         </div>
                         <div>
                             <p class="text-xs text-text-muted font-medium">Activos</p>
-                            <p class="text-2xl font-bold text-secondary"
-                               th:text="${usuarios != null ? usuarios.stream().filter(u -> u.activo).count() : 0}">0</p>
+                            <p class="text-2xl font-bold text-secondary" th:text="${totalActivos}">0</p>
                         </div>
                     </div>
                     <div class="bg-surface-light rounded-2xl border border-border-light shadow-sm p-5 flex items-center gap-4">
@@ -102,8 +101,7 @@
                         </div>
                         <div>
                             <p class="text-xs text-text-muted font-medium">Inactivos</p>
-                            <p class="text-2xl font-bold text-secondary"
-                               th:text="${usuarios != null ? usuarios.stream().filter(u -> !u.activo).count() : 0}">0</p>
+                            <p class="text-2xl font-bold text-secondary" th:text="${totalInactivos}">0</p>
                         </div>
                     </div>
                 </div>

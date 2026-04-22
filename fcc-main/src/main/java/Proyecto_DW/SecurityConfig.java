@@ -17,6 +17,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Lazy;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -25,6 +26,7 @@ import org.springframework.security.web.SecurityFilterChain;
 
 
 @Configuration
+@EnableWebSecurity
 public class SecurityConfig {
 
 
@@ -43,6 +45,8 @@ public class SecurityConfig {
         http.authorizeHttpRequests(requests -> requests
                 // Recursos estáticos públicos
                 .requestMatchers("/css/**", "/js/**", "/images/**", "/webjars/**").permitAll()
+                // Endpoints OAuth2 (deben ser accesibles antes del filtro de autenticación)
+                .requestMatchers("/oauth2/authorization/**", "/login/oauth2/code/**").permitAll()
                 // Páginas públicas de información
                 .requestMatchers("/", "/sobre-nosotros", "/carreras", "/blog",
                         "/ayuda", "/terminos", "/privacidad", "/lista-cancha").permitAll()

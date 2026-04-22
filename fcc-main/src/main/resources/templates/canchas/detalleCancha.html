@@ -54,10 +54,15 @@
                     <div class="flex items-center gap-4">
                         <!-- Autenticado -->
                         <div sec:authorize="isAuthenticated()" class="flex items-center gap-3">
-                            <a th:href="@{/usuario/inicio}" class="text-sm font-medium text-[#608a60] hover:text-primary transition-colors hidden sm:block" sec:authentication="name">Mi Panel</a>
-                            <div class="rounded-full size-9 border border-gray-200 dark:border-gray-700 cursor-pointer bg-slate-200 flex items-center justify-center">
-                                <span class="material-symbols-outlined text-slate-500 text-base">person</span>
-                            </div>
+                            <a th:href="@{/usuario/perfil}" class="flex items-center gap-2 cursor-pointer">
+                                <div class="hidden md:flex flex-col items-end">
+                                    <span class="text-sm font-semibold text-[#111811] dark:text-white leading-none" sec:authentication="name">Usuario</span>
+                                    <span class="text-xs text-[#608a60]">Mi Perfil</span>
+                                </div>
+                                <div class="rounded-full size-9 border-2 border-primary/30 bg-primary/20 flex items-center justify-center">
+                                    <span class="material-symbols-outlined text-primary-dark text-base">person</span>
+                                </div>
+                            </a>
                         </div>
                         <!-- No autenticado -->
                         <div sec:authorize="isAnonymous()" class="flex items-center gap-3">

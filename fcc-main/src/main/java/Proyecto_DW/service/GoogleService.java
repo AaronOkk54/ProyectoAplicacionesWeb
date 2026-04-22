@@ -102,8 +102,15 @@ public class GoogleService implements OAuth2UserService<OAuth2UserRequest, OAuth
             }
         }
 
+        // Si el usuario no pudo ser guardado, lanzar error apropiado
+        if (usuario == null) {
+            logger.error("No se pudo obtener o crear usuario para OAuth2 con email={}", email);
+            throw new org.springframework.security.oauth2.core.OAuth2AuthenticationException(
+                new org.springframework.security.oauth2.core.OAuth2Error("user_creation_failed"),
+                "No se pudo crear el usuario. Por favor intente de nuevo.");
+        }
+
         // Guardar nombre en sesión (fallback a email si nombre es nulo)
-        session.removeAttribute("nombreUsuario");
         String displayName = usuario.getNombre() != null && !usuario.getNombre().isBlank()
             ? usuario.getNombre()
             : (email != null ? email : String.valueOf(usuario.getIdUsuario()));

@@ -71,12 +71,12 @@
         </nav>
         <!-- User Menu -->
         <div class="flex items-center gap-4">
-            <button class="flex items-center gap-2 px-3 py-1.5 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors">
-                <div class="w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
-                    <span class="text-sm font-bold text-gray-600 dark:text-gray-300" th:text="${#strings.substring(usuario.nombre, 0, 1)}">U</span>
+            <a th:href="@{/usuario/perfil}" class="flex items-center gap-2 px-3 py-1.5 rounded-full hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors cursor-pointer">
+                <div class="w-8 h-8 rounded-full bg-primary/20 border-2 border-primary/30 flex items-center justify-center">
+                    <span class="material-symbols-outlined text-primary-dark text-base">person</span>
                 </div>
-                <span class="hidden sm:block text-sm font-medium text-gray-700 dark:text-gray-200" th:text="${usuario.nombre}">Usuario</span>
-            </button>
+                <span class="hidden sm:block text-sm font-medium text-gray-700 dark:text-gray-200" th:text="${usuario != null ? usuario.nombre : ''}">Usuario</span>
+            </a>
         </div>
     </div>
 </header>

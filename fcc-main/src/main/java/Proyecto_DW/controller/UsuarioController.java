@@ -123,6 +123,8 @@ public class UsuarioController {
         var usuarios = usuarioService.getUsuarios();
         model.addAttribute("usuarios", usuarios);
         model.addAttribute("totalUsuarios", usuarios.size());
+        model.addAttribute("totalActivos", usuarios.stream().filter(Usuario::isActivo).count());
+        model.addAttribute("totalInactivos", usuarios.stream().filter(u -> !u.isActivo()).count());
         return "usuario/listado";
     }
 
