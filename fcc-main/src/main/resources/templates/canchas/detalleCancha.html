@@ -240,6 +240,14 @@
                                             <span class="material-symbols-outlined text-[20px]">calendar_month</span>
                                             Reservar Ahora
                                         </a>
+                                        <!-- Autenticado: agregar al carrito -->
+                                        <a th:href="@{/carrito/preparar/{id}(id=${cancha.idCancha})}"
+                                           sec:authorize="isAuthenticated()"
+                                           th:if="${cancha.estado == 'DISPONIBLE'}"
+                                           class="w-full py-2.5 border-2 border-primary/40 text-primary-dark hover:bg-primary/5 font-bold rounded-lg transition-colors flex items-center justify-center gap-2 text-sm">
+                                            <span class="material-symbols-outlined text-[18px]">add_shopping_cart</span>
+                                            Agregar al Carrito
+                                        </a>
 
                                         <!-- No disponible -->
                                         <div sec:authorize="isAuthenticated()"

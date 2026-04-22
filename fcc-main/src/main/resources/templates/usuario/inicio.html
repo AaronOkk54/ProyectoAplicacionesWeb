@@ -1267,11 +1267,13 @@
                         <span class="material-symbols-outlined text-text-muted text-[20px]">search</span>
                         <input name="q" class="bg-transparent border-none text-sm w-full focus:ring-0 text-text-main placeholder-text-muted ml-2 p-0 h-auto" placeholder="Buscar cancha, zona..." type="text">
                     </form>
-                    <!-- Actions -->
-                    <button class="relative p-2 text-text-muted hover:bg-gray-100 rounded-lg transition-colors">
-                        <span class="material-symbols-outlined">notifications</span>
-                        <span class="absolute top-2 right-2 w-2 h-2 bg-red-500 rounded-full border border-white"></span>
-                    </button>
+                    <!-- Cart Button -->
+                    <a th:href="@{/carrito}" class="relative p-2 text-text-muted hover:bg-gray-100 rounded-lg transition-colors">
+                        <span class="material-symbols-outlined">shopping_cart</span>
+                        <span th:if="${carritoCount != null and carritoCount > 0}"
+                              class="absolute -top-1 -right-1 w-5 h-5 bg-green-500 text-white text-xs font-bold rounded-full flex items-center justify-center"
+                              th:text="${carritoCount}">0</span>
+                    </a>
                     <!-- Profile Dropdown Trigger -->
                     <a th:href="@{/usuario/perfil}" class="flex items-center gap-3 pl-2 lg:pl-4 border-l border-border-light cursor-pointer">
                         <div class="flex flex-col items-end hidden md:flex">

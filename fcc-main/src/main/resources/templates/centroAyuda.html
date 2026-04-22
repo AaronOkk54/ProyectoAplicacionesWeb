@@ -1,221 +1,183 @@
 <!DOCTYPE html>
 <html lang="es" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security6">
-    <head>
-        <meta charset="utf-8"/>
-        <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-        <title>Centro de Ayuda – ReservaCanchaCR</title>
-        <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
-        <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800;900&amp;display=swap" rel="stylesheet"/>
-        <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
-        <script>
-            tailwind.config = {
-                darkMode: "class",
-                theme: {
-                    extend: {
-                        colors: {
-                            "primary": "#0df20d",
-                            "primary-dark": "#0bbd0b",
-                            "secondary": "#102210",
-                            "background-light": "#f5f8f5",
-                            "background-dark": "#102210",
-                            "surface-light": "#ffffff",
-                            "surface-dark": "#1a2e1a",
-                        },
-                        fontFamily: { "display": ["Lexend","sans-serif"], "body": ["Lexend","sans-serif"] },
-                        borderRadius: { "DEFAULT":"0.5rem","lg":"0.75rem","xl":"1rem","full":"9999px" },
+<head>
+    <meta charset="utf-8"/>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+    <title>Centro de Ayuda - ReservaCanchaCR</title>
+    <script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Lexend:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"/>
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+    <script>
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "primary": "#0df20d",
+                        "primary-dark": "#0bb80b",
+                        "secondary": "#111827",
+                        "background-light": "#f8f9fa",
+                        "surface-light": "#ffffff",
+                        "border-light": "#e5e7eb",
+                        "text-main": "#111811",
+                        "text-muted": "#6b7280",
                     },
-                },
+                    fontFamily: { "display": ["Lexend", "sans-serif"] },
+                }
             }
-        </script>
-        <style>
-            body { font-family: 'Lexend', sans-serif; }
-            ::-webkit-scrollbar { width: 8px; }
-            ::-webkit-scrollbar-track { background: #f1f1f1; }
-            ::-webkit-scrollbar-thumb { background: #ccc; border-radius: 4px; }
-            ::-webkit-scrollbar-thumb:hover { background: #aaa; }
-            details summary { cursor: pointer; list-style: none; }
-            details summary::-webkit-details-marker { display: none; }
-        </style>
-    </head>
-    <body class="bg-background-light dark:bg-background-dark text-secondary dark:text-white antialiased selection:bg-primary selection:text-secondary">
-        <div class="relative flex h-auto min-h-screen w-full flex-col overflow-x-hidden">
+        }
+    </script>
+    <style>
+        body { font-family: 'Lexend', sans-serif; }
+        .material-symbols-outlined { font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+        details summary { cursor: pointer; list-style: none; }
+        details summary::-webkit-details-marker { display: none; }
+    </style>
+</head>
+<body class="bg-background-light text-text-main h-screen overflow-hidden flex">
 
-            <!-- Header -->
-            <header class="flex items-center justify-between whitespace-nowrap border-b border-solid border-gray-100 dark:border-gray-800 px-6 lg:px-10 py-4 bg-surface-light dark:bg-surface-dark sticky top-0 z-50 shadow-sm">
-                <div class="flex items-center gap-4 text-secondary dark:text-white">
-                    <a th:href="@{/}" class="flex items-center gap-4">
-                        <div class="size-8 text-primary flex items-center justify-center bg-secondary rounded-lg">
-                            <span class="material-symbols-outlined text-2xl">sports_soccer</span>
-                        </div>
-                        <h2 class="text-secondary dark:text-white text-xl font-black leading-tight tracking-tight">ReservaCanchaCR</h2>
+    <!-- Sidebar (only for authenticated users) -->
+    <aside sec:authorize="isAuthenticated()" th:replace="~{fragments/sidebar :: sidebar('ayuda')}"></aside>
+
+    <!-- Main Content -->
+    <main class="flex-1 flex flex-col h-full overflow-hidden bg-background-light relative">
+
+        <!-- Header -->
+        <header class="h-16 bg-surface-light border-b border-border-light flex items-center justify-between px-4 lg:px-8 z-10 shrink-0">
+            <nav class="flex items-center gap-1 text-sm text-text-muted">
+                <!-- Authenticated: show breadcrumb from Inicio -->
+                <span sec:authorize="isAuthenticated()">
+                    <a th:href="@{/usuario/inicio}" class="hover:text-primary-dark transition-colors font-medium flex items-center gap-1">
+                        <span class="material-symbols-outlined text-base">home</span>Inicio
                     </a>
+                </span>
+                <!-- Anonymous: show brand -->
+                <span sec:authorize="isAnonymous()">
+                    <a th:href="@{/}" class="hover:text-primary-dark transition-colors font-medium flex items-center gap-1">
+                        <span class="material-symbols-outlined text-base">sports_soccer</span>ReservaCanchaCR
+                    </a>
+                </span>
+                <span class="material-symbols-outlined text-sm">chevron_right</span>
+                <span class="text-text-main font-medium">Centro de Ayuda</span>
+            </nav>
+            <!-- Profile access (authenticated) -->
+            <a sec:authorize="isAuthenticated()" th:href="@{/usuario/perfil}" class="flex items-center gap-3 pl-2 lg:pl-4 border-l border-border-light cursor-pointer">
+                <div class="hidden md:flex flex-col items-end">
+                    <span class="text-sm font-bold text-secondary leading-none" sec:authentication="name">Usuario</span>
+                    <span class="text-xs text-text-muted">Mi Perfil</span>
                 </div>
-                <div class="flex flex-1 justify-end gap-8">
-                    <nav class="hidden lg:flex items-center gap-9">
-                        <a class="text-secondary/70 dark:text-white/70 hover:text-primary dark:hover:text-primary transition-colors text-sm font-medium leading-normal" th:href="@{/canchas/listado}">Canchas</a>
-                        <a class="text-secondary/70 dark:text-white/70 hover:text-primary dark:hover:text-primary transition-colors text-sm font-medium leading-normal" th:href="@{/sobre-nosotros}">Sobre Nosotros</a>
-                    </nav>
-                    <!-- Botones para usuarios NO autenticados -->
-                    <div class="flex gap-3" sec:authorize="isAnonymous()">
-                        <a th:href="@{/auth/login}" class="flex cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-6 bg-transparent border border-gray-200 dark:border-gray-700 text-secondary dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-sm font-bold leading-normal">
-                            <span class="truncate">Iniciar Sesión</span>
+                <div class="w-9 h-9 rounded-full bg-primary/20 border-2 border-primary/30 shadow-sm flex items-center justify-center">
+                    <span class="material-symbols-outlined text-primary-dark text-[20px]">person</span>
+                </div>
+            </a>
+            <!-- Login button (anonymous) -->
+            <div sec:authorize="isAnonymous()" class="flex items-center gap-2 pl-2 lg:pl-4 border-l border-border-light">
+                <a th:href="@{/auth/login}" class="px-4 py-2 rounded-lg border border-border-light text-sm font-medium text-secondary hover:bg-gray-50 transition-colors">
+                    Iniciar Sesión
+                </a>
+            </div>
+        </header>
+
+        <!-- Scrollable Content -->
+        <div class="flex-1 overflow-y-auto">
+
+            <!-- Banner -->
+            <div class="bg-secondary text-white py-12 px-6 lg:px-16 text-center">
+                <div class="max-w-2xl mx-auto flex flex-col gap-3">
+                    <span class="material-symbols-outlined text-primary text-5xl mx-auto">help_center</span>
+                    <h1 class="text-3xl font-black">Centro de Ayuda</h1>
+                    <p class="text-white/70 text-sm">Encuentra respuestas rápidas a las preguntas más frecuentes.</p>
+                </div>
+            </div>
+
+            <div class="p-6 lg:p-10">
+                <div class="max-w-3xl mx-auto flex flex-col gap-10">
+
+                    <!-- Categorías -->
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+                        <div class="flex flex-col items-center gap-2 p-5 rounded-2xl bg-surface-light border border-border-light shadow-sm text-center">
+                            <span class="material-symbols-outlined text-primary text-3xl">calendar_month</span>
+                            <span class="font-bold text-secondary text-sm">Reservas</span>
+                        </div>
+                        <div class="flex flex-col items-center gap-2 p-5 rounded-2xl bg-surface-light border border-border-light shadow-sm text-center">
+                            <span class="material-symbols-outlined text-primary text-3xl">payments</span>
+                            <span class="font-bold text-secondary text-sm">Pagos</span>
+                        </div>
+                        <div class="flex flex-col items-center gap-2 p-5 rounded-2xl bg-surface-light border border-border-light shadow-sm text-center">
+                            <span class="material-symbols-outlined text-primary text-3xl">manage_accounts</span>
+                            <span class="font-bold text-secondary text-sm">Mi Cuenta</span>
+                        </div>
+                    </div>
+
+                    <!-- FAQ -->
+                    <section class="flex flex-col gap-4">
+                        <h2 class="text-xl font-black text-secondary">Preguntas Frecuentes</h2>
+
+                        <details class="group bg-surface-light border border-border-light rounded-xl overflow-hidden shadow-sm">
+                            <summary class="flex items-center justify-between p-5 font-semibold text-secondary hover:text-primary-dark transition-colors">
+                                ¿Cómo hago una reserva?
+                                <span class="material-symbols-outlined text-primary transition-transform group-open:rotate-180">expand_more</span>
+                            </summary>
+                            <div class="px-5 pb-5 text-text-muted text-sm leading-relaxed border-t border-border-light pt-4">
+                                Ve a la sección de Canchas, elige la que prefieras, selecciona la fecha y hora disponible, completa el pago y recibirás una confirmación por correo electrónico en segundos.
+                            </div>
+                        </details>
+
+                        <details class="group bg-surface-light border border-border-light rounded-xl overflow-hidden shadow-sm">
+                            <summary class="flex items-center justify-between p-5 font-semibold text-secondary hover:text-primary-dark transition-colors">
+                                ¿Puedo cancelar o modificar mi reserva?
+                                <span class="material-symbols-outlined text-primary transition-transform group-open:rotate-180">expand_more</span>
+                            </summary>
+                            <div class="px-5 pb-5 text-text-muted text-sm leading-relaxed border-t border-border-light pt-4">
+                                Sí. Puedes cancelar con al menos 24 horas de anticipación para obtener un reembolso completo. Las cancelaciones dentro de las 24 horas pueden estar sujetas a una tarifa. Accede a "Mis Reservas" para gestionar tus reservas.
+                            </div>
+                        </details>
+
+                        <details class="group bg-surface-light border border-border-light rounded-xl overflow-hidden shadow-sm">
+                            <summary class="flex items-center justify-between p-5 font-semibold text-secondary hover:text-primary-dark transition-colors">
+                                ¿Qué métodos de pago aceptan?
+                                <span class="material-symbols-outlined text-primary transition-transform group-open:rotate-180">expand_more</span>
+                            </summary>
+                            <div class="px-5 pb-5 text-text-muted text-sm leading-relaxed border-t border-border-light pt-4">
+                                Aceptamos tarjetas de crédito y débito (Visa, Mastercard), SINPE Móvil y transferencia bancaria. Todos los pagos están cifrados y son seguros.
+                            </div>
+                        </details>
+
+                        <details class="group bg-surface-light border border-border-light rounded-xl overflow-hidden shadow-sm">
+                            <summary class="flex items-center justify-between p-5 font-semibold text-secondary hover:text-primary-dark transition-colors">
+                                ¿Cómo recupero mi contraseña?
+                                <span class="material-symbols-outlined text-primary transition-transform group-open:rotate-180">expand_more</span>
+                            </summary>
+                            <div class="px-5 pb-5 text-text-muted text-sm leading-relaxed border-t border-border-light pt-4">
+                                En la pantalla de inicio de sesión, haz clic en "¿Olvidaste tu contraseña?" e ingresa tu correo. Te enviaremos un enlace para restablecerla en minutos.
+                            </div>
+                        </details>
+
+                        <details class="group bg-surface-light border border-border-light rounded-xl overflow-hidden shadow-sm">
+                            <summary class="flex items-center justify-between p-5 font-semibold text-secondary hover:text-primary-dark transition-colors">
+                                ¿Cómo puedo registrar mi cancha en la plataforma?
+                                <span class="material-symbols-outlined text-primary transition-transform group-open:rotate-180">expand_more</span>
+                            </summary>
+                            <div class="px-5 pb-5 text-text-muted text-sm leading-relaxed border-t border-border-light pt-4">
+                                Contáctanos directamente a socios@reservacanchacr.com. Un representante te contactará en menos de 48 horas.
+                            </div>
+                        </details>
+                    </section>
+
+                    <!-- Contacto -->
+                    <div class="flex flex-col items-center text-center gap-4 p-10 rounded-2xl bg-secondary text-white">
+                        <span class="material-symbols-outlined text-primary text-4xl">chat</span>
+                        <h2 class="text-xl font-black">¿No encontraste tu respuesta?</h2>
+                        <p class="text-white/70 text-sm">Escríbenos y te respondemos en menos de 24 horas.</p>
+                        <a href="mailto:soporte@reservacanchacr.com"
+                           class="flex items-center justify-center rounded-full h-12 px-8 bg-primary hover:bg-primary-dark transition-colors text-secondary font-bold text-sm">
+                            Contactar Soporte
                         </a>
-                        <a th:href="@{/auth/registro}" class="flex cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-6 bg-primary hover:bg-primary-dark transition-colors text-secondary text-sm font-bold leading-normal shadow-[0_4px_10px_rgba(13,242,13,0.3)]">
-                            <span class="truncate">Registrarse</span>
-                        </a>
                     </div>
-                    <!-- Botones para usuarios autenticados -->
-                    <div class="flex items-center gap-3" sec:authorize="isAuthenticated()">
-                        <a th:href="@{/usuario/inicio}" class="flex cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-6 bg-transparent border border-gray-200 dark:border-gray-700 text-secondary dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-sm font-bold leading-normal">
-                            <span class="truncate" sec:authentication="name">Mi Panel</span>
-                        </a>
-                        <form th:action="@{/logout}" method="post" class="m-0">
-                            <button type="submit" class="flex cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-6 bg-primary hover:bg-primary-dark transition-colors text-secondary text-sm font-bold leading-normal">
-                                <span class="truncate">Cerrar Sesión</span>
-                            </button>
-                        </form>
-                    </div>
+
                 </div>
-            </header>
-
-            <main class="flex-1">
-                <!-- Banner -->
-                <div class="bg-secondary text-white py-14 px-6 lg:px-40 text-center">
-                    <div class="max-w-2xl mx-auto flex flex-col gap-4">
-                        <span class="material-symbols-outlined text-primary text-5xl mx-auto">help_center</span>
-                        <h1 class="text-4xl font-black">Centro de Ayuda</h1>
-                        <p class="text-white/80">Encuentra respuestas rápidas a las preguntas más frecuentes.</p>
-                    </div>
-                </div>
-
-                <div class="px-4 md:px-10 lg:px-40 py-16">
-                    <div class="max-w-3xl mx-auto flex flex-col gap-12">
-
-                        <!-- Categorías -->
-                        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-                            <div class="flex flex-col items-center gap-2 p-5 rounded-2xl bg-white dark:bg-surface-dark border border-gray-100 dark:border-gray-800 shadow-sm text-center">
-                                <span class="material-symbols-outlined text-primary text-3xl">calendar_month</span>
-                                <span class="font-bold text-secondary dark:text-white text-sm">Reservas</span>
-                            </div>
-                            <div class="flex flex-col items-center gap-2 p-5 rounded-2xl bg-white dark:bg-surface-dark border border-gray-100 dark:border-gray-800 shadow-sm text-center">
-                                <span class="material-symbols-outlined text-primary text-3xl">payments</span>
-                                <span class="font-bold text-secondary dark:text-white text-sm">Pagos</span>
-                            </div>
-                            <div class="flex flex-col items-center gap-2 p-5 rounded-2xl bg-white dark:bg-surface-dark border border-gray-100 dark:border-gray-800 shadow-sm text-center">
-                                <span class="material-symbols-outlined text-primary text-3xl">manage_accounts</span>
-                                <span class="font-bold text-secondary dark:text-white text-sm">Mi Cuenta</span>
-                            </div>
-                        </div>
-
-                        <!-- FAQ -->
-                        <section class="flex flex-col gap-4">
-                            <h2 class="text-2xl font-black text-secondary dark:text-white">Preguntas Frecuentes</h2>
-
-                            <details class="group bg-white dark:bg-surface-dark border border-gray-100 dark:border-gray-800 rounded-xl overflow-hidden shadow-sm">
-                                <summary class="flex items-center justify-between p-5 font-bold text-secondary dark:text-white hover:text-primary transition-colors">
-                                    ¿Cómo hago una reserva?
-                                    <span class="material-symbols-outlined text-primary transition-transform group-open:rotate-180">expand_more</span>
-                                </summary>
-                                <div class="px-5 pb-5 text-gray-500 dark:text-gray-400 text-sm leading-relaxed border-t border-gray-100 dark:border-gray-800 pt-4">
-                                    Ve a la sección de Canchas, elige la que prefieras, selecciona la fecha y hora disponible, completa el pago y recibirás una confirmación por correo electrónico en segundos.
-                                </div>
-                            </details>
-
-                            <details class="group bg-white dark:bg-surface-dark border border-gray-100 dark:border-gray-800 rounded-xl overflow-hidden shadow-sm">
-                                <summary class="flex items-center justify-between p-5 font-bold text-secondary dark:text-white hover:text-primary transition-colors">
-                                    ¿Puedo cancelar o modificar mi reserva?
-                                    <span class="material-symbols-outlined text-primary transition-transform group-open:rotate-180">expand_more</span>
-                                </summary>
-                                <div class="px-5 pb-5 text-gray-500 dark:text-gray-400 text-sm leading-relaxed border-t border-gray-100 dark:border-gray-800 pt-4">
-                                    Sí. Puedes cancelar con al menos 24 horas de anticipación para obtener un reembolso completo. Las cancelaciones dentro de las 24 horas pueden estar sujetas a una tarifa. Accede a "Mis Reservas" en tu perfil para gestionar tus reservas.
-                                </div>
-                            </details>
-
-                            <details class="group bg-white dark:bg-surface-dark border border-gray-100 dark:border-gray-800 rounded-xl overflow-hidden shadow-sm">
-                                <summary class="flex items-center justify-between p-5 font-bold text-secondary dark:text-white hover:text-primary transition-colors">
-                                    ¿Qué métodos de pago aceptan?
-                                    <span class="material-symbols-outlined text-primary transition-transform group-open:rotate-180">expand_more</span>
-                                </summary>
-                                <div class="px-5 pb-5 text-gray-500 dark:text-gray-400 text-sm leading-relaxed border-t border-gray-100 dark:border-gray-800 pt-4">
-                                    Aceptamos tarjetas de crédito y débito (Visa, Mastercard), SINPE Móvil y transferencia bancaria. Todos los pagos están cifrados y son seguros.
-                                </div>
-                            </details>
-
-                            <details class="group bg-white dark:bg-surface-dark border border-gray-100 dark:border-gray-800 rounded-xl overflow-hidden shadow-sm">
-                                <summary class="flex items-center justify-between p-5 font-bold text-secondary dark:text-white hover:text-primary transition-colors">
-                                    ¿Cómo recupero mi contraseña?
-                                    <span class="material-symbols-outlined text-primary transition-transform group-open:rotate-180">expand_more</span>
-                                </summary>
-                                <div class="px-5 pb-5 text-gray-500 dark:text-gray-400 text-sm leading-relaxed border-t border-gray-100 dark:border-gray-800 pt-4">
-                                    En la pantalla de inicio de sesión, haz clic en "¿Olvidaste tu contraseña?" e ingresa tu correo. Te enviaremos un enlace para restablecerla en minutos.
-                                </div>
-                            </details>
-
-                            <details class="group bg-white dark:bg-surface-dark border border-gray-100 dark:border-gray-800 rounded-xl overflow-hidden shadow-sm">
-                                <summary class="flex items-center justify-between p-5 font-bold text-secondary dark:text-white hover:text-primary transition-colors">
-                                    ¿Cómo puedo registrar mi cancha en la plataforma?
-                                    <span class="material-symbols-outlined text-primary transition-transform group-open:rotate-180">expand_more</span>
-                                </summary>
-                                <div class="px-5 pb-5 text-gray-500 dark:text-gray-400 text-sm leading-relaxed border-t border-gray-100 dark:border-gray-800 pt-4">
-                                    Visita la sección "Lista tu Cancha" o contáctanos directamente a socios@reservacanchacr.com. Un representante te contactará en menos de 48 horas.
-                                </div>
-                            </details>
-                        </section>
-
-                        <!-- Contacto -->
-                        <div class="flex flex-col items-center text-center gap-4 p-10 rounded-2xl bg-secondary text-white">
-                            <span class="material-symbols-outlined text-primary text-4xl">chat</span>
-                            <h2 class="text-xl font-black">¿No encontraste tu respuesta?</h2>
-                            <p class="text-white/80 text-sm">Escríbenos y te respondemos en menos de 24 horas.</p>
-                            <a href="mailto:soporte@reservacanchacr.com" class="flex items-center justify-center rounded-full h-12 px-8 bg-primary hover:bg-primary-dark transition-colors text-secondary font-bold text-sm">
-                                Contactar Soporte
-                            </a>
-                        </div>
-
-                    </div>
-                </div>
-            </main>
-
-            <!-- Footer -->
-            <footer class="bg-secondary text-white py-12 px-6 lg:px-40 border-t border-gray-800">
-                <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between gap-10">
-                    <div class="flex flex-col gap-4 max-w-sm">
-                        <div class="flex items-center gap-2 text-white">
-                            <div class="size-6 text-secondary bg-primary rounded flex items-center justify-center">
-                                <span class="material-symbols-outlined text-lg">sports_soccer</span>
-                            </div>
-                            <h2 class="text-lg font-bold">ReservaCanchaCR</h2>
-                        </div>
-                        <p class="text-gray-400 text-sm leading-relaxed">La forma más fácil de encontrar y reservar instalaciones deportivas en tu ciudad. Conectando jugadores con las mejores canchas desde 2024.</p>
-                    </div>
-                    <div class="flex flex-wrap gap-10 md:gap-20">
-                        <div class="flex flex-col gap-4">
-                            <h4 class="font-bold text-primary">Empresa</h4>
-                            <a class="text-gray-400 hover:text-white text-sm" th:href="@{/sobre-nosotros}">Sobre Nosotros</a>
-                            <a class="text-gray-400 hover:text-white text-sm" th:href="@{/carreras}">Carreras</a>
-                            <a class="text-gray-400 hover:text-white text-sm" th:href="@{/blog}">Blog</a>
-                        </div>
-                        <div class="flex flex-col gap-4">
-                            <h4 class="font-bold text-primary">Soporte</h4>
-                            <a class="text-white font-medium text-sm" th:href="@{/ayuda}">Centro de Ayuda</a>
-                            <a class="text-gray-400 hover:text-white text-sm" th:href="@{/terminos}">Términos de Servicio</a>
-                            <a class="text-gray-400 hover:text-white text-sm" th:href="@{/privacidad}">Política de Privacidad</a>
-                        </div>
-                        <div class="flex flex-col gap-4">
-                            <h4 class="font-bold text-primary">Para Socios</h4>
-                            <a class="text-gray-400 hover:text-white text-sm" th:href="@{/lista-cancha}">Lista tu Cancha</a>
-                            <a class="text-gray-400 hover:text-white text-sm" th:href="@{/auth/login}">Inicio de Sesión de Socio</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="max-w-7xl mx-auto mt-12 pt-8 border-t border-gray-800 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-gray-500">
-                    <p>© 2024 ReservaCanchaCR Inc. Todos los derechos reservados.</p>
-                    <div class="flex gap-4">
-                        <a class="hover:text-primary" href="#"><span class="material-symbols-outlined">public</span></a>
-                        <a class="hover:text-primary" href="#"><span class="material-symbols-outlined">alternate_email</span></a>
-                    </div>
-                </div>
-            </footer>
+            </div>
         </div>
-    </body>
+    </main>
+</body>
 </html>

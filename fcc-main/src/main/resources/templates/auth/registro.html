@@ -1051,9 +1051,24 @@
                     <div class="my-6 border-t border-[#e0e8e0] dark:border-[#2a3e2a]"></div>
                     <ul class="flex flex-col gap-2">
                         <li>
+                            <a class="group flex items-center gap-3 rounded-lg px-3 py-2 text-text-muted hover:bg-background-light hover:text-text-main dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-white" th:href="@{/auth/login}">
+                                <span class="material-symbols-outlined">login</span>
+                                <span class="text-sm font-medium">Iniciar Sesión</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a class="group flex items-center gap-3 rounded-lg px-3 py-2 bg-primary/10 text-primary-dark dark:text-primary font-semibold" th:href="@{/auth/registro}">
+                                <span class="material-symbols-outlined">person_add</span>
+                                <span class="text-sm font-medium">Registrarse</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="my-6 border-t border-[#e0e8e0] dark:border-[#2a3e2a]"></div>
+                    <ul class="flex flex-col gap-2">
+                        <li>
                             <a class="group flex items-center gap-3 rounded-lg px-3 py-2 text-text-muted hover:bg-background-light hover:text-text-main dark:text-gray-400 dark:hover:bg-white/5 dark:hover:text-white" th:href="@{/ayuda}">
                                 <span class="material-symbols-outlined">help</span>
-                                <span class="text-sm font-medium">Ayuda</span>
+                                <span class="text-sm font-medium">Soporte</span>
                             </a>
                         </li>
                     </ul>
@@ -1223,9 +1238,6 @@
                                         }
                                     });
                                 </script>
-                                <div class="mt-6 text-center text-sm text-text-muted dark:text-gray-400">
-                                    <p>¿Eres dueño de una cancha? <a class="font-medium text-text-main hover:underline dark:text-white" href="#">Registra tu negocio</a></p>
-                                </div>
                             </div>
                         </div>
                     </div>
