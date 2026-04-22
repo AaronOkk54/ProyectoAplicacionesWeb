@@ -192,9 +192,6 @@
                                         <a class="flex-1 md:flex-none md:w-auto px-4 py-2 bg-gray-100 dark:bg-gray-800 text-accent-blue dark:text-white text-sm font-bold rounded-lg hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors inline-flex items-center justify-center" th:href="@{/reserva/detalles/{id}(id=${reserva.idReserva})}">
                                             Ver Detalles
                                         </a>
-                                        <a class="flex-1 md:flex-none md:w-auto px-4 py-2 bg-primary text-accent-blue text-sm font-bold rounded-lg hover:bg-primary-dark shadow-sm hover:shadow transition-all inline-flex items-center justify-center" th:if="${reserva.estado == 'PENDIENTE'}" th:href="@{/reservas/pagar(id=${reserva.idReserva})}">
-                                            Pagar Ahora
-                                        </a>
                                         <button class="flex-1 md:flex-none md:w-auto px-4 py-2 border border-gray-200 dark:border-gray-700 text-danger text-sm font-bold rounded-lg hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors" th:if="${reserva.estado.equals('CONFIRMADA') or reserva.estado.equals('PENDIENTE_PAGO')}" th:onclick="'mostrarModalCancelacion(' + ${reserva.idReserva} + ')'">
                                             Cancelar Reserva
                                         </button>

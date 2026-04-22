@@ -48,8 +48,7 @@ public class ReservaController {
 
     private Usuario getUsuarioActual() {
         String email = SecurityContextHolder.getContext().getAuthentication().getName();
-        return usuarioService.getUsuarioByEmail(email)
-                .orElseThrow(() -> new IllegalStateException("Usuario no autenticado"));
+        return usuarioService.getUsuarioByEmail(email).orElse(null);
     }
 
     private boolean esAdmin() {
@@ -66,6 +65,7 @@ public class ReservaController {
     @GetMapping("/mis-reservas")
     public String misReservas(Model model) {
         var usuario = getUsuarioActual();
+        if (usuario == null) return "redirect:/auth/login";
         var reservas = reservaService.getReservasPorUsuario(usuario.getIdUsuario());
         model.addAttribute("usuario", usuario);
         model.addAttribute("reservas", reservas);
@@ -95,7 +95,9 @@ public class ReservaController {
     @PostMapping("/guardar")
     public String guardar(@Valid Reserva reserva, RedirectAttributes redirectAttributes) {
         try {
-            reserva.setUsuario(getUsuarioActual());
+            Usuario usuarioActual = getUsuarioActual();
+            if (usuarioActual == null) return "redirect:/auth/login";
+            reserva.setUsuario(usuarioActual);
             reservaService.save(reserva);
             redirectAttributes.addFlashAttribute("todoOk", 
                 messageSource.getMessage("reserva.creada", null, Locale.getDefault()));
@@ -123,7 +125,8 @@ public class ReservaController {
             return "redirect:/reserva/mis-reservas";
         }
         Reserva reserva = reservaOpt.get();
-        if (!esAdmin() && !reserva.getUsuario().getIdUsuario().equals(getUsuarioActual().getIdUsuario())) {
+        Usuario usuarioActual = getUsuarioActual();
+        if (!esAdmin() && (usuarioActual == null || !reserva.getUsuario().getIdUsuario().equals(usuarioActual.getIdUsuario()))) {
             redirectAttributes.addFlashAttribute("error", "No tienes permiso para ver esta reserva.");
             return "redirect:/reserva/mis-reservas";
         }
@@ -160,7 +163,8 @@ public class ReservaController {
         Optional<Reserva> reservaOpt = reservaService.getReserva(idReserva);
         if (reservaOpt.isPresent()) {
             Reserva reserva = reservaOpt.get();
-            if (!esAdmin() && !reserva.getUsuario().getIdUsuario().equals(getUsuarioActual().getIdUsuario())) {
+            Usuario usuarioActualCancel = getUsuarioActual();
+            if (!esAdmin() && (usuarioActualCancel == null || !reserva.getUsuario().getIdUsuario().equals(usuarioActualCancel.getIdUsuario()))) {
                 redirectAttributes.addFlashAttribute("error", "No tienes permiso para cancelar esta reserva.");
                 return "redirect:/reserva/mis-reservas";
             }
@@ -196,13 +200,14 @@ public class ReservaController {
             return "redirect:/reserva/mis-reservas";
         }
         Reserva reserva = reservaOpt.get();
-        if (!esAdmin() && !reserva.getUsuario().getIdUsuario().equals(getUsuarioActual().getIdUsuario())) {
+        Usuario usuarioActualHist = getUsuarioActual();
+        if (!esAdmin() && (usuarioActualHist == null || !reserva.getUsuario().getIdUsuario().equals(usuarioActualHist.getIdUsuario()))) {
             redirectAttributes.addFlashAttribute("error", "No tienes permiso para ver el historial de esta reserva.");
             return "redirect:/reserva/mis-reservas";
         }
         model.addAttribute("reserva", reserva);
         model.addAttribute("historiales", reserva.getHistoriales());
-        model.addAttribute("usuario", getUsuarioActual());
+        model.addAttribute("usuario", usuarioActualHist);
         return "reservas/historialReservas";
     }
 

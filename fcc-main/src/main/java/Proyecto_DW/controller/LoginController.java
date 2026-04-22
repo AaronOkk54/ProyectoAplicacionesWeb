@@ -13,7 +13,7 @@ public class LoginController {
 
     @GetMapping("/login")
     public String login() {
-        return "auth/inicioSesion";
+        return "redirect:/auth/login";
     }
 
     @GetMapping("/recuperar")

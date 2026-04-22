@@ -190,11 +190,27 @@ public class CanchaController {
         }
     }
 
-    /**
-     * Eliminar una cancha (solo administrador)
-     */
     @PostMapping("/eliminar")
     public String eliminar(Integer idCancha, RedirectAttributes redirectAttributes) {
+        var auth = SecurityContextHolder.getContext().getAuthentication();
+        boolean isAdmin = auth.getAuthorities().stream()
+                .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
+
+        if (!isAdmin) {
+            Optional<Cancha> canchaOpt = canchaService.getCancha(idCancha);
+            if (canchaOpt.isEmpty()) {
+                redirectAttributes.addFlashAttribute("error",
+                    messageSource.getMessage("cancha.error.noexiste", null, Locale.getDefault()));
+                return "redirect:/canchas/mis-canchas";
+            }
+            Cancha cancha = canchaOpt.get();
+            String emailActual = auth.getName();
+            if (cancha.getVendedor() == null || !cancha.getVendedor().getEmail().equals(emailActual)) {
+                redirectAttributes.addFlashAttribute("error", "No tienes permiso para eliminar esta cancha.");
+                return "redirect:/canchas/mis-canchas";
+            }
+        }
+
         String titulo = "todoOk";
         String detalle = "cancha.eliminada";
         try {

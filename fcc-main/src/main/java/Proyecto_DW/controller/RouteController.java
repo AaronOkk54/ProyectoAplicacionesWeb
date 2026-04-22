@@ -79,4 +79,10 @@ public class RouteController {
         return "redirect:/reserva/mis-reservas";
     }
 
+    @GetMapping("/acceso_denegado")
+    public String accesoDenegado(RedirectAttributes redirectAttributes) {
+        redirectAttributes.addFlashAttribute("error", "No tienes permiso para realizar esa acción.");
+        return "redirect:/canchas/listado";
+    }
+
 }

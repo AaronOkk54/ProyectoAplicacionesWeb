@@ -17,22 +17,18 @@ import Proyecto_DW.domain.Rol;
 import Proyecto_DW.domain.Usuario;
 import Proyecto_DW.repository.RolRepository;
 import Proyecto_DW.repository.UsuarioRepository;
-import jakarta.servlet.http.HttpSession;
 
 @Service
 public class GoogleService implements OAuth2UserService<OAuth2UserRequest, OAuth2User> {
 
     private final UsuarioRepository usuarioRepository;
     private final RolRepository rolRepository;
-    private final HttpSession session;
     private static final Logger logger = LoggerFactory.getLogger(GoogleService.class);
 
     public GoogleService(UsuarioRepository usuarioRepository,
-                         RolRepository rolRepository,
-                         HttpSession session) {
+                         RolRepository rolRepository) {
         this.usuarioRepository = usuarioRepository;
         this.rolRepository = rolRepository;
-        this.session = session;
     }
 
     @Override
@@ -42,12 +38,6 @@ public class GoogleService implements OAuth2UserService<OAuth2UserRequest, OAuth
 
         String email = oAuth2User.getAttribute("email");
         String nombre = oAuth2User.getAttribute("name");
-
-        // Obtener la clave usada por el proveedor para identificar el nombre (por ejemplo: "sub" o "email")
-        String nameAttributeKey = userRequest.getClientRegistration()
-            .getProviderDetails()
-            .getUserInfoEndpoint()
-            .getUserNameAttributeName();
 
         // Logging de atributos recibidos (útil para depuración)
         try {
@@ -110,12 +100,6 @@ public class GoogleService implements OAuth2UserService<OAuth2UserRequest, OAuth
                 "No se pudo crear el usuario. Por favor intente de nuevo.");
         }
 
-        // Guardar nombre en sesión (fallback a email si nombre es nulo)
-        String displayName = usuario.getNombre() != null && !usuario.getNombre().isBlank()
-            ? usuario.getNombre()
-            : (email != null ? email : String.valueOf(usuario.getIdUsuario()));
-        session.setAttribute("nombreUsuario", displayName);
-
         // Mapear roles al formato de Spring Security
         Set<SimpleGrantedAuthority> authorities;
         if (usuario.getRoles() == null || usuario.getRoles().isEmpty()) {
@@ -126,6 +110,7 @@ public class GoogleService implements OAuth2UserService<OAuth2UserRequest, OAuth
                     .collect(Collectors.toSet());
         }
 
-        return new DefaultOAuth2User(authorities, oAuth2User.getAttributes(), nameAttributeKey);
+        // Usar email como nombre principal para que Authentication.getName() devuelva el email
+        return new DefaultOAuth2User(authorities, oAuth2User.getAttributes(), "email");
     }
 }

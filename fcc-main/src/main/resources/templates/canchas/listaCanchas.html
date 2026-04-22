@@ -81,9 +81,13 @@
                                 </div>
                             </a>
                         </div>
-                        <div sec:authorize="isAnonymous()" class="flex items-center gap-3">
-                            <a th:href="@{/auth/login}" class="text-sm font-medium text-[#608a60] hover:text-primary transition-colors">Iniciar Sesión</a>
-                            <a th:href="@{/auth/registro}" class="bg-primary hover:bg-primary-dark text-black font-bold py-2 px-4 rounded-lg text-sm transition-colors">Registrarse</a>
+                        <div sec:authorize="isAnonymous()" class="flex gap-3">
+                            <a th:href="@{/auth/login}" class="flex cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-6 bg-transparent border border-gray-200 dark:border-gray-700 text-[#111811] dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-sm font-bold leading-normal">
+                                <span class="truncate">Iniciar Sesión</span>
+                            </a>
+                            <a th:href="@{/auth/registro}" class="flex cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-6 bg-primary hover:bg-primary-dark transition-colors text-[#111811] text-sm font-bold leading-normal shadow-[0_4px_10px_rgba(13,242,13,0.3)]">
+                                <span class="truncate">Registrarse</span>
+                            </a>
                         </div>
                     </div>
                 </header>

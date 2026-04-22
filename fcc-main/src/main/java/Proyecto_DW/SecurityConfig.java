@@ -56,7 +56,7 @@ public class SecurityConfig {
                 .requestMatchers("/canchas/listado", "/canchas/buscar", "/canchas/detalles/**").permitAll()
                 .requestMatchers("/canchas/crear", "/canchas/guardar", "/canchas/modificar/**",
                         "/canchas/actualizar").hasAnyRole("ADMIN", "VENDEDOR")
-                .requestMatchers("/canchas/eliminar").hasRole("ADMIN")
+                .requestMatchers("/canchas/eliminar").hasAnyRole("ADMIN", "VENDEDOR")
                 // Listado de usuarios solo ADMIN
                 .requestMatchers("/admin/**", "/usuarios/**", "/usuario/listado").hasRole("ADMIN")
                 // Reservas y área de usuario requieren autenticación
@@ -80,6 +80,7 @@ public class SecurityConfig {
          ).oauth2Login(oauth2 -> oauth2
                 .loginPage("/auth/login")
                 .defaultSuccessUrl("/usuario/inicio", true)
+                .failureUrl("/auth/login?error=true")
                 .userInfoEndpoint(userInfo -> userInfo
                         .userService(googleOAuth2UserService)
                 )
@@ -91,9 +92,6 @@ public class SecurityConfig {
                 .permitAll()
         ).exceptionHandling(exceptions -> exceptions
                 .accessDeniedPage("/acceso_denegado")
-        ).sessionManagement(session -> session
-                .maximumSessions(1)
-                .maxSessionsPreventsLogin(false)
         );
 
 

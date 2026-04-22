@@ -70,15 +70,6 @@
                         <a class="text-secondary/70 dark:text-white/70 hover:text-primary dark:hover:text-primary transition-colors text-sm font-medium leading-normal" th:href="@{/canchas/listado}">Canchas</a>
                         <a class="text-secondary/70 dark:text-white/70 hover:text-primary dark:hover:text-primary transition-colors text-sm font-medium leading-normal" th:href="@{/sobre-nosotros}">Sobre Nosotros</a>
                     </nav>
-                    <!-- Botones para usuarios NO autenticados -->
-                    <div class="flex gap-3" sec:authorize="isAnonymous()">
-                        <a th:href="@{/auth/login}" class="flex cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-6 bg-transparent border border-gray-200 dark:border-gray-700 text-secondary dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-sm font-bold leading-normal">
-                            <span class="truncate">Iniciar Sesión</span>
-                        </a>
-                        <a th:href="@{/auth/registro}" class="flex cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-6 bg-primary hover:bg-primary-dark transition-colors text-secondary text-sm font-bold leading-normal shadow-[0_4px_10px_rgba(13,242,13,0.3)]">
-                            <span class="truncate">Registrarse</span>
-                        </a>
-                    </div>
                     <!-- Botones para usuarios autenticados -->
                     <div class="flex items-center gap-3" sec:authorize="isAuthenticated()">
                         <a th:href="@{/usuario/inicio}" class="flex cursor-pointer items-center justify-center overflow-hidden rounded-full h-10 px-6 bg-transparent border border-gray-200 dark:border-gray-700 text-secondary dark:text-white hover:bg-gray-50 dark:hover:bg-gray-800 transition-colors text-sm font-bold leading-normal">
