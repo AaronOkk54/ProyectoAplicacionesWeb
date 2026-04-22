@@ -11,8 +11,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
 /**
- * ReservaRepository Interface para acceder a los datos de reservas en la base
- * de datos
+ * ReservaRepository
+ * Interface para acceder a los datos de reservas en la base de datos
  */
 public interface ReservaRepository extends JpaRepository<Reserva, Integer> {
 
@@ -35,9 +35,9 @@ public interface ReservaRepository extends JpaRepository<Reserva, Integer> {
      * Buscar reservas de un usuario en un rango de fechas
      */
     @Query("SELECT r FROM Reserva r WHERE r.usuario.idUsuario = :idUsuario AND r.fecha >= :fechaInicio AND r.fecha <= :fechaFin")
-    List<Reserva> findByUsuarioAndFechaRango(@Param("idUsuario") Integer idUsuario,
-            @Param("fechaInicio") LocalDate fechaInicio,
-            @Param("fechaFin") LocalDate fechaFin);
+    List<Reserva> findByUsuarioAndFechaRango(@Param("idUsuario") Integer idUsuario, 
+                                              @Param("fechaInicio") LocalDate fechaInicio, 
+                                              @Param("fechaFin") LocalDate fechaFin);
 
     /**
      * Buscar reservas de una cancha en una fecha específica
@@ -48,11 +48,11 @@ public interface ReservaRepository extends JpaRepository<Reserva, Integer> {
     /**
      * Verificar si hay reservas conflictivas para una cancha
      */
-    @Query("SELECT COUNT(r) > 0 FROM Reserva r WHERE r.cancha.idCancha = :idCancha AND r.fecha = :fecha "
-            + "AND r.estado IN ('PENDIENTE', 'CONFIRMADA') "
-            + "AND NOT (r.horaFin <= :horaInicio OR r.horaInicio >= :horaFin)")
-    boolean existeConflicto(@Param("idCancha") Integer idCancha, @Param("fecha") LocalDate fecha,
-            @Param("horaInicio") String horaInicio, @Param("horaFin") String horaFin);
+    @Query("SELECT COUNT(r) > 0 FROM Reserva r WHERE r.cancha.idCancha = :idCancha AND r.fecha = :fecha " +
+           "AND r.estado IN ('PENDIENTE', 'CONFIRMADA') " +
+           "AND NOT (r.horaFin <= :horaInicio OR r.horaInicio >= :horaFin)")
+    boolean existeConflicto(@Param("idCancha") Integer idCancha, @Param("fecha") LocalDate fecha, 
+                           @Param("horaInicio") String horaInicio, @Param("horaFin") String horaFin);
 
     /**
      * Listar reservas confirmadas

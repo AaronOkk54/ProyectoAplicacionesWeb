@@ -1,17 +1,11 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Proyecto_DW.domain;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.UUID;
-/**
- *
- * @author Alfaro
- */
+
 public class CarritoItem implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -60,4 +54,3 @@ public class CarritoItem implements Serializable {
     public String getMetodoPago() { return metodoPago; }
     public void setMetodoPago(String metodoPago) { this.metodoPago = metodoPago; }
 }
-

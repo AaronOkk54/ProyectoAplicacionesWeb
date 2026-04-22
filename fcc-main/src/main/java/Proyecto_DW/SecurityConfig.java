@@ -1,13 +1,15 @@
 /*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
+* Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+* Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+*/
 package Proyecto_DW;
 
+
+
 /**
- *
- * @author Alfaro
- */
+*
+* @author Alfaro
+*/
 import Proyecto_DW.service.GoogleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -20,15 +22,23 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+
+
 @Configuration
 public class SecurityConfig {
+
+
 
     @Autowired
     @Lazy
     private GoogleService googleOAuth2UserService;
 
+
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+
+
 
         http.authorizeHttpRequests(requests -> requests
                 // Recursos estáticos públicos
@@ -51,6 +61,8 @@ public class SecurityConfig {
                 .anyRequest().authenticated()
         );
 
+
+
         http.formLogin(form -> form
                 .loginPage("/auth/login")
                 .loginProcessingUrl("/login")
@@ -59,9 +71,9 @@ public class SecurityConfig {
                 .defaultSuccessUrl("/usuario/inicio", true)
                 .failureUrl("/auth/login?error=true")
                 .permitAll()
-                
+
                 //Inicio con google
-         ).oauth2Login(oauth2 -> oauth2       
+         ).oauth2Login(oauth2 -> oauth2
                 .loginPage("/auth/login")
                 .defaultSuccessUrl("/usuario/inicio", true)
                 .userInfoEndpoint(userInfo -> userInfo
@@ -80,13 +92,19 @@ public class SecurityConfig {
                 .maxSessionsPreventsLogin(false)
         );
 
+
+
         return http.build();
     }
+
+
 
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
+
 
     @Autowired
     public void configurerGlobal(AuthenticationManagerBuilder build,

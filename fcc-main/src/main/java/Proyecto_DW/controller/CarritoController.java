@@ -1,7 +1,3 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Proyecto_DW.controller;
 
 import Proyecto_DW.domain.Cancha;
@@ -25,10 +21,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-/**
- *
- * @author Alfaro
- */
 @Controller
 @RequestMapping("/carrito")
 public class CarritoController {
@@ -188,4 +180,3 @@ public class CarritoController {
         return "redirect:/reserva/mis-reservas";
     }
 }
-

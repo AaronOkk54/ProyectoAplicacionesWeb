@@ -1,8 +1,5 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
- */
 package Proyecto_DW.service;
+
 import Proyecto_DW.domain.CarritoItem;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -12,10 +9,6 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.SessionScope;
 
-/**
- *
- * @author Alfaro
- */
 @Service
 @SessionScope
 public class CarritoService implements Serializable {
@@ -49,4 +42,3 @@ public class CarritoService implements Serializable {
         return items.size();
     }
 }
-
